@@ -1,0 +1,122 @@
+.body{
+    height: auto;
+    min-height: 100vh;
+    background-color: #EDEDED;
+    overflow: hidden;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper{
+    width: 496px;
+    background: white;
+    border-radius: 10px;
+    padding: 50px;
+    position: relative;
+    top: -50px;
+    margin-bottom: 7rem;
+
+    @media (max-width: 2500px) {
+        margin-top: 5rem;
+    }
+
+    .prog_bar{
+        position: relative;
+        top: -20px;
+    }
+
+    .cancel_btn{
+        color: #8993ED;
+        text-decoration: none;
+    }
+
+    h1{
+        font-size: 2.7rem;
+        font-weight: bolder;
+        color: #81C3B4;
+    }
+
+    .input_box{
+        margin-top: 1.25rem;
+    }
+    
+    .radio_group{
+        width: 100%;
+    }
+
+    .gender_btns{
+        width: 50%;
+    }
+    .emotion_btns{
+        width: 25%;
+    }
+}
+
+.bottom_part{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+
+    p{
+        margin-top: 10px;
+        color: #494C4C;
+    }
+
+    .text_highlight{
+        text-decoration: none;
+        color: #8993ED;
+        font-weight: 600;
+    }
+
+    .text_highlight:hover{
+        text-decoration: underline;
+    }
+}
+
+.text_area{
+    position: relative;
+}
+.autoG_btn{
+    position: relative;
+    bottom: 54px;
+    left: 8px;
+    z-index: 1;
+    color: #62939F;
+    background-color: #BDDCE4;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 10px;
+    transition: .3s;
+}
+
+.autoG_btn:hover{
+    color: #62939F;
+    background-color: #d3e6eb;
+}
+.autoG_btn:active{
+    color: #62939F;
+    background-color: #aacbd3;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.content > h2{
+    font-size: 30pt;
+    color: #81C3B4;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.prog_circle{
+    margin-bottom: 3rem;
+}
+.storyCancel{
+    width: 50%;
+}

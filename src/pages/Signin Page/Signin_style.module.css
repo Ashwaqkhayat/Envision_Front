@@ -1,0 +1,74 @@
+.body{
+    height: auto;
+    min-height: 100vh;
+}
+
+.form_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    width: 496px;
+    background: white;
+    border-radius: 10px;
+    padding: 50px;
+    position: relative;
+    top: -40px;
+    margin-bottom: 7rem;
+
+    @media (max-width: 2500px) {
+        margin-top: 5rem;
+    }
+
+    .cancel_btn {
+        color: #8993ED;
+        text-decoration: none;
+    }
+
+    h1 {
+        font-size: 2.7rem;
+        font-weight: bolder;
+        color: #8EC3B7;
+    }
+
+    .form_part {
+        margin: 3rem 0rem;
+    }
+
+    .input_box {
+        margin-top: 1.25rem;
+    }
+
+    .bottom_part {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 4.5rem;
+
+        
+    }
+}
+
+.text_highlight {
+    text-decoration: none;
+    color: #8993ED;
+    font-weight: 600;
+}
+
+p {
+    margin-top: 10px;
+    color: #494C4C;
+}
+
+.text_highlight:hover {
+    text-decoration: underline;
+    color: #8993ED;
+}
+
+.forgot_pass{
+    display: flex;
+    justify-content: center;
+}
