@@ -9,6 +9,7 @@ import SignupForm from './pages/Signup Page/SignupForm.jsx'
 import SigninForm from './pages/Signin Page/SigninForm.jsx'
 import CreateStoryForm  from './pages/Create Story Page/CreateStoryForm.jsx'
 import DisplayStory  from './pages/Story/DisplayStory.jsx'
+import Contact  from './pages/Contact/Contact.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import Protected from './components/Protected Routes/Protected.jsx'
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: '/Story',
     element: <DisplayStory />
+  },
+  {
+    path: '/Contact',
+    element: <Contact />
   },
 
 ])

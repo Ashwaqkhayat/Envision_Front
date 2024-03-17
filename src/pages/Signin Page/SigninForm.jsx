@@ -2,22 +2,19 @@ import React, { useEffect } from "react"
 import s from './Signin_style.module.css'
 import { Link, useNavigate } from "react-router-dom";
 import Label from "../../components/Label/Label"
-
+import Navbar from '../../components/Navbar/Navbar'
+import Footer from '../../components/Footer/Footer'
 //import Ant Components
 import { ConfigProvider, Flex, Radio, Input, Form, Button, message } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
 
-//Importing Navbar & Footer
-import Navbar from '../../components/Navbar/Navbar'
-import Footer from '../../components/Footer/Footer'
 
 function SigninForm() {
-    
+
     const navigate = useNavigate()
     // if user is logged in/ signed up and tried to enter the signup page, he'll be redirected to the home page!
     useEffect(() => {
-        if(localStorage.getItem('user-info'))
-        {
+        if (localStorage.getItem('user-info')) {
             navigate('/')
         }
     }, [])
@@ -84,88 +81,87 @@ function SigninForm() {
 
     return (
         <>
+        
             <div className={s.body}>
+            <Navbar />
                 {contextHolder}
-                <Navbar />
-                <div className={s.form_container}>
-                    <Form onFinish={onFinish}>
-                        <div className={s.wrapper}>
-                            <Link
-                                className={s.cancel_btn}
-                                to={'/'}
-                            >Cancel
-                            </Link>
+                <Form onFinish={onFinish}>
+                    <div className={s.wrapper}>
+                        <Link
+                            className={s.cancel_btn}
+                            to={'/'}
+                        >Cancel
+                        </Link>
 
-                            <h1>Welcome Back!</h1>
+                        <h1>Welcome Back!</h1>
 
-                            <div className={s.form_part}>
-                                <ConfigProvider //change color theme
-                                    theme={{
-                                        token: {
-                                            colorPrimary: '#8993ED',
-                                        }
-                                    }} >
-                                    <div className={s.input_box}>
-                                        <Label
-                                            inputTitle="Email"
-                                            popTitle="Email Address"
-                                            popMsg="Please enter your email address."
-                                        />
-
-                                        <Form.Item name={'email'} rules={[{
-                                            required: true, type: 'email'
-                                        }]}>
-                                            <Input
-                                                size="large"
-                                                placeholder="Name@Domain.com"
-                                                prefix={<MailOutlined className="site-form-item-icon" style={{ color: '#A2A9B0' }} />}
-                                            />
-                                        </Form.Item>
-                                    </div>
-
-                                    <div className={s.input_box}>
-                                        <Label
-                                            inputTitle="Password"
-                                            popTitle="Password"
-                                            popMsg="Please enter your password"
-                                        />
-
-                                        <Form.Item name={'password'} rules={[{
-                                            required: true
-                                        }]}>
-                                            <Input.Password
-                                                size="large"
-                                                placeholder="Password"
-                                            />
-                                        </Form.Item>
-
-                                        <div className={s.forgot_pass}>
-                                            <Link className={s.text_highlight} to='/'>Forgot your password?</Link>
-                                        </div>
-
-                                    </div>
-                                </ConfigProvider>
-                            </div>
-
-                            <ConfigProvider
+                        <div className={s.form_part}>
+                            <ConfigProvider //change color theme
                                 theme={{
                                     token: {
                                         colorPrimary: '#8993ED',
-                                        sizeStep: 14,
                                     }
                                 }} >
+                                <div className={s.input_box}>
+                                    <Label
+                                        inputTitle="Email"
+                                        popTitle="Email Address"
+                                        popMsg="Please enter your email address."
+                                    />
 
-                                <div className={s.bottom_part}>
-                                    <Button htmlType="submit" type="primary" size="large" >
-                                        Login
-                                    </Button>
+                                    <Form.Item name={'email'} rules={[{
+                                        required: true, type: 'email'
+                                    }]}>
+                                        <Input
+                                            size="large"
+                                            placeholder="Name@Domain.com"
+                                            prefix={<MailOutlined className="site-form-item-icon" style={{ color: '#A2A9B0' }} />}
+                                        />
+                                    </Form.Item>
+                                </div>
 
-                                    <p>Do not have an account? <Link className={s.text_highlight} to='/Signup'>Sign Up</Link></p>
+                                <div className={s.input_box}>
+                                    <Label
+                                        inputTitle="Password"
+                                        popTitle="Password"
+                                        popMsg="Please enter your password"
+                                    />
+
+                                    <Form.Item name={'password'} rules={[{
+                                        required: true
+                                    }]}>
+                                        <Input.Password
+                                            size="large"
+                                            placeholder="Password"
+                                        />
+                                    </Form.Item>
+
+                                    <div className={s.forgot_pass}>
+                                        <Link className={s.text_highlight} to='/'>Forgot your password?</Link>
+                                    </div>
+
                                 </div>
                             </ConfigProvider>
                         </div>
-                    </Form>
-                </div>
+
+                        <ConfigProvider
+                            theme={{
+                                token: {
+                                    colorPrimary: '#8993ED',
+                                    sizeStep: 14,
+                                }
+                            }} >
+
+                            <div className={s.bottom_part}>
+                                <Button htmlType="submit" type="primary" size="large" >
+                                    Login
+                                </Button>
+
+                                <p>Do not have an account? <Link className={s.text_highlight} to='/Signup'>Sign Up</Link></p>
+                            </div>
+                        </ConfigProvider>
+                    </div>
+                </Form>
             </div>
             <Footer />
         </>

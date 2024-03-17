@@ -1,27 +1,18 @@
 .body{
-    height: auto;
     min-height: 100vh;
-    background-color: #EDEDED;
-    overflow: hidden;
-}
-
-.container{
     display: flex;
-    justify-content: center;
+    flex-direction: column; 
+    align-items: center;
 }
 
 .wrapper{
     width: 496px;
+    height: auto;
     background: white;
     border-radius: 10px;
     padding: 50px;
     position: relative;
-    top: -50px;
-    margin-bottom: 7rem;
-
-    @media (max-width: 2500px) {
-        margin-top: 5rem;
-    }
+    margin-bottom: 20px;
 
     .prog_bar{
         position: relative;
@@ -119,4 +110,10 @@
 }
 .storyCancel{
     width: 50%;
+}
+
+.spinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

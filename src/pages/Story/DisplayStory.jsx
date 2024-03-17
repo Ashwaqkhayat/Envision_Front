@@ -110,23 +110,12 @@ function DisplayStory() {
 
     // useEffect hook to fetch data after the component mounts. ensuring the effect runs only once on initial render.
     useEffect(() => {
-        // Fetch story from API and store its data
-        async function fetchStory() {
-            setIsLoading(true) //Loading page content to be fetched
-            try {
-                const response = await fetch('./storyResponseFull.json');
-                const data = await response.json();
-                setStory(data)
-
-                // setNumOfPages(story.story_text.length)       /////////////// Must change (number of scenes + 2 cover and fin)
-                // setMaxLocation(numOfPages + 1)
-
-                setIsLoading(false) //When data is fetched, set loading to false
-            } catch (error) {
-                console.error('Error fetching data: ', error); // Use console.error for errors
-            }
-        };
-        fetchStory()
+        // Get story result
+        setIsLoading(true) //Loading page content to be fetched
+        const story_data = JSON.parse(localStorage.getItem('story-result'))
+        console.log(story_data)
+        setStory(story_data)
+        setIsLoading(false) //When data is fetched, set loading to false
     }, []);
 
     // useEffect(() => {
@@ -136,25 +125,24 @@ function DisplayStory() {
     // setNumOfPages(3)       /////////////// Must change (number of scenes + 2 cover and fin)
     // setMaxLocation(numOfPages + 1)
 
-
-
     function displayBase64Images(img) {
         return `data:image/jpeg;base64,${img}`
     }
 
     return (
         <>
-            <Navbar />
-            <ConfigProvider //change color theme
-                theme={{
-                    token: {
-                        colorPrimary: '#96CCC0',
-                        fontSize: 16,
-                        sizeStep: 2,
-                    }
-                }} >
-                <>
-                    <div className={s.body}>
+            <div className={s.body}>
+                <Navbar />
+                <div className={s.content}>
+                    <ConfigProvider //change color theme
+                        theme={{
+                            token: {
+                                colorPrimary: '#96CCC0',
+                                fontSize: 16,
+                                sizeStep: 2,
+                            }
+                        }} >
+
                         {isLoading ?
                             <Spin size="large" />
                             :
@@ -168,9 +156,9 @@ function DisplayStory() {
                                 </div>
                             </>
                         }
-                    </div> {/* body */}
-                </>
-            </ConfigProvider>
+                    </ConfigProvider>
+                </div>
+            </div> {/* body */}
             <Footer />
         </>
     )

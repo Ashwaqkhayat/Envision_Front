@@ -2,14 +2,15 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin-top: -9rem;
-    padding: 0% 17%;
+}
 
-    @media (width < 1890px) {
-        margin-top: -1rem;
-      }
+.content{
+    padding: 0% 17% 0% 17%;
+}
+
+.content h2{
+    margin-bottom: 40px;
 }
 
 .story_wrapper{
@@ -140,7 +141,7 @@
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 400px;
+    height: auto;
     border-radius: 10px;
     overflow: hidden;
 
@@ -160,7 +161,7 @@
 }
 
 .scene_text {
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
 }
 
 .scene_text p {

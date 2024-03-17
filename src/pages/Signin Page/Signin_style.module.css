@@ -1,26 +1,19 @@
 .body{
-    height: auto;
     min-height: 100vh;
-}
-
-.form_container{
     display: flex;
-    justify-content: center;
+    flex-direction: column; 
     align-items: center;
 }
 
+
 .wrapper {
     width: 496px;
+    height: auto;
     background: white;
     border-radius: 10px;
     padding: 50px;
     position: relative;
-    top: -40px;
-    margin-bottom: 7rem;
-
-    @media (max-width: 2500px) {
-        margin-top: 5rem;
-    }
+    margin-bottom: 20px;
 
     .cancel_btn {
         color: #8993ED;

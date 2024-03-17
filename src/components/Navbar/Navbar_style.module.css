@@ -1,5 +1,5 @@
 .nav{
-    position: fixed;
+    position: relative;
     top: 0;
     right: 0;
     z-index: 1000;
@@ -8,14 +8,7 @@
     flex-wrap: wrap;
     padding: 20px 17%;
     height: 150px;
-
-    /* display: flex;
-    height: 150px;
-    position: relative;
-    top: 0px;
-    z-index: 1100;
-    width: 100%;
-    padding: 20px 17%; */
+    margin-bottom: 30px;
 
     .nav_left{
         display: flex;
@@ -42,6 +35,10 @@
     .nav_right{
         display: flex;
         align-items: center;
+
+        .nav_login{
+            box-shadow: none;
+        }
 
         .nav_register{
             background-color: transparent;
