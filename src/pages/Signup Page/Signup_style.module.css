@@ -5,6 +5,15 @@
     align-items: center;
 }
 
+.content {
+    flex: 1;  /* Occupies remaining space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -80px;
+    padding-top: 3rem;
+}
+
 .wrapper{
     width: 496px;
     height: auto;

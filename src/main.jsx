@@ -10,6 +10,7 @@ import SigninForm from './pages/Signin Page/SigninForm.jsx'
 import CreateStoryForm  from './pages/Create Story Page/CreateStoryForm.jsx'
 import DisplayStory  from './pages/Story/DisplayStory.jsx'
 import Contact  from './pages/Contact/Contact.jsx'
+import Library from './pages/Library/Library.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import Protected from './components/Protected Routes/Protected.jsx'
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: '/Contact',
     element: <Contact />
+  },
+  {
+    path: '/Library',
+    element: <Library />
   },
 
 ])

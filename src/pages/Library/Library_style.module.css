@@ -1,0 +1,19 @@
+.body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.center_flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    flex: 1;
+    padding-top: 3rem;
+    overflow: hidden;
+    margin-bottom: 50px;
+    background-color: aquamarine;
+}

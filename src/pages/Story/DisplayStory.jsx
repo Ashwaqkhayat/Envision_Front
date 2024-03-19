@@ -133,7 +133,7 @@ function DisplayStory() {
         <>
             <div className={s.body}>
                 <Navbar />
-                <div className={s.content}>
+                <div className={s.wrapper}>
                     <ConfigProvider //change color theme
                         theme={{
                             token: {

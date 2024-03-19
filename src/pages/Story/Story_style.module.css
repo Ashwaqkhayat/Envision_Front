@@ -5,11 +5,11 @@
     align-items: center;
 }
 
-.content{
+.wrapper{
     padding: 0% 17% 0% 17%;
 }
 
-.content h2{
+.wrapper h2{
     margin-bottom: 40px;
 }
 

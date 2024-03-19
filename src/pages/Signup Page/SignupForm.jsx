@@ -180,22 +180,24 @@ function SignupForm() {
             <div className={s.body}>
                 {contextHolder}
                 <Navbar />
-                <div className={s.wrapper}>
-                    <Progress className={s.prog_bar} percent={progressPerc[page]} showInfo={false} strokeColor='#8993ED' />
+                <div className={s.content}>
+                    <div className={s.wrapper}>
+                        <Progress className={s.prog_bar} percent={progressPerc[page]} showInfo={false} strokeColor='#8993ED' />
 
-                    {/* Back-Cancel button */}
-                    <Link
-                        className={s.cancel_btn}
-                        onClick={() => {
-                            page == 0 ? navigate('/') : setPage((currPage) => currPage - 1)
-                        }}
-                    >{backBtn[page]}
-                    </Link>
+                        {/* Back-Cancel button */}
+                        <Link
+                            className={s.cancel_btn}
+                            onClick={() => {
+                                page == 0 ? navigate('/') : setPage((currPage) => currPage - 1)
+                            }}
+                        >{backBtn[page]}
+                        </Link>
 
-                    <h1>{formTitles[page]}</h1>
+                        <h1>{formTitles[page]}</h1>
 
-                    {/* Form pages */}
-                    {getStep(page)}
+                        {/* Form pages */}
+                        {getStep(page)}
+                    </div>
                 </div>
             </div>
             <Footer />

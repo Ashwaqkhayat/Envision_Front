@@ -81,87 +81,89 @@ function SigninForm() {
 
     return (
         <>
-        
+
             <div className={s.body}>
-            <Navbar />
+                <Navbar />
                 {contextHolder}
-                <Form onFinish={onFinish}>
-                    <div className={s.wrapper}>
-                        <Link
-                            className={s.cancel_btn}
-                            to={'/'}
-                        >Cancel
-                        </Link>
+                <div className={s.content}>
+                    <Form onFinish={onFinish}>
+                        <div className={s.wrapper}>
+                            <Link
+                                className={s.cancel_btn}
+                                to={'/'}
+                            >Cancel
+                            </Link>
 
-                        <h1>Welcome Back!</h1>
+                            <h1>Welcome Back!</h1>
 
-                        <div className={s.form_part}>
-                            <ConfigProvider //change color theme
+                            <div className={s.form_part}>
+                                <ConfigProvider //change color theme
+                                    theme={{
+                                        token: {
+                                            colorPrimary: '#8993ED',
+                                        }
+                                    }} >
+                                    <div className={s.input_box}>
+                                        <Label
+                                            inputTitle="Email"
+                                            popTitle="Email Address"
+                                            popMsg="Please enter your email address."
+                                        />
+
+                                        <Form.Item name={'email'} rules={[{
+                                            required: true, type: 'email'
+                                        }]}>
+                                            <Input
+                                                size="large"
+                                                placeholder="Name@Domain.com"
+                                                prefix={<MailOutlined className="site-form-item-icon" style={{ color: '#A2A9B0' }} />}
+                                            />
+                                        </Form.Item>
+                                    </div>
+
+                                    <div className={s.input_box}>
+                                        <Label
+                                            inputTitle="Password"
+                                            popTitle="Password"
+                                            popMsg="Please enter your password"
+                                        />
+
+                                        <Form.Item name={'password'} rules={[{
+                                            required: true
+                                        }]}>
+                                            <Input.Password
+                                                size="large"
+                                                placeholder="Password"
+                                            />
+                                        </Form.Item>
+
+                                        <div className={s.forgot_pass}>
+                                            <Link className={s.text_highlight} to='/'>Forgot your password?</Link>
+                                        </div>
+
+                                    </div>
+                                </ConfigProvider>
+                            </div>
+
+                            <ConfigProvider
                                 theme={{
                                     token: {
                                         colorPrimary: '#8993ED',
+                                        sizeStep: 14,
                                     }
                                 }} >
-                                <div className={s.input_box}>
-                                    <Label
-                                        inputTitle="Email"
-                                        popTitle="Email Address"
-                                        popMsg="Please enter your email address."
-                                    />
 
-                                    <Form.Item name={'email'} rules={[{
-                                        required: true, type: 'email'
-                                    }]}>
-                                        <Input
-                                            size="large"
-                                            placeholder="Name@Domain.com"
-                                            prefix={<MailOutlined className="site-form-item-icon" style={{ color: '#A2A9B0' }} />}
-                                        />
-                                    </Form.Item>
-                                </div>
+                                <div className={s.bottom_part}>
+                                    <Button htmlType="submit" type="primary" size="large" >
+                                        Login
+                                    </Button>
 
-                                <div className={s.input_box}>
-                                    <Label
-                                        inputTitle="Password"
-                                        popTitle="Password"
-                                        popMsg="Please enter your password"
-                                    />
-
-                                    <Form.Item name={'password'} rules={[{
-                                        required: true
-                                    }]}>
-                                        <Input.Password
-                                            size="large"
-                                            placeholder="Password"
-                                        />
-                                    </Form.Item>
-
-                                    <div className={s.forgot_pass}>
-                                        <Link className={s.text_highlight} to='/'>Forgot your password?</Link>
-                                    </div>
-
+                                    <p>Do not have an account? <Link className={s.text_highlight} to='/Signup'>Sign Up</Link></p>
                                 </div>
                             </ConfigProvider>
                         </div>
-
-                        <ConfigProvider
-                            theme={{
-                                token: {
-                                    colorPrimary: '#8993ED',
-                                    sizeStep: 14,
-                                }
-                            }} >
-
-                            <div className={s.bottom_part}>
-                                <Button htmlType="submit" type="primary" size="large" >
-                                    Login
-                                </Button>
-
-                                <p>Do not have an account? <Link className={s.text_highlight} to='/Signup'>Sign Up</Link></p>
-                            </div>
-                        </ConfigProvider>
-                    </div>
-                </Form>
+                    </Form>
+                </div>
             </div>
             <Footer />
         </>

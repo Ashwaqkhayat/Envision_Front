@@ -100,6 +100,7 @@ function CreateStory() {
                 }} >
                 <div className={s.body}>
                     <Navbar />
+                    <div className={s.content}>
                     {isLoading ?
                         <div className={s.spinner}> <Spin size="large" />  </div>
                         :
@@ -114,6 +115,7 @@ function CreateStory() {
                             {getStep(step)}
                         </div>
                     }
+                    </div>
                 </div>
             </ConfigProvider>
             <Footer />

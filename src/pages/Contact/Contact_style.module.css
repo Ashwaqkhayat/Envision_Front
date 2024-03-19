@@ -1,7 +1,131 @@
-.body{
+.body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -80px;
+    padding-top: 3rem;
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+.outerWrapper {
+    width: 100%;
+    height: 40rem;
+    display: flex;
+    padding-left: 13%;
+    overflow: hidden;
+
+    @media (max-height: 800px){
+        height: 30rem;
+    }
+}
+
+.text_area {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 70px;
+
+    .title {
+        /* margin-top: -6rem; */
+        margin-bottom: 6rem;
+    }
+
+    .title h1 {
+        font-weight: 700;
+        font-size: 3.5rem;
+        margin-bottom: 7px;
+        color: #4c4c4c;
+    }
+
+    .title h3 {
+        font-weight: 400;
+        font-size: 2.3rem;
+        margin-bottom: 10px;
+        color: #4c4c4c;
+    }
+
+    .accounts p {
+        font-weight: 400;
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+        color: #4c4c4c;
+    }
+
+    .icon {
+        margin-right: 15px;
+    }
+
+    @media (max-height: 800px) {
+        .title h1 {
+            font-size: 3.5rem;
+        }
+        .title h3{
+            font-size: 1.7rem;
+        }
+    }
+}
+
+.form_area {
+    width: 60%;
+    background-color: white;
+    border-radius: 6px 0px 0px 6px;
+    padding: 6rem 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-height: 800px) {
+        padding: 2rem 5rem;
+    }
+}
+
+.input_box {
+    margin-top: 1.25rem;
+}
+
+.label{
+    margin-bottom: 4px;
+    color: #494C4C;
+    font-size: 1rem;
+}
+
+.column{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 25px;
+
+    @media (max-width: 1203px) {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+    }
+}
+
+.btn {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.submit_btn{
+    margin-top: 10px;
+    width: 200px;
+    height: 40px;
+}
+
+
+.ant-notification-center {
+    left: 50%;
+    bottom: 50% !important;
+    margin-right: 30%;
+    transform: translate(-50%, -50%);
+  }
