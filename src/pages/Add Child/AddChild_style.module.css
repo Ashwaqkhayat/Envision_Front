@@ -10,7 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -80px;
+    margin-top: -70px;
     padding-top: 3rem;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .wrapper {
-    width: 466px; 
+    width: auto; 
     height: auto;
     background: white;
     border-radius: 10px;
@@ -38,12 +38,8 @@
         color: #8EC3B7;
     }
 
-    .form_part {
-        margin: 2rem 0rem;
-    }
-
     .input_box {
-        margin-top: 1rem;
+        margin-top: 0.2rem;
     }
 
     .bottom_part {
@@ -51,29 +47,14 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top: 3rem;
+        margin-top: 2rem;
 
-        
+        .submitBtn{
+            width: 150px;
+        }
     }
-}
 
-.text_highlight {
-    text-decoration: none;
-    color: #8993ED;
-    font-weight: 600;
-}
-
-p {
-    margin-top: 10px;
-    color: #494C4C;
-}
-
-.text_highlight:hover {
-    text-decoration: underline;
-    color: #8993ED;
-}
-
-.forgot_pass{
-    display: flex;
-    justify-content: center;
+    .input_bdate{
+        width: 100%;
+    }
 }

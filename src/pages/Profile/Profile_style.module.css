@@ -1,0 +1,25 @@
+.body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.center_flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    /* background-color: aquamarine; */
+    flex: 1;
+    overflow: hidden;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @media (min-height: 810px) {
+        gap: 50px;
+    }
+}

@@ -1,3 +1,7 @@
+.body{
+    overflow-x: hidden;
+}
+
 /* ========== HERO ========== */
 
 .hero {
@@ -7,16 +11,18 @@
     align-items: center;
     padding-top: 3rem;
     position: relative;
-    margin-bottom: 8rem;
+    /* Container Sizing */
+    max-width: 1280px;
+    margin: 0 auto 8rem auto;
     padding: 0 1rem;
 
+    @media (max-width: 1360px) {
+        padding: 0 3rem;
+    }
+
     .hero_content {
-        width: 100%;
-        /* height: 30rem; */
         min-height: 30rem;
         width: 100%;
-        max-width: 1280px;
-        margin: 0 auto;
         background-color: #e0e0e0;
         border-radius: 2rem;
         position: relative;
@@ -24,7 +30,6 @@
         align-items: center;
         justify-content: center;
         padding: 0rem 7rem;
-        /* margin-top: -30px; */
 
         @media (max-height: 400px) {
             height: 27rem;
@@ -92,22 +97,26 @@
     transform: translateY(7px);
 }
 
-.feature_box {
-    width: 100%;
+.feature_cont{
+    /* Container Sizing */
     max-width: 1280px;
-    padding: 0 2rem;
-    margin: 0 auto;
+    margin: 0 auto 8rem auto;
+    padding: 0 1rem;
+
+    @media (max-width: 1360px) {
+        padding: 0 3rem;
+    }
+}
+
+.feature_box {
     background-color: #c4ded8;
     height: 23rem;
     border-radius: 2rem;
     position: relative;
+    width: 100%;
 
-    @media (max-width: 1250px) {
-        margin-bottom: 20%;
-    }
-
-    @media (max-width: 850px) {
-        margin-bottom: 50%;
+    @media (max-width: 1180px) {
+        display: flex;
     }
 }
 
@@ -131,19 +140,21 @@
 .feature_cards {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.56rem;
+    column-gap: 1.56rem;
     position: absolute;
-    right: -20%;
+    right: -22%;
     top: 32%;
 
-    @media (max-width: 1712px) {
+    @media (max-width: 1707px) {
         top: 70%;
+        right: -7%;
     }
 
-    @media (max-width: 757px) {
-        right: 24%;
-        flex-direction: column;
-        justify-content: center;
+    @media (max-width: 1180px) {
+        position: relative;
+        width: 900px;
+        top: 8rem;
+        right: -10%;
     }
 
     .card {
@@ -153,6 +164,11 @@
         width: 20rem;
         padding: 1rem 3rem 4rem 1.5rem;
 
+        @media (max-width: 1180px) {
+            width: 15rem;
+            height: 10rem;
+        }
+
         h3 {
             font-size: 1.6rem;
             line-height: 30px;
@@ -161,27 +177,30 @@
     }
 }
 
-.goal_box {
-    width: 100%;
-    max-width: 1280px;
-    padding: 0 2rem;
-    margin: 0 auto;
+.goal_box{
     height: 23rem;
-    border-radius: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* Container Sizing */
+    max-width: 1280px;
+    margin: 0 auto 8rem auto;
+    padding: 0 1rem;
+    
 
-    h1 {
-        text-align: center;
-        color: #4c4c4c;
-
-        span {
-            background-color: #C7CDFF;
-            border-radius: 1rem;
-            border: 5px solid #C7CDFF;
-        }
+    @media (max-width: 1360px) {
+        padding: 0 5rem;
     }
+}
+.goal_content span {
+    background-color: #C7CDFF;
+    border-radius: 1rem;
+    border: 5px solid #C7CDFF;
+}
+
+.goal_content h1 {
+    text-align: center;
+    color: #4c4c4c;
 }
 
 .steps {

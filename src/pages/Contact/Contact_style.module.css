@@ -83,9 +83,13 @@
     justify-content: center;
     align-items: center;
 
-    @media (max-height: 800px) {
-        padding: 2rem 5rem;
+    @media (max-height: 1180px) {
+        padding: 2rem 3rem;
     }
+}
+
+.form_wrapper{
+    width: 100%;
 }
 
 .input_box {
@@ -102,6 +106,7 @@
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 25px;
+    width: 100%;
 
     @media (max-width: 1203px) {
         display: flex;

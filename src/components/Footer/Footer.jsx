@@ -15,7 +15,7 @@ export default function Footer() {
                     <h2>Envision</h2>
             </div>
             <div className={s.right_side}>
-                <Link to="">Contact Us</Link>
+                <Link to="/Contact">Contact Us</Link>
             </div>
         </div>
     )

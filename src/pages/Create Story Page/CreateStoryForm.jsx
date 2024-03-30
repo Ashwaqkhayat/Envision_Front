@@ -76,7 +76,7 @@ function CreateStory() {
 
             if (response.ok) {
                 const data = await response.json()
-                localStorage.setItem('story-result', JSON.stringify(data))
+                localStorage.setItem('story_content', JSON.stringify(data))
                 setIsLoading(false) // Hide Loading Spinner
                 navigate('/Story')
                 console.log('Story submitted successfully', data)

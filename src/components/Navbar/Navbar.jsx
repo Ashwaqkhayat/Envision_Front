@@ -13,7 +13,7 @@ export default function Navbar() {
     
     // navigate to other pages using UseNavigate
     const navigate = useNavigate()
-    const auth = localStorage.getItem('user-info')
+    const auth = JSON.parse(localStorage.getItem('user-info'))
 
     function logOut(){
         localStorage.clear();
@@ -41,13 +41,29 @@ export default function Navbar() {
                     {/* If user is authinticated/logged in then show the profile, otherwise show the login/register btns */}
                     {auth? 
                         <>
-                        <Link onClick={logOut}> Log out </Link>
-                        <Button 
-                        type="primary" 
-                        shape="round" 
-                        size="large"
-                        icon={ <UserOutlined style={{ fontSize: '20px'}} /> }
-                        > My Profile </Button>
+                            <Button 
+                            type="text" 
+                            shape="round"
+                            size="large"
+                            onClick={() => {navigate('/')}}
+                            > Home</Button>
+
+                            {auth.userType === "child" &&
+                            <Button 
+                            type="text" 
+                            shape="round"
+                            size="large"
+                            onClick={() => {navigate('/library')}}
+                            > My Library</Button>
+                            }
+
+                            <Button 
+                            type="primary"
+                            onClick={() => {navigate('/profile')}}
+                            shape="round" 
+                            size="large"
+                            icon={ <UserOutlined style={{ fontSize: '20px'}} /> }
+                            > My Profile </Button>
                         </>
                     :
                         <>

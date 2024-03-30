@@ -11,6 +11,8 @@ import CreateStoryForm  from './pages/Create Story Page/CreateStoryForm.jsx'
 import DisplayStory  from './pages/Story/DisplayStory.jsx'
 import Contact  from './pages/Contact/Contact.jsx'
 import Library from './pages/Library/Library.jsx'
+import Profile from './pages/Profile/Profile.jsx'
+import AddChildForm from './pages/Add Child/AddChildForm.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import Protected from './components/Protected Routes/Protected.jsx'
 
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
   {
     path: '/Library',
     element: <Library />
+  },
+  {
+    path: '/Profile',
+    element: <Profile />
+  },
+  {
+    path: '/AddChild',
+    element: <AddChildForm />
   },
 
 ])

@@ -78,6 +78,7 @@ function Contact() {
                         <div className={s.form_area}>
                             {contextHolder}
                             <Form
+                                className={s.form_wrapper}
                                 form={form}
                                 onFinish={submitMsg}
                                 name="contact_form"
@@ -97,7 +98,7 @@ function Contact() {
                                             <div className={s.column_part}>
                                                 <div className={s.input_box}>
                                                     <p className={s.label}> Name </p>
-                                                    <Form.Item name="name" rules={[{ required: true, message: 'Please enter your name.' }]} >
+                                                    <Form.Item className={s.input} name="name" rules={[{ required: true, message: 'Please enter your name.' }]} >
                                                         <Input allowClear size="large" placeholder='E.g. Sara Sami' />
                                                     </Form.Item>
                                                 </div>

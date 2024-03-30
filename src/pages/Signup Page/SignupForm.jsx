@@ -7,7 +7,7 @@ import Footer from "../../components/Footer/Footer"
 import { Link, useNavigate } from "react-router-dom";
 
 //import Ant Components
-import { Progress, message } from 'antd';
+import { ConfigProvider, Spin, Progress, message } from 'antd';
 import SignupMain from "./SignupMain";
 import SignupChild1 from "./SignupChild1"
 import SignupChild2 from "./SignupChild2"
@@ -16,6 +16,8 @@ import SignupGuard from "./SignupGuard"
 function SignupForm() {
 
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(false)
+
     // if user is logged in/ signed up and tried to enter the signin page, he'll be redirected to the home page!
     useEffect(() => {
         if (localStorage.getItem('user-info')) {
@@ -64,7 +66,7 @@ function SignupForm() {
     }
 
     async function signupGuard(vals) {
-
+        setIsLoading(true)
         const requestBody = {
             email: mainInfo.email,
             first_name: vals.first_name,
@@ -92,7 +94,7 @@ function SignupForm() {
                     const data = await response.json()
                     localStorage.setItem("user-info", JSON.stringify(data))
                     console.log('Sign up successful:', data)
-                    info('Successful Signup', 'success')
+                    setIsLoading(false) // Hide loading message
 
                     setTimeout(() => {
                         navigate('/')
@@ -112,7 +114,7 @@ function SignupForm() {
     }
 
     async function signupChild(vals) {
-
+        setIsLoading(true)
         const requestBody = {
             email: mainInfo.email,
             first_name: childInfo.first_name,
@@ -121,7 +123,7 @@ function SignupForm() {
             password: mainInfo.password,
             gender: childInfo.gender,
             favorite_color: vals.faveColor,
-            birth_date: vals.birth_date
+            birth_date: vals.birth_date.$d
         };
 
         // Display loading message while fetching data
@@ -142,7 +144,7 @@ function SignupForm() {
                     const data = await response.json()
                     localStorage.setItem("user-info", JSON.stringify(data))
                     console.log('Sign up successful:', data)
-                    info('Sign up successful', 'success')
+                    setIsLoading(false) // Hide loading message
 
                     setTimeout(() => {
                         navigate('/')
@@ -181,23 +183,32 @@ function SignupForm() {
                 {contextHolder}
                 <Navbar />
                 <div className={s.content}>
-                    <div className={s.wrapper}>
-                        <Progress className={s.prog_bar} percent={progressPerc[page]} showInfo={false} strokeColor='#8993ED' />
+                    <ConfigProvider //change color theme
+                        theme={{
+                            token: {
+                                colorPrimary: '#8993ED',
+                            }
+                        }} >
+                        <Spin className={s.spin} spinning={isLoading} tip="Signing up..." size="large">
+                            <div className={s.wrapper}>
+                                <Progress className={s.prog_bar} percent={progressPerc[page]} showInfo={false} strokeColor='#8993ED' />
 
-                        {/* Back-Cancel button */}
-                        <Link
-                            className={s.cancel_btn}
-                            onClick={() => {
-                                page == 0 ? navigate('/') : setPage((currPage) => currPage - 1)
-                            }}
-                        >{backBtn[page]}
-                        </Link>
+                                {/* Back-Cancel button */}
+                                <Link
+                                    className={s.cancel_btn}
+                                    onClick={() => {
+                                        page == 0 ? navigate('/') : setPage((currPage) => currPage - 1)
+                                    }}
+                                >{backBtn[page]}
+                                </Link>
 
-                        <h1>{formTitles[page]}</h1>
+                                <h1>{formTitles[page]}</h1>
 
-                        {/* Form pages */}
-                        {getStep(page)}
-                    </div>
+                                {/* Form pages */}
+                                {getStep(page)}
+                            </div>
+                        </Spin>
+                    </ConfigProvider>
                 </div>
             </div>
             <Footer />

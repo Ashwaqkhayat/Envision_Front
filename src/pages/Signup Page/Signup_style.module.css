@@ -14,14 +14,18 @@
     padding-top: 3rem;
 }
 
+.spin{
+    margin-top: 50px;
+}
+
 .wrapper{
-    width: 496px;
+    width: 495px;
     height: auto;
     background: white;
     border-radius: 10px;
     padding: 50px;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 
     .prog_bar{
         position: relative;
@@ -34,13 +38,13 @@
     }
 
     h1{
-        font-size: 2.7rem;
+        font-size: 2.6rem;
         font-weight: bolder;
         color: #8EC3B7;
     }
 
     .input_box{
-        margin-top: 1.25rem;
+        margin-top: 1rem;
     }
 
     .bottom_part{

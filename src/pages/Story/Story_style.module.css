@@ -30,6 +30,22 @@
     transition: transform 0.5s;
 }
 
+/* ======= Delete Later ========== */
+.header{
+    display: flex;
+}
+
+.titles{
+    margin-right: auto;
+}
+
+.buttons{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+/* ======= Delete Later ========== */
+
 .title{
     display: flex;
     gap: 15px;

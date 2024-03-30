@@ -14,9 +14,11 @@
     "antd": "^5.14.2",
     "boxicons": "^2.1.4",
     "dotenv": "^16.4.5",
+    "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-circle-progress-bar": "^0.1.4",
     "react-dom": "^18.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-pageflip": "^2.0.3",
     "react-router-dom": "^6.22.1",
     "styled-components": "^6.1.8"

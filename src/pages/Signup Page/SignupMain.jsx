@@ -3,7 +3,7 @@ import s from './Signup_style.module.css'
 import Label from "../../components/Label/Label"
 
 //import Ant Components
-import { ConfigProvider, Flex, Radio, Input, Form, Button} from 'antd';
+import { ConfigProvider, Flex, Radio, Input, Form, Button, Spin} from 'antd';
 import { MailOutlined } from '@ant-design/icons';
 
 //Navigations using buttons

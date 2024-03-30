@@ -1,0 +1,57 @@
+.container {
+    background-color: blue;
+    width: 128px;
+    height: 168px;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s ease-in-out;
+
+    @media (min-width: 1706px) {
+        width: 145px;
+        height: 185px;
+    }
+
+    @media (min-width: 1920px) {
+        width: 168px;
+        height: 208px;
+    }
+
+    @media (max-width: 1181px) {
+        width: 115px;
+        height: 150px;
+    }
+}
+
+.container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.container h3 {
+    color: white;
+    position: absolute;
+    z-index: 1;
+    font-size: 12px;
+    padding: 0px 15px;
+    bottom: 20px;
+    /* word-break: break-all; */
+}
+
+.container:after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    /* Adjust height for fade length */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+.container:hover {
+    transform: scale(0.97);
+    cursor: pointer;
+}
