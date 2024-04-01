@@ -4,19 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Label from "../../components/Label/Label"
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
-//import Ant Components
 import { ConfigProvider, Input, Form, Button, message, Spin } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
-
-import Cookies from 'js-cookie';
 
 function SigninForm() {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
 
-    // const jwt = Cookies.get('');
-
-    // if user is logged in/ signed up and tried to enter the signup page, he'll be redirected to the home page!
+    // if user is logged in/ signed up and tried to enter the signup page, he'll be redirected to the home page
     useEffect(() => {
         if (localStorage.getItem('user-info')) {
             navigate('/')
@@ -52,11 +47,12 @@ function SigninForm() {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
-                body: JSON.stringify(requestBody)
+                body: JSON.stringify(requestBody),
+                credentials: 'include',
             });
 
             if (response.ok) {
-                setIsLoading(false) // Hide loading message
+                setIsLoading(false)
                 const data = await response.json();
                 localStorage.setItem("user-info", JSON.stringify(data))
                 console.log('Sign in successful')
@@ -68,10 +64,12 @@ function SigninForm() {
 
             } else {
                 console.error('Sign in failed:', response);
+                setIsLoading(false)
                 info('Login failed', 'error')
             }
         } catch (error) {
             console.error('Error during sign in:', error);
+            setIsLoading(false)
             info('Error during login', 'error')
         }
     }

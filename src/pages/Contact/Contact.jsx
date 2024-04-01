@@ -41,7 +41,8 @@ function Contact() {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
-                body: JSON.stringify(requestBody)
+                body: JSON.stringify(requestBody),
+                credentials: 'include'
             });
             if (response.ok) {
                 setIsLoading(false) // Hide loading message

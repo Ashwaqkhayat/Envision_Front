@@ -15,11 +15,6 @@ export default function Navbar() {
     const navigate = useNavigate()
     const auth = JSON.parse(localStorage.getItem('user-info'))
 
-    function logOut(){
-        localStorage.clear();
-        window.location.reload();
-    }
-
     return (
         <div className={s.nav}>
             <div className={s.nav_left}>

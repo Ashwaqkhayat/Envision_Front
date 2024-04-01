@@ -71,7 +71,7 @@ function SignupChild1({onFinish, initialValues}) {
                     
                         <Space.Compact className={s.input_pnumber}>
                             <Form.Item name={'phone_code'}>
-                                <Select size="large" defaultValue="+966" options={options} />
+                                <Select size="large" placeholder="+966" options={options} />
                             </Form.Item>
                             <Form.Item className={s.input_pnumber} name={'phone_number'} rules={[
                                 { required: true, message: "Phone number is required" },

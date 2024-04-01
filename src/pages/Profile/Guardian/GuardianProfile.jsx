@@ -11,31 +11,47 @@ import randomData from '../data.json'
 
 
 function GuardianProfile(props) {
+    const navigate = useNavigate()
     
-    // useEffect(() => {
-    //     if(props===null){
-    //         window.location.reload();
-    //     }
-    // },[])
-
-    const name = props.user.f_name.charAt(0).toUpperCase() + props.user.f_name.slice(1);
+    //Get info
+    let info = props.info
+    let Fname = info.first_name.charAt(0).toUpperCase() + info.first_name.slice(1);
+    let Lname = info.last_name.charAt(0).toUpperCase() + info.last_name.slice(1);
+    let fullName = Fname + " " + Lname
+    let age = info.age
+    let pnum = info.phone
+    let email = info.email
 
     //Infinite Scrolling
-    const [hasMore, setHasMore] = useState(false)
-    const navigate = useNavigate()
+    const [hasMore, setHasMore] = useState(false);
 
     // Change later ===========================
     const data = randomData["data"]
 
     function logOut() {
-        localStorage.clear();
-        navigate('/')
+        localStorage.clear()
+        fetch(`${process.env.REACT_APP_url}/logout`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            credentials: 'include',
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("Logged Out Successfully", data)
+                window.location.reload(false)
+            })
+            .catch((err) => {
+                console.error("Error signing out..")
+            })
     }
 
     return (
         <>
             <div className={`${s.profile_header} ${s.center_flex}`}>
-                <h2>Welcome {name}!</h2>
+                <h2>Welcome {Fname}!</h2>
             </div>
             <div className={s.profile_windows}>
                 <div className={s.childList_box}>
@@ -71,12 +87,11 @@ function GuardianProfile(props) {
                     </div>
                     <div className={s.info_main}>
                         <div className={s.info_left}>
-                            <p>Name:</p>
-                            <p>Age:</p>
-                            <p>Email:</p>
-                            <p>Phone Number: </p>
-                            <p>Birthday: </p>
-                            <p>Children Number: </p>
+                            <p>Name: {fullName}</p>
+                            <p>Age: {age}</p>
+                            <p>Email: {email}</p>
+                            <p>Phone Number: {pnum}</p>
+                            <p>Children Number: {data.length}</p>
                         </div>
                     </div>
                     <div className={s.info_footer}>

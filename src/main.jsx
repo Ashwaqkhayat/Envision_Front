@@ -44,15 +44,21 @@ const router = createBrowserRouter([
   },
   {
     path: '/Library',
-    element: <Library />
+    element: 
+    <Protected Comp={Library} />
+    // <Library />
   },
   {
     path: '/Profile',
-    element: <Profile />
+    element: 
+    <Protected Comp={Profile} />
+    //<Profile />
   },
   {
     path: '/AddChild',
-    element: <AddChildForm />
+    element: 
+    <Protected Comp={AddChildForm} />
+    // <AddChildForm />
   },
 
 ])

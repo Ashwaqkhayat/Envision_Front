@@ -76,6 +76,8 @@ function SignupForm() {
             phone: "" + vals.phone_code + vals.phone_number
         }
 
+        console.warn(requestBody.phone)
+
         // Display loading message while fetching data
         info('Loading', 'loading')
 
@@ -102,12 +104,15 @@ function SignupForm() {
 
                 } else if (response.status === 409) {
                     info('Email is already used, try another one!', 'warning')
+                    setIsLoading(false)
                 } else {
                     info('Sign up failed', 'error')
+                    setIsLoading(false)
                 }
             } catch (error) {
                 console.error('Error during sign up:', error)
                 info('An error occurred. Please try again later.', 'error')
+                setIsLoading(false)
             }
         }
         fetchData()
@@ -135,9 +140,11 @@ function SignupForm() {
                 const response = await fetch(`${process.env.REACT_APP_url}/children/register`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Acccept': 'application/json',
                     },
-                    body: JSON.stringify(requestBody)
+                    body: JSON.stringify(requestBody),
+                    credentials: 'include'
                 })
 
                 if (response.ok) {

@@ -18,7 +18,7 @@ import cat from '../../assets/images/candy.jpg'
 function DisplayStory() {
     const navigate = useNavigate()
     const auth = localStorage.getItem('user-info')
-    const isStoryExist = localStorage.getItem('story_content') //To check if there's a story in the local storage
+    const isStoryExist = localStorage.getItem('story') //To check if there's a story in the local storage
     // ======================= Flipping Book ==========================
     const prevBtn = useRef(null);
     const nextBtn = useRef(null);
@@ -40,7 +40,7 @@ function DisplayStory() {
 
     //if there's no story in the local storage, redirect to main page
     useEffect(() => {
-        if(isStoryExist===null){
+        if (isStoryExist === null) {
             navigate('/')
         }
     }, [])
@@ -127,7 +127,7 @@ function DisplayStory() {
     useEffect(() => {
         // Get story result
         setIsLoading(true) //Loading page content to be fetched
-        const story_data = JSON.parse(localStorage.getItem('story_content'))
+        const story_data = JSON.parse(localStorage.getItem('story'))
         setStory(story_data)
         setIsLoading(false) //When data is fetched, set loading to false
     }, []);
@@ -143,14 +143,14 @@ function DisplayStory() {
     //     setSave(isSaveToggled ? <CloudFilled /> : <CloudOutlined />) // Update attribute based on the toggle state
     // }
 
-    async function saveStory(){
+    async function saveStory() {
         console.warn("Saving")
         const requestBody = {
             title: story.title,
-            language: 'en', //Edit laterrrrrrrrrr
+            language: 'en', //Edit later==========
             prompt: story.prompt,
             story_text: story.story_text,
-            image_url: story.image_url,
+            story_images: story.story_images,
             start_time: story.start_time,
             end_time: story.end_time,
         }
@@ -158,11 +158,15 @@ function DisplayStory() {
         try {
             const response = await fetch(`${process.env.REACT_APP_url}/children/stories/save`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(requestBody)
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(requestBody),
+                credentials: 'include',
             })
-            
-            if(response.ok){
+
+            if (response.ok) {
                 setIsSaveToggled(true)
                 // setSave(isSaveToggled ? <CloudFilled /> : <CloudOutlined />)
                 setSave(<CloudFilled />)
@@ -170,16 +174,16 @@ function DisplayStory() {
             } else {
                 console.warn("Response recieved but not OK")
             }
-        } catch(e) {
-            console.error('Error occured while saving story, ',e)
+        } catch (e) {
+            console.error('Error occured while saving story, ', e)
         }
     }
 
     const [fave, setFave] = useState(<HeartOutlined />)
     const [isFaveToggled, setIsFaveToggled] = useState(false)
     const handleFaveClick = () => {
-        setIsFaveToggled(!isFaveToggled); // Toggle the state on each click
-        setFave(isFaveToggled ? <HeartFilled /> : <HeartOutlined />) // Update attribute based on the toggle state
+        setIsFaveToggled(!isFaveToggled)
+        setFave(isFaveToggled ? <HeartFilled /> : <HeartOutlined />)
     }
 
     return (
@@ -187,7 +191,7 @@ function DisplayStory() {
             <div className={s.body}>
                 <Navbar />
                 <div className={s.wrapper}>
-                    <ConfigProvider //change color theme
+                    <ConfigProvider
                         theme={{
                             token: {
                                 colorPrimary: '#96CCC0',
@@ -195,7 +199,6 @@ function DisplayStory() {
                                 sizeStep: 2,
                             }
                         }} >
-
                         {isLoading ?
                             <Spin size="large" />
                             :
@@ -213,17 +216,17 @@ function DisplayStory() {
                                         </div>
                                     }
                                 </div>
-                                
+
                                 <div className={s.scenes_cont}>
                                     {story.story_text.map((item, index) => (
-                                        <Card img={displayBase64Images(story.image_url[index])} text={item} />
+                                        <Card img={displayBase64Images(story.story_images[index])} text={item} />
                                     ))}
                                 </div>
                             </>
                         }
                     </ConfigProvider>
                 </div>
-            </div> {/* body */}
+            </div>
             <Footer />
         </>
     )

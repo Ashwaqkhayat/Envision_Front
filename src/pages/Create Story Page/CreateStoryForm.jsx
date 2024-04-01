@@ -62,21 +62,22 @@ function CreateStory() {
             emotion: storySpec.emotion,
             language: "en", // Change when arabic is supported
         }
-        // POST data to API
+        // POST data to server
         try {
             setIsLoading(true) // Display Loading Spinner
-            const response = await fetch('./storyResponseFull.json', {
+            const response = await fetch(`${process.env.REACT_APP_url}/children/stories/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
-                body: JSON.stringify(request)
+                body: JSON.stringify(request),
+                credentials: 'include'
             })
 
             if (response.ok) {
                 const data = await response.json()
-                localStorage.setItem('story_content', JSON.stringify(data))
+                localStorage.setItem('story', JSON.stringify(data))
                 setIsLoading(false) // Hide Loading Spinner
                 navigate('/Story')
                 console.log('Story submitted successfully', data)
