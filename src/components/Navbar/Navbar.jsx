@@ -1,7 +1,5 @@
 import React from "react";
 import s from './Navbar_style.module.css'
-
-//NAvigations using buttons
 import { useNavigate, Link } from "react-router-dom";
 //Antd buttons
 import { ConfigProvider, Button, Flex } from 'antd';
@@ -10,8 +8,6 @@ import { UserOutlined } from '@ant-design/icons';
 import logo from '../../assets/images/base.png'
 
 export default function Navbar() {
-    
-    // navigate to other pages using UseNavigate
     const navigate = useNavigate()
     const auth = JSON.parse(localStorage.getItem('user-info'))
 
@@ -24,7 +20,7 @@ export default function Navbar() {
 
             <div className={s.nav_right}>
                 <Flex gap="small" wrap="wrap">
-                <ConfigProvider //change color theme
+                <ConfigProvider
                 theme={{
                     token: {
                         sizeStep: 7,

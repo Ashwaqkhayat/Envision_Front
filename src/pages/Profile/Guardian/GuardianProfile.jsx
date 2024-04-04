@@ -29,7 +29,6 @@ function GuardianProfile(props) {
     const data = randomData["data"]
 
     function logOut() {
-        localStorage.clear()
         fetch(`${process.env.REACT_APP_url}/logout`, {
             method: 'POST',
             headers: {
@@ -41,6 +40,7 @@ function GuardianProfile(props) {
             .then((res) => res.json())
             .then((data) => {
                 console.log("Logged Out Successfully", data)
+                localStorage.clear()
                 window.location.reload(false)
             })
             .catch((err) => {

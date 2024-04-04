@@ -45,6 +45,7 @@ function Library() {
             } catch (err) {
                 console.error("Error Getting library", err)
                 setIsLoading(false)
+                navigate('/')
             }
         }
 
@@ -55,23 +56,7 @@ function Library() {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    function displayImages(img) {
-        return `data:image/jpeg;base64,${img}`
-    }
-
-    useEffect(() => {
-        let jsonString = '{"Object1"},{"Object2"}';
-
-        // Remove the trailing comma (if it exists)
-        jsonString = jsonString.slice(0);
-
-        const arrayOfObjects = JSON.parse(JSON.stringify(jsonString))
-
-        console.error(typeof arrayOfObjects);
-    }, [])
-
-    if (user && library) {
-        //console.warn((library[0].story_images))
+    if (user) {
         return (
             <>
                 <div className={s.body}>
@@ -91,7 +76,7 @@ function Library() {
                         <div className={`${s.content} ${s.center_flex}`}>
                             <div className={s.left_part}>
                                 <div className={`${s.container} ${s.box1}`}>
-                                    <h1>Welcome {user && capitalize(user.f_name)}</h1>
+                                    <h1>Welcome {user && capitalize(user.first_name)}</h1>
                                 </div>
                                 <div className={`${s.container} ${s.box2}`}>
                                     <h3>Build a new world inspired by your
@@ -143,7 +128,7 @@ function Library() {
                                 </div>
                                 <Spin className={s.spin} spinning={isLoading} tip="Loading Stories..." size="large">
                                     <div className={s.stories_container}>
-                                        {((library === undefined) || (library === null)) ?
+                                        {((library === undefined) || (library === null) || (library.length === 0)) ?
                                             <Empty className={s.empty} image={Empty.PRESENTED_IMAGE_SIMPLE} />
                                             :
                                             <InfiniteScroll
@@ -157,7 +142,7 @@ function Library() {
                                                 {library.filter((image, index) => {
                                                     return search.toLowerCase() === '' ? image : image.title.toLowerCase().includes(search)
                                                 }).map((image, index) => {
-                                                    return <Story title={library[index].title} cover={candy} />
+                                                    return <Story key={index} content={library[index]}/>
                                                 })}
                                             </InfiniteScroll>
                                         }

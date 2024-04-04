@@ -77,10 +77,22 @@ function CreateStory() {
 
             if (response.ok) {
                 const data = await response.json()
-                localStorage.setItem('story', JSON.stringify(data))
+                let storyData = {
+                    title: data.title,
+                    story_text: data.story_text,
+                    story_images: data.story_images,
+                    language: data.language,
+                    prompt: data.full_prompt,
+                    start_time: data.start_time,
+                    end_time: data.end_time,
+                    is_favorite: false,
+                    is_saved: false,
+                    Id: null,
+                }
+                localStorage.setItem('story', JSON.stringify(storyData))
                 setIsLoading(false) // Hide Loading Spinner
                 navigate('/Story')
-                console.log('Story submitted successfully', data)
+                console.log('Story submitted successfully', storyData)
             } else {
                 info('Story submission failed, try again', 'error')
             }

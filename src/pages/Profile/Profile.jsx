@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useNavigate } from 'react-router-dom'
 import s from './Profile_style.module.css'
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
@@ -7,6 +8,7 @@ import GuardianProfile from './Guardian/GuardianProfile'
 import { ConfigProvider } from 'antd';
 
 function Profile() {
+    const navigate = useNavigate()
     const accType = JSON.parse(window.localStorage.getItem("user-info")).userType
     const [info, setInfo] = useState(null)
     //get user profile
@@ -27,6 +29,7 @@ function Profile() {
               setInfo(JSON.parse(JSON.stringify(data)).profile)
             } catch (err) {
                 console.error("Failed getting user's profile: ", err)
+                navigate('/')
             }
           }
       

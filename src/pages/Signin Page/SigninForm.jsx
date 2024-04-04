@@ -50,12 +50,11 @@ function SigninForm() {
                 body: JSON.stringify(requestBody),
                 credentials: 'include',
             });
-
+            const data = await response.json()
             if (response.ok) {
                 setIsLoading(false)
-                const data = await response.json();
                 localStorage.setItem("user-info", JSON.stringify(data))
-                console.log('Sign in successful')
+                //console.log('Sign in successful', response.headers.get('Authorization').split(' ')[1])
                 info('Successful Login', 'success')
 
                 setTimeout(() => {
@@ -63,9 +62,9 @@ function SigninForm() {
                 }, 1200);
 
             } else {
-                console.error('Sign in failed:', response);
+                console.error('Sign in failed:', data.error);
                 setIsLoading(false)
-                info('Login failed', 'error')
+                info(data.error, 'error')
             }
         } catch (error) {
             console.error('Error during sign in:', error);

@@ -16,6 +16,8 @@ import AddChildForm from './pages/Add Child/AddChildForm.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import Protected from './components/Protected Routes/Protected.jsx'
 
+import Test from './pages/Story/Test.jsx'
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -59,6 +61,10 @@ const router = createBrowserRouter([
     element: 
     <Protected Comp={AddChildForm} />
     // <AddChildForm />
+  },
+  {
+    path: '/test',
+    element: <Test /> //Delete later =================
   },
 
 ])

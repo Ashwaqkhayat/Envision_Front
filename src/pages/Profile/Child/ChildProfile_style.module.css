@@ -52,6 +52,11 @@
     }
 }
 
+.spin{
+    position: absolute;
+    z-index: 10;
+}
+
 /* ========== List box styles ========== */
 .guardList_box{
     background-color: white;
@@ -121,6 +126,11 @@
     height: 70%;
     p{
         margin-top: 0px;
+        font-size: 11pt;
+    }
+
+    @media (min-width: 960px){
+        margin-top: 3%;
     }
 
     @media (max-height: 640px){

@@ -13,7 +13,39 @@ function AddChild() {
     const [messageApi, contextHolder] = message.useMessage() //Popup messages
 
     const onFinish = async (values) => { // When form is submitted
-
+        try {
+            setIsLoading(true)
+            const requestBody = {
+                email: values.email,
+                favorite_color: values.favorite_color, 
+                birth_date: values.birthdate,
+                relation: values.occupation,
+            }
+            console.log(requestBody)
+            console.warn("> Adding Child...")
+            const response = await fetch(`${process.env.REACT_APP_url}/guardians/children`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(requestBody),
+            })
+            if (!response.ok) {
+                throw new Error(`Error in sending HTTP request: ${response.status}`);
+            }
+            console.log("> Child added successfully")
+            const data = await response.json(); //Data is an array
+            setIsLoading(false)
+            console.log("Recieved data: ", data) //Remove Later =======================
+            setTimeout(() => {
+                navigate('/profile')
+            }, 1200);
+        } catch (err) {
+            console.error("Failed adding child: ", err)
+            setIsLoading(false)
+        }
     }
 
     return (
