@@ -7,7 +7,6 @@ import Story from './Story'
 import { Button, ConfigProvider, Segmented, Flex, Input, Select, Empty, Spin } from 'antd';
 import { BarsOutlined, HeartOutlined } from '@ant-design/icons'
 import InfiniteScroll from "react-infinite-scroll-component"
-import candy from '../../assets/images/candy.jpg'
 
 // Delete later =======================
 import randomData from './data.json'
@@ -19,12 +18,16 @@ function Library() {
     // Delete later ===========================
     const data = randomData["data"]
 
-    const [segmentedValue, setSegmented] = useState('library') //Segmented options value
-    const { Search } = Input //Search Box
-    const [search, setSearch] = useState('')
     const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user-info")))
     const [library, setLibrary] = useState(null) //Get user stories from DB
     const [hasMore, setHasMore] = useState(false) //Infinite Scrolling
+
+    // const filterFave = library.filter((item,index) => item.is_favorite === true)
+    // const filterSortAlphabet = library.sort((a, b) => a.title.localeCompare(b.title))
+    const [segmentedValue, setSegmented] = useState('library') //Segmented options value
+    const [sort, setSort] = useState('creation_date') //Segmented options value
+    const { Search } = Input //Search Box
+    const [search, setSearch] = useState('')
 
     useEffect(() => {
         setIsLoading(true)
@@ -97,7 +100,7 @@ function Library() {
                                     <Segmented
                                         className={s.lib_box}
                                         block
-                                        onChange={() => { setSegmented('favorites') }}
+                                        onChange={(value) => { setSegmented(value) }}
                                         options={[
                                             {
                                                 label: 'My Library',
@@ -118,6 +121,8 @@ function Library() {
                                         />
                                         <Select
                                             className={s.sort}
+                                            defaultValue='creation_date'
+                                            onChange={(e) => { setSort(e) }}
                                             placeholder="Sort"
                                             options={[
                                                 { value: 'creation_date', label: <span>Creation Date</span> },
@@ -139,11 +144,32 @@ function Library() {
                                                 loader={<h4>Loading...</h4>}
                                                 scrollableTarget="scrollableDiv"
                                             >
-                                                {library.filter((image, index) => {
-                                                    return search.toLowerCase() === '' ? image : image.title.toLowerCase().includes(search)
-                                                }).map((image, index) => {
-                                                    return <Story key={index} content={library[index]}/>
-                                                })}
+                                                {
+                                                    segmentedValue === 'Favorites' ?
+                                                        sort === 'alphabetically' ?
+                                                            library // Faved & Sorted A -> Z
+                                                                .filter((image, index) => { return search.toLowerCase() === '' ? image : image.title.toLowerCase().includes(search) })
+                                                                .filter((item, index) => item.is_favorite === true)
+                                                                .sort((a, b) => a.title.localeCompare(b.title))
+                                                                .map((image, index) => { return <Story key={index} content={image} /> })
+                                                            :
+                                                            library // Faved & Sorted by Creation Date
+                                                                .filter((image, index) => { return search.toLowerCase() === '' ? image : image.title.toLowerCase().includes(search) })
+                                                                .filter((item, index) => item.is_favorite === true)
+                                                                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                                                                .map((image, index) => { return <Story key={index} content={image} /> })
+                                                        :
+                                                        sort === 'alphabetically' ?
+                                                            library // not Faved & Sorted A -> Z
+                                                                .filter((image, index) => { return search.toLowerCase() === '' ? image : image.title.toLowerCase().includes(search) })
+                                                                .sort((a, b) => a.title.localeCompare(b.title))
+                                                                .map((image, index) => { return <Story key={index} content={image} /> })
+                                                            :
+                                                            library // not Faved & Sorted by Creation Date
+                                                                .filter((image, index) => { return search.toLowerCase() === '' ? image : image.title.toLowerCase().includes(search) })
+                                                                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                                                                .map((image, index) => { return <Story key={index} content={image} /> })
+                                                }
                                             </InfiniteScroll>
                                         }
                                     </div>

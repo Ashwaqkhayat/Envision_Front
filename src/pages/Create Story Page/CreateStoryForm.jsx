@@ -87,7 +87,7 @@ function CreateStory() {
                     end_time: data.end_time,
                     is_favorite: false,
                     is_saved: false,
-                    Id: null,
+                    id: null,
                 }
                 localStorage.setItem('story', JSON.stringify(storyData))
                 setIsLoading(false) // Hide Loading Spinner

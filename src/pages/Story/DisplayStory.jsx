@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { ConfigProvider, Button, Spin, Tour, Modal, Input } from 'antd'
+import { ConfigProvider, Button, Spin, Tour, Modal, Input, message } from 'antd'
 import {
     LeftOutlined, RightOutlined, CloseOutlined, HeartOutlined,
     HeartFilled, CloudFilled, CloudOutlined, LoadingOutlined,
-    EditOutlined
+    EditOutlined, SoundOutlined,
 } from '@ant-design/icons'
 import 'boxicons'
 import s from './Story_style.module.css'
@@ -42,43 +42,67 @@ function DisplayStory() {
         },
     ]
 
+    // Notification Messages
+    const [messageApi, contextHolder] = message.useMessage()
+    const popMsg = (text, type) => {
+        messageApi.open({
+            type: type,
+            content: text,
+            duration: 5,
+            style: {
+                fontSize:'18px',
+                justifyContent: 'center',
+            },
+        });
+    };
+
     // Edit title modal
-    //const titleRef = useRef(null);
     const [title, setTitle] = useState("Story Title")
     const [isModalOpen, setIsModalOpen] = useState(false)
+
     const showModal = () => {
         setIsModalOpen(true)
     }
-    async function handleOk(){
-        try {
-            const requestBody = {
-                title: document.querySelector('.changeTitle').value,
-                Id: story.Id,
-            }
-            console.log("body: " , requestBody)
-            const response = await fetch(`${process.env.REACT_APP_url}/children/stories`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify(requestBody),
-                credentials: 'include',
-            })
-            const data = await response.json()
-            console.log(data)
-            if(!response.ok){
-                throw new Error(`Error in changing story title`)
-            }
-            console.warn("Story title changed successfully.")
-            setTitle(newTitle)
-        } catch (e) {
-            console.error('Error:', error)
-        }
-        setIsModalOpen(false)
-    }
     const handleCancel = () => {
         setIsModalOpen(false)
+    }
+    const handleOk = async () => {
+        const newTitle = document.querySelector('.changeTitle').value
+        setTitle(newTitle)
+        setStory({ ...story, title: newTitle })
+        try {
+            try {
+                if (isSaved) {
+                    const requestBody = {
+                        title: newTitle,
+                        id: story.id,
+                    }
+                    const requestOptions = {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(requestBody),
+                        credentials: 'include',
+                    }
+                    const response = await fetch(`${process.env.REACT_APP_url}/children/stories`, requestOptions)
+                    if (response.ok) {
+                        console.warn("Story title changed successfully.")
+                        popMsg('Title changed!', 'success')
+                    } else {
+                        console.error('Response recieved but is not ok: ', response.status)
+                        popMsg('Something went wrong :( Try again.', 'error')
+                    }
+                }
+            } catch (e) {
+                console.error('Error: ', error)
+                popMsg('Sorry we cannot change thr title now, try again later.', 'error')
+            }
+        } catch (error) {
+            console.error("Error in changing title: ", error)
+        } finally {
+            setIsModalOpen(false);
+            document.querySelector('.changeTitle').value = ''
+        }
+
     }
 
     // ======================= Flipping Book ==========================
@@ -184,6 +208,7 @@ function DisplayStory() {
 
     // ===================== Flipping Book END =======================
 
+    // Load Story from local storage
     useEffect(() => {
         setIsLoading(true) //Loading page content to be fetched
         const story_data = JSON.parse(localStorage.getItem('story'))
@@ -200,7 +225,7 @@ function DisplayStory() {
                 is_favorite: story_data.is_favorite,
                 is_saved: story_data.is_saved,
                 scenesNum: story_data.story_text.length,
-                Id: story_data.Id,
+                id: story_data.id,
             })
             setIsSaved(story_data.is_saved)
             setSave(story_data.is_saved ? <CloudFilled /> : <CloudOutlined />)
@@ -219,8 +244,6 @@ function DisplayStory() {
     function displayBase64Images(img) {
         return `data:image/jpeg;base64,${img}`
     }
-
-
 
     async function handleSave() {
         if (isSaved === false) { //if story isn't saved => Save
@@ -247,7 +270,8 @@ function DisplayStory() {
                 })
                 if (response.ok) {
                     const data = await response.json()
-                    setStory({ ...story, Id: data.story[0].Id })
+                    console.log("data of story: ", data)
+                    setStory({ ...story, id: data.story[0].id })
                     setIsSaved(true)
                     setSave(<CloudFilled />)
                     console.log("Successfully Saved!!")
@@ -260,7 +284,8 @@ function DisplayStory() {
         } else { //if story is saved => Delete
             try {
                 console.warn("Deleting Story..")
-                const response = await fetch(`${process.env.REACT_APP_url}/children/stories?id=${story.Id}`, {
+                console.log("deletee story id: ", story.id)
+                const response = await fetch(`${process.env.REACT_APP_url}/children/stories?id=${story.id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -291,7 +316,7 @@ function DisplayStory() {
             if (!isFaved) { //if not faved, add to favorite
                 try {
                     console.warn("Adding Story to Favorites...")
-                    const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.Id}`, {
+                    const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.id}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -312,7 +337,7 @@ function DisplayStory() {
             } else { // if faved, remove
                 console.warn("Removing Story from Favorites...")
                 try {
-                    const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.Id}`, {
+                    const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.id}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -334,6 +359,29 @@ function DisplayStory() {
         }
     }
 
+    async function playNarration() {
+        try {
+            console.warn("Playing Story Narration...")
+            const response = await fetch(`${process.env.REACT_APP_url}/children/stories/narrate`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ story_text: story.story_text }),
+                credentials: 'include',
+            })
+            if (response.ok) {
+                const data = await response.json()
+                console.log("Successfully Playing Narration...", data)
+            } else {
+                console.warn("Response recieved but not OK: ", response.status)
+            }
+        } catch (e) {
+            console.error('Error occured while playing narration, ', e)
+        }
+    }
+
     if (story) {
         return (
             <>
@@ -343,6 +391,7 @@ function DisplayStory() {
                             colorPrimary: '#8993ed',
                         }
                     }}>
+                    {contextHolder}
                     <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
                     <Modal title="Edit Title" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                         <Input className="changeTitle" placeholder="Enter new title here" />
@@ -367,6 +416,7 @@ function DisplayStory() {
                                         <div className={s.titles}>
                                             <h1>{`Story title: ${title}`}</h1>
                                             <Button onClick={showModal} icon={<EditOutlined />} size='large' />
+                                            <Button onClick={playNarration} icon={<SoundOutlined />} size='large' />
                                             <h2>{`#Scenes: ${story.scenesNum}`}</h2>
                                         </div>
 

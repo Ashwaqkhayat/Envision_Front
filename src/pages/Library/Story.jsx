@@ -23,7 +23,7 @@ function Story(props) {
             end_time: content.end_time,
             is_favorite: content.is_favorite,
             is_saved: true,
-            Id: content.Id,
+            id: content.id,
         }))
         navigate('/Story')
     }
