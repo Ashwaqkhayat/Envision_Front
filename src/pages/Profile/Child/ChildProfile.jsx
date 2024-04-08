@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from "react"
 import s from './ChildProfile_style.module.css'
 import Guardian from './GuardianInfo'
-import { useNavigate } from "react-router-dom";
-import { Button, Tooltip, Spin, Empty } from 'antd';
-import { EditOutlined } from '@ant-design/icons'
+import { Button, Tooltip, Spin, Empty, message } from 'antd'
+import { SettingOutlined } from '@ant-design/icons'
 import InfiniteScroll from "react-infinite-scroll-component"
 import userIcon from '../../../assets/images/pfp.png'
 
-//Delete Later =======================
-import randomData from '../data.json'
-
 function ChildProfile(props) {
-    const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(false)
+
+    // Notification Messages
+    const [messageApi, contextHolder] = message.useMessage()
+    const popMsg = (text, type) => {
+        messageApi.open({
+            type: type,
+            content: text,
+            duration: 5,
+            style: {
+                fontSize: '18px',
+                justifyContent: 'center',
+            },
+        })
+    }
 
     //Get info
     let info = props.info
@@ -26,11 +36,9 @@ function ChildProfile(props) {
     let bdate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
     //Infinite Scrolling
-    const [hasMore, setHasMore] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(false)
 
-    // Delete later ===========================
-    // const data = randomData["data"]
+    // Guardians Data
     const [guards, setGuards] = useState(null)
 
     function logOut() {
@@ -50,6 +58,7 @@ function ChildProfile(props) {
             })
             .catch((err) => {
                 console.error("Error signing out: ", err)
+                popMsg('Something went wrong. Please try again. ', 'error')
             })
     }
 
@@ -79,6 +88,7 @@ function ChildProfile(props) {
     if (guards !== null) { //Display profile only when everything is fetched..
         return (
             <>
+                {contextHolder}
                 <div className={`${s.profile_header} ${s.center_flex}`}>
                     <div className={s.profile_img}>
                         <img src={userIcon} alt="Profile Picture" />
@@ -98,17 +108,17 @@ function ChildProfile(props) {
                                     :
                                     <InfiniteScroll
                                         className={s.scrollable}
-                                        dataLength={guards.length} //Edit later
+                                        dataLength={guards.length}
                                         // next={fetchMoreData} give the function that fetches next data
                                         hasMore={hasMore}
                                         loader={<h4>Loading...</h4>}
                                         scrollableTarget="scrollableDiv"
                                     >
-                                        {guards.map((guard, index) => {
-                                            return <Guardian 
-                                            key={guard.id} 
-                                            name={guard.first_name + " " + guard.last_name} 
-                                            job={guard.relation} />
+                                        {guards.map(guard => {
+                                            return <Guardian
+                                                key={guard.id}
+                                                name={guard.first_name + " " + guard.last_name}
+                                                job={guard.relation} />
                                         })}
                                     </InfiniteScroll>
                                 }
@@ -117,8 +127,8 @@ function ChildProfile(props) {
                         <div className={s.profileInfo_box}>
                             <div className={s.info_header}>
                                 <h2>My Information</h2>
-                                <Tooltip title="Edit">
-                                    <Button icon={<EditOutlined />} href="#" />
+                                <Tooltip title="Settings">
+                                    <Button style={{ borderColor: "#8993ED" }} icon={<SettingOutlined style={{ color: "#8993ED" }} />} href="#" />
                                 </Tooltip>
                             </div>
                             <div className={s.info_main}>

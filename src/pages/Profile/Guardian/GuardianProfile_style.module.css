@@ -43,7 +43,7 @@
     width: 100%;
     max-width: 60%;
     min-height: 100%;
-    padding: 1rem 1.5rem;
+    padding: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
 }
@@ -70,7 +70,7 @@
     width: 100%;
     max-width: 40%;
     min-height: 100%;
-    padding: 1rem 1.5rem;
+    padding: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
 }
@@ -145,6 +145,12 @@
     width: 150px;
 }
 
+.icon {
+    display: flex;
+    margin: 0px 10px;
+    align-items: center;
+}
+
 .info h4{
     color: #8993ED;
     font-size: 14px;
@@ -154,5 +160,5 @@
 
 .age{
     color: #8993ED;
-    margin-top: 0px;
+    margin: 0px 20px 0px 10px;
 }

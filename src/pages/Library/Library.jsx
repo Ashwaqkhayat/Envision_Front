@@ -8,22 +8,14 @@ import { Button, ConfigProvider, Segmented, Flex, Input, Select, Empty, Spin } f
 import { BarsOutlined, HeartOutlined } from '@ant-design/icons'
 import InfiniteScroll from "react-infinite-scroll-component"
 
-// Delete later =======================
-import randomData from './data.json'
-
 function Library() {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
-
-    // Delete later ===========================
-    const data = randomData["data"]
 
     const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user-info")))
     const [library, setLibrary] = useState(null) //Get user stories from DB
     const [hasMore, setHasMore] = useState(false) //Infinite Scrolling
 
-    // const filterFave = library.filter((item,index) => item.is_favorite === true)
-    // const filterSortAlphabet = library.sort((a, b) => a.title.localeCompare(b.title))
     const [segmentedValue, setSegmented] = useState('library') //Segmented options value
     const [sort, setSort] = useState('creation_date') //Segmented options value
     const { Search } = Input //Search Box
@@ -98,6 +90,7 @@ function Library() {
                             <div className={s.right_part}>
                                 <div className={s.services}>
                                     <Segmented
+                                        size="large"
                                         className={s.lib_box}
                                         block
                                         onChange={(value) => { setSegmented(value) }}
@@ -116,10 +109,12 @@ function Library() {
                                     />
                                     <Flex className={s.lib_box} gap="middle" horizontal>
                                         <Search
+                                            size="large"
                                             placeholder="Search for a story"
                                             onChange={(e) => setSearch(e.target.value)}
                                         />
                                         <Select
+                                            size="large"
                                             className={s.sort}
                                             defaultValue='creation_date'
                                             onChange={(e) => { setSort(e) }}

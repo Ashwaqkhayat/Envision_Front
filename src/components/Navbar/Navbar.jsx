@@ -11,6 +11,25 @@ export default function Navbar() {
     const navigate = useNavigate()
     const auth = JSON.parse(localStorage.getItem('user-info'))
 
+    React.useEffect(() => {
+        // const checkExpired = async () => {
+        //     try {
+        //         const response = await fetch(`${process.env.REACT_APP_url}/expired`, {
+        //             method: 'POST',
+        //             credentials: 'include',
+        //         })
+        //         if (response.status == 401 || response.status == 403) {
+        //             localStorage.clear()
+        //         } else {
+        //             console.log("Token Valid.")
+        //         }
+        //     } catch (err) {
+        //         console.error("Failed: ", err)
+        //     }
+        // }
+        // checkExpired()
+    },[])
+
     return (
         <div className={s.nav}>
             <div className={s.nav_left}>

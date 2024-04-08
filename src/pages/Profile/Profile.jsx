@@ -17,24 +17,26 @@ function Profile() {
         let url = accType === "child" ? "/children/profile" : "/guardians/profile"
         const fetchData = async () => {
             try {
-              const response = await fetch(`${process.env.REACT_APP_url}${url}`, {
-                method: 'GET',
-                credentials: 'include',
-              })
-              if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.status}`);
-              }
-              console.log("Profile fetched successfully")
-              const data = await response.json();
-              setInfo(JSON.parse(JSON.stringify(data)).profile)
+                const response = await fetch(`${process.env.REACT_APP_url}${url}`, {
+                    method: 'GET',
+                    credentials: 'include',
+                })
+                if (response.ok) {
+                    console.log("Profile fetched successfully")
+                    const data = await response.json();
+                    setInfo(JSON.parse(JSON.stringify(data)).profile)
+                } else {
+                    throw new Error(`Network response was not ok: ${response.status}`)
+                }
             } catch (err) {
                 console.error("Failed getting user's profile: ", err)
+                localStorage.clear()
                 navigate('/')
             }
-          }
-      
-          fetchData()
-    },[])
+        }
+
+        fetchData()
+    }, [])
 
     if (info !== null) {
         return (

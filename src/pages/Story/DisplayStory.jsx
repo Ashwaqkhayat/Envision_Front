@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-
-import { ConfigProvider, Button, Spin, Tour, Modal, Input, message } from 'antd'
+import { ConfigProvider, Button, Spin, Tour, Modal, Input, message, Carousel  } from 'antd'
 import {
     LeftOutlined, RightOutlined, CloseOutlined, HeartOutlined,
     HeartFilled, CloudFilled, CloudOutlined, LoadingOutlined,
@@ -16,11 +15,10 @@ import Page from './Page'
 
 // Delete later --------------------------------
 import Card from './Card'
-import cat from '../../assets/images/candy.jpg'
 
 function DisplayStory() {
     const navigate = useNavigate()
-    const auth = localStorage.getItem('user-info')
+    const auth = JSON.parse(localStorage.getItem('user-info'))
     const isStoryExist = localStorage.getItem('story')
 
     // Save & Fave buttons
@@ -29,6 +27,16 @@ function DisplayStory() {
 
     const [isFaved, setIsFaved] = useState(false)
     const [fave, setFave] = useState(<HeartOutlined />)
+
+    const [story, setStory] = useState(null) //state item to store fetched story
+    const [isLoading, setIsLoading] = useState(true) //Loading API fetching
+
+    //if there's no story in the local storage, redirect to main page
+    useEffect(() => {
+        if (isStoryExist === null) {
+            navigate('/')
+        }
+    }, [])
 
     // References to components
     const saveRef = useRef(null)
@@ -50,11 +58,11 @@ function DisplayStory() {
             content: text,
             duration: 5,
             style: {
-                fontSize:'18px',
+                fontSize: '18px',
                 justifyContent: 'center',
             },
-        });
-    };
+        })
+    }
 
     // Edit title modal
     const [title, setTitle] = useState("Story Title")
@@ -71,33 +79,29 @@ function DisplayStory() {
         setTitle(newTitle)
         setStory({ ...story, title: newTitle })
         try {
-            try {
-                if (isSaved) {
-                    const requestBody = {
-                        title: newTitle,
-                        id: story.id,
-                    }
-                    const requestOptions = {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(requestBody),
-                        credentials: 'include',
-                    }
-                    const response = await fetch(`${process.env.REACT_APP_url}/children/stories`, requestOptions)
-                    if (response.ok) {
-                        console.warn("Story title changed successfully.")
-                        popMsg('Title changed!', 'success')
-                    } else {
-                        console.error('Response recieved but is not ok: ', response.status)
-                        popMsg('Something went wrong :( Try again.', 'error')
-                    }
+            if (isSaved) {
+                const requestBody = {
+                    title: newTitle,
+                    id: story.id,
                 }
-            } catch (e) {
-                console.error('Error: ', error)
-                popMsg('Sorry we cannot change thr title now, try again later.', 'error')
+                const requestOptions = {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody),
+                    credentials: 'include',
+                }
+                const response = await fetch(`${process.env.REACT_APP_url}/children/stories`, requestOptions)
+                if (response.ok) {
+                    console.warn("Story title changed successfully.")
+                    popMsg('Title changed!', 'success')
+                } else {
+                    console.error('Response recieved but is not ok: ', response.status)
+                    popMsg('Something went wrong :( Try again.', 'error')
+                }
             }
         } catch (error) {
             console.error("Error in changing title: ", error)
+            popMsg('Sorry we cannot change the title now, try again later.', 'error')
         } finally {
             setIsModalOpen(false);
             document.querySelector('.changeTitle').value = ''
@@ -105,108 +109,7 @@ function DisplayStory() {
 
     }
 
-    // ======================= Flipping Book ==========================
-    // const prevBtn = useRef(null);
-    // const nextBtn = useRef(null);
-
-    // const book = useRef(null);
-    // const ppr1 = useRef(null);
-    // const ppr2 = useRef(null);
-    // const ppr3 = useRef(null);
-
-    // const storyTitle = useRef(null);
-    // const serv = useRef(null);
-
-    // const [currentPage, setCurrentPage] = useState(1);
-    // ===================== Flipping Book END =======================
-
-    const [story, setStory] = useState(null) //state item to store fetched story
-    const [isLoading, setIsLoading] = useState(true) //Loading API fetching
-
-    //if there's no story in the local storage, redirect to main page
-    useEffect(() => {
-        if (isStoryExist === null) {
-            navigate('/')
-        }
-    }, [])
-
-    // ======================= Flipping Book ==========================
-
-    // const [numOfPages, setNumOfPages] = useState(1)
-    // const [maxLocation, setMaxLocation] = useState(2)
-
-    // let numOfPages = 3;       /////////////// Must change (number of scenes + 2 cover and fin)
-    // let maxLocation = numOfPages + 1;
-
-    // function openBook() {
-    //     book.current.style.transform = "translateX(50%)"
-    //     prevBtn.current.style.transform = "translateX(-200px)"
-    //     nextBtn.current.style.transform = "translateX(200px)"
-    //     storyTitle.current.style.transform = "translateX(-11.3rem)"
-    //     { auth ? serv.current.style.transform = "translateX(11.3rem)" : null }
-    // }
-
-    // function closeBook(isAtBeginning) {
-    //     if (isAtBeginning) {
-    //         book.current.style.transform = "translateX(0)"
-    //     } else {
-    //         book.current.style.transform = "translateX(100%)"
-    //     }
-    //     prevBtn.current.style.transform = "translateX(0)"
-    //     nextBtn.current.style.transform = "translateX(0)"
-    //     storyTitle.current.style.transform = "translateX(0)"
-    //     { auth ? serv.current.style.transform = "translateX(0)" : null }
-    // }
-
-    // function nextPage() {
-    //     if (currentPage < maxLocation) {
-    //         switch (currentPage) {
-    //             case 1:
-    //                 openBook();
-    //                 ppr1.current.classList.add(s.flipped);
-    //                 ppr1.current.style.zIndex = 1;
-    //                 break;
-    //             case 2:
-    //                 ppr2.current.classList.add(s.flipped);
-    //                 ppr2.current.style.zIndex = 2;
-    //                 break;
-    //             case 3:
-    //                 ppr3.current.classList.add(s.flipped);
-    //                 ppr3.current.style.zIndex = 3;
-    //                 closeBook();
-    //                 break;
-    //             default:
-    //                 throw new Error("unknow state");
-    //         }
-    //         setCurrentPage(currentPage + 1);
-    //     }
-    // }
-
-    // function prevPage() {
-    //     if (currentPage > 1) {
-    //         switch (currentPage) {
-    //             case 2:
-    //                 closeBook(true);
-    //                 ppr1.current.classList.remove(s.flipped);
-    //                 ppr1.current.style.zIndex = 3;
-    //                 break;
-    //             case 3:
-    //                 ppr2.current.classList.remove(s.flipped);
-    //                 ppr2.current.style.zIndex = 2;
-    //                 break;
-    //             case 4:
-    //                 openBook();
-    //                 ppr3.current.classList.remove(s.flipped);
-    //                 ppr3.current.style.zIndex = 1;
-    //                 break;
-    //             default:
-    //                 throw new Error("unknow state");
-    //         }
-    //         setCurrentPage(currentPage - 1);
-    //     }
-    // }
-
-    // ===================== Flipping Book END =======================
+    
 
     // Load Story from local storage
     useEffect(() => {
@@ -314,6 +217,7 @@ function DisplayStory() {
             setOpen(true)
         } else {
             if (!isFaved) { //if not faved, add to favorite
+                setFave(<LoadingOutlined />)
                 try {
                     console.warn("Adding Story to Favorites...")
                     const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.id}`, {
@@ -337,6 +241,7 @@ function DisplayStory() {
             } else { // if faved, remove
                 console.warn("Removing Story from Favorites...")
                 try {
+                    setFave(<LoadingOutlined />)
                     const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.id}`, {
                         method: 'PUT',
                         headers: {
@@ -363,7 +268,7 @@ function DisplayStory() {
         try {
             console.warn("Playing Story Narration...")
             const response = await fetch(`${process.env.REACT_APP_url}/children/stories/narrate`, {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
@@ -382,6 +287,16 @@ function DisplayStory() {
         }
     }
 
+    // Carousel Component customization
+    const contentStyle = {
+        margin: 0,
+        height: '160px',
+        color: '#fff',
+        lineHeight: '160px',
+        textAlign: 'center',
+        background: '#364d79',
+      };
+
     if (story) {
         return (
             <>
@@ -394,7 +309,7 @@ function DisplayStory() {
                     {contextHolder}
                     <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
                     <Modal title="Edit Title" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                        <Input className="changeTitle" placeholder="Enter new title here" />
+                        <Input size='large' className="changeTitle" placeholder="Enter new title here" />
                     </Modal>
                 </ConfigProvider>
                 <div className={s.body}>
@@ -420,7 +335,7 @@ function DisplayStory() {
                                             <h2>{`#Scenes: ${story.scenesNum}`}</h2>
                                         </div>
 
-                                        {auth &&
+                                        {auth && auth.userType === "child" &&
                                             <div className={s.buttons}>
                                                 <Button ref={saveRef} onClick={handleSave} size='large' icon={save}></Button>
                                                 <Button onClick={handleFave} size='large' icon={fave}></Button>

@@ -11,13 +11,24 @@ function AddChild() {
     const [isLoading, setIsLoading] = useState(false) //Loading indicator
     const navigate = useNavigate() //Navigate to prev window after adding
     const [messageApi, contextHolder] = message.useMessage() //Popup messages
+    const popMsg = (text, type) => {
+        messageApi.open({
+            type: type,
+            content: text,
+            duration: 5,
+            style: {
+                fontSize: '18px',
+                justifyContent: 'center',
+            },
+        })
+    }
 
-    const onFinish = async (values) => { // When form is submitted
+    const addChild = async (values) => { // When form is submitted
         try {
             setIsLoading(true)
             const requestBody = {
                 email: values.email,
-                favorite_color: values.favorite_color, 
+                favorite_color: values.favorite_color,
                 birth_date: values.birthdate,
                 relation: values.occupation,
             }
@@ -32,18 +43,29 @@ function AddChild() {
                 credentials: 'include',
                 body: JSON.stringify(requestBody),
             })
-            if (!response.ok) {
-                throw new Error(`Error in sending HTTP request: ${response.status}`);
+            const data = await response.json()
+
+            if (response.ok) {
+                console.log("> Child added successfully")
+                setIsLoading(false)
+                popMsg('Child added successfully!', 'success')
+                setTimeout(() => {
+                    navigate('/profile')
+                }, 1300)
+            } else if (response.status == 404) {
+                console.error(response.status, data.error)
+                setIsLoading(false)
+                popMsg(data.error, 'error')
+            } else if (response.status == 401) {
+                // 401 means token isn't there
+                localStorage.clear()
+            } else {
+                console.error(`Error in sending HTTP request: ${response.status}`)
+                setIsLoading(false)
             }
-            console.log("> Child added successfully")
-            const data = await response.json(); //Data is an array
-            setIsLoading(false)
-            console.log("Recieved data: ", data) //Remove Later =======================
-            setTimeout(() => {
-                navigate('/profile')
-            }, 1200);
         } catch (err) {
-            console.error("Failed adding child: ", err)
+            console.error("Failed adding child, ", err)
+            popMsg('Something went wrong, try again later.')
             setIsLoading(false)
         }
     }
@@ -54,7 +76,7 @@ function AddChild() {
                 <Navbar />
                 {contextHolder}
                 <div className={s.content}>
-                    <Form onFinish={onFinish}>
+                    <Form onFinish={addChild}>
                         <ConfigProvider //change color theme
                             theme={{
                                 token: {
@@ -80,7 +102,7 @@ function AddChild() {
                                             />
 
                                             <Form.Item name={'email'} rules={[{
-                                                required: true, type: 'email', message:'Please enter the email address'
+                                                required: true, type: 'email', message: 'Please enter the email address'
                                             }]}>
                                                 <Input
                                                     size="large"
@@ -97,8 +119,10 @@ function AddChild() {
                                             />
 
                                             {/* <Space className={s.input_bdate} direction="vertical"> */}
-                                            <Form.Item className={s.input_bdate} name={'birthdate'} rules={[{ required: true,
-                                            message:'Please enter the birthdate' }]}>
+                                            <Form.Item className={s.input_bdate} name={'birthdate'} rules={[{
+                                                required: true,
+                                                message: 'Please enter the birthdate'
+                                            }]}>
                                                 <DatePicker className={s.input_bdate} size="large" />
                                             </Form.Item>
                                             {/* </Space> */}
@@ -110,8 +134,10 @@ function AddChild() {
                                                 popMsg="Is it Red? Blue? Green, Yellow, Pink, or Purple?"
                                             />
 
-                                            <Form.Item name={'favorite_color'} rules={[{ required: true,
-                                            message:'Please enter the favorite color' }]}>
+                                            <Form.Item name={'favorite_color'} rules={[{
+                                                required: true,
+                                                message: 'Please enter the favorite color'
+                                            }]}>
                                                 <Input size="large" placeholder="Blue" />
                                             </Form.Item>
                                         </div>
@@ -122,8 +148,10 @@ function AddChild() {
                                                 popMsg="Please choose your role based on your relationship with the child"
                                             />
 
-                                            <Form.Item name={'occupation'} rules={[{ required: true,
-                                            message: 'Please choose your occupation' }]}>
+                                            <Form.Item name={'occupation'} rules={[{
+                                                required: true,
+                                                message: 'Please choose your occupation'
+                                            }]}>
                                                 <Radio.Group size="large">
                                                     <Radio.Button value="relative">Relative</Radio.Button>
                                                     <Radio.Button value="teacher">Teacher</Radio.Button>
