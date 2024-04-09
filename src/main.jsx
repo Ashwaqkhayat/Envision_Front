@@ -14,6 +14,7 @@ import Library from './pages/Library/Library.jsx'
 import Profile from './pages/Profile/Profile.jsx'
 import AddChildForm from './pages/Add Child/AddChildForm.jsx'
 import ViewChild from './pages/Profile/Guardian/ViewChild.jsx'
+import EditProfile from './pages/Edit Profile/EditProfile.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import Protected from './components/Protected Routes/Protected.jsx'
 
@@ -62,13 +63,16 @@ const router = createBrowserRouter([
   },
   {
     path: '/ViewChild',
-    element: <ViewChild /> //Delete later =================
+    element: <Protected Comp={ViewChild} />
+  },
+  {
+    path: '/Editprofile',
+    element: <Protected Comp={EditProfile} />
   },
   {
     path: '/test',
     element: <Test /> //Delete later =================
   },
-
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ConfigProvider, Button, Spin, Tour, Modal, Input, message, Carousel  } from 'antd'
+import { ConfigProvider, Button, Spin, Tour, Modal, Input, message, Carousel } from 'antd'
 import {
     LeftOutlined, RightOutlined, CloseOutlined, HeartOutlined,
     HeartFilled, CloudFilled, CloudOutlined, LoadingOutlined,
@@ -109,7 +109,7 @@ function DisplayStory() {
 
     }
 
-    
+
 
     // Load Story from local storage
     useEffect(() => {
@@ -295,7 +295,7 @@ function DisplayStory() {
         lineHeight: '160px',
         textAlign: 'center',
         background: '#364d79',
-      };
+    };
 
     if (story) {
         return (
@@ -330,7 +330,9 @@ function DisplayStory() {
                                     <div className={s.header}>
                                         <div className={s.titles}>
                                             <h1>{`Story title: ${title}`}</h1>
-                                            <Button onClick={showModal} icon={<EditOutlined />} size='large' />
+                                            {auth.userType === "child" &&
+                                                <Button onClick={showModal} icon={<EditOutlined />} size='large' />
+                                            }
                                             <Button onClick={playNarration} icon={<SoundOutlined />} size='large' />
                                             <h2>{`#Scenes: ${story.scenesNum}`}</h2>
                                         </div>

@@ -1,0 +1,109 @@
+.body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.center_flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content{
+    flex: 1;
+    overflow: hidden;
+    margin-bottom: 70px;
+}
+
+.wrapper{
+    background-color: white;
+    width: 700px;
+    max-width: 800px;
+    /* min-height: 606px; */
+    min-height: 550px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    overflow: hidden;
+    border-radius: 6px;
+    align-items: start;
+}
+
+/* =========== Left Side =========== */
+ 
+.leftMenu{
+    /* background-color: #F4F4F4; */
+    padding: 2rem 0rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.avatar{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.avatar img{
+    margin-bottom: 1rem;
+}
+
+/* =========== Righ Side =========== */
+
+.rightContent{
+    background-color: white;
+    height: 100%;
+    padding: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.header h2{
+    font-size: 18pt;
+    color: #8993ED;
+}
+
+.bodyInputs{
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.columnInputs{
+    display: flex;
+    gap: 20px;
+}
+
+.radioBtn{
+    padding: 0rem 1.03rem;
+}
+
+.appearance {
+    margin-bottom: 50px;
+}
+
+.appearance h3, .accDelete h3, .accDelete .warning{
+    margin-bottom: 1rem;
+}
+
+.appearance p, .accDelete p{
+    margin-bottom: 8px;
+}
+
+.accDelete > p > span{
+    color:#E48D8D;
+    font-weight: bold;
+}
+
+.passInput{
+    margin-bottom: 15px;
+}

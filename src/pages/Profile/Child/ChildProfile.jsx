@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import s from './ChildProfile_style.module.css'
+import { useNavigate } from 'react-router-dom'
 import Guardian from './GuardianInfo'
 import { Button, Tooltip, Spin, Empty, message } from 'antd'
 import { SettingOutlined } from '@ant-design/icons'
@@ -8,6 +9,7 @@ import userIcon from '../../../assets/images/pfp.png'
 
 function ChildProfile(props) {
     const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate()
 
     // Notification Messages
     const [messageApi, contextHolder] = message.useMessage()
@@ -128,7 +130,11 @@ function ChildProfile(props) {
                             <div className={s.info_header}>
                                 <h2>My Information</h2>
                                 <Tooltip title="Settings">
-                                    <Button style={{ borderColor: "#8993ED" }} icon={<SettingOutlined style={{ color: "#8993ED" }} />} href="#" />
+                                    <Button 
+                                    style={{ borderColor: "#8993ED" }} 
+                                    icon={<SettingOutlined 
+                                    style={{ color: "#8993ED" }} />} 
+                                    onClick={() => {navigate('/EditProfile')}} />
                                 </Tooltip>
                             </div>
                             <div className={s.info_main}>
