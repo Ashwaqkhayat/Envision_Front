@@ -30,8 +30,6 @@ function Profile() {
                 }
             } catch (err) {
                 console.error("Failed getting user's profile: ", err)
-                localStorage.clear()
-                navigate('/')
             }
         }
 

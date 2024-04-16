@@ -51,6 +51,7 @@ function SignupMain({onFinish, initialValues}) {
                         required:true }]}>
                         <Input.Password
                             size="large"
+                            maxLength={10}
                             placeholder="Password"
                         />
                     </Form.Item>

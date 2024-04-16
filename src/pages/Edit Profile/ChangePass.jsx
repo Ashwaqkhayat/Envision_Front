@@ -1,67 +1,159 @@
 import React, { useState } from 'react'
 import s from './EditProfile_style.module.css'
-import { ConfigProvider, Button, Form, Input} from 'antd'
+import ChangePassForm from './ChangePassForm'
+import OTP from './OTP'
+import { ConfigProvider, message, Spin } from 'antd'
 
 function ChangePass(props) {
     let menuSelection = props.menuSelection
+    let accountType = props.accType
+    const [isLoading, setIsLoading] = useState(false)
+    const [isOTPLoading, setIsOTPLoading] = useState(false)
+    const [showVerify, setShowVerify] = useState(false)
 
-    // ChangePass Form things
-    const [form] = Form.useForm();
-    const onFinish = (values) => {
-        console.log('Success:', values);
+    // Messages 
+    const [messageApi, contextHolder] = message.useMessage()
+    const popMsg = (text, type) => {
+        messageApi.open({
+            type: type,
+            content: text,
+            duration: 5,
+            style: {
+                fontSize: '18px',
+                justifyContent: 'center',
+            },
+        })
+    }
+
+    const [newPassword, setNewPassword] = useState(null)
+
+    // ========== DONE =============
+    function onFinishForm(values) {
+        // 0. set new password state
+        // 1. Request OTP API
+        // 2. on OK, show OTP form using setShowVerify(true)
+
+        setNewPassword(values.password)
+
+        const requestOTP = async () => {
+            console.log("Requesting OTP...")
+            setIsLoading(true)
+            try {
+                const response = await fetch(`${process.env.REACT_APP_url}/request-otp`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json', },
+                    credentials: 'include',
+                })
+                const data = await response.json()
+
+                if (response.ok) {
+                    console.log("OTP Sent Successfully")
+                    setShowVerify(true)
+                } else {
+                    console.error(`Network response was not ok: ${response.status}`)
+                    popMsg(data.error, 'error')
+                }
+            } catch (err) {
+                console.error("Failed requesting OTP, ", err)
+                popMsg('Something went wrong, try again later.', 'error')
+            } finally {
+                setIsLoading(false)
+            }
+        }
+        requestOTP()
+    }
+
+    // ========== ERROR =============
+    function onFinishOTP(code) {
+        // 1. Verify OTP
+        // 2. on OK, call changePassword API
+
+        console.log("Entered OTP: ", parseInt(code.otp))
+        const requestBody = {
+            otp: parseInt(code.otp)
+        }
+        console.log("reqBody: ", requestBody)
+
+        const verifyOTP = async () => {
+            console.log("Verifying OTP...")
+            setIsOTPLoading(true)
+
+            try {
+                const response = await fetch(`${process.env.REACT_APP_url}/verify_otp`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+                    credentials: 'include',
+                    body: ({ otp: parseInt(code.otp) }),
+                })
+                const data = await response.json()
+                if (response.ok) {
+                    console.log(data.message)
+                    changePass(newPassword)
+                } else {
+                    console.error(`Network response was not ok: ${response.status} ${data.error}`)
+                    popMsg(data.error, 'error')
+                }
+            } catch (err) {
+                console.error("Failed: ", err)
+                popMsg('Something went wrong, try again later', 'error')
+            } finally {
+                setIsOTPLoading(false)
+            }
+        }
+        verifyOTP()
+
+    }
+
+    // on OK, hide OTP form using setShowVerify(false)
+    async function changePass(pass) {
+        let url = accountType == "child" ? "/children/password " : "/guardians/password"
+        setIsLoading(true)
+        const fetchData = async () => {
+            console.log("Changing Password...")
+            try {
+                const response = await fetch(`${process.env.REACT_APP_url}${url}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ password: pass }),
+                })
+                const data = await response.json()
+                if (response.ok) {
+                    console.log("Password changed successfully")
+                    setIsLoading(false)
+                    popMsg('Password changed successfully!', 'success')
+                    setTimeout(() => {
+                        setShowVerify(false)
+                    }, 1300)
+                } else {
+                    console.error(`Network response was not ok: ${response.status}`)
+                    setIsLoading(false)
+                    popMsg('Password change failed', 'error')
+                }
+            } catch (err) {
+                console.error("Failed: ", err)
+                popMsg('Something went wrong, try again later', 'error')
+                setIsLoading(false)
+                window.location.reload(false)
+            }
+        }
+        fetchData()
     }
 
     return (
         <>
             <ConfigProvider theme={{ token: { colorPrimary: '#8993ED' }, }}>
-                <Form
-                    form={form}
-                    onFinish={onFinish}
-                    name="changePassword"
-                    layout="vertical"
-                    initialValues={{ remember: true, }}
-                >
-                    <div className={s.header}>
-                        <h2>{menuSelection}</h2>
-                        <Button htmlType="submit" size='large' type='primary'>Save</Button>
-                    </div>
-
-                    <div className={s.bodyInputs}>
-                        <Form.Item
-                            label="Current Password"
-                            name="current_password"
-                            rules={[{ required: true, },]}
-                        >
-                            <Input.Password size='large' placeholder='Enter current password' />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="New Password"
-                            name="password"
-                            rules={[{ required: true, },]}
-                        >
-                            <Input.Password size='large' placeholder='Enter new password' />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Confirm Password"
-                            name="password2"
-                            dependencies={['password']}
-                            rules={[{ required: true, },
-                            ({ getFieldValue }) => ({
-                                validator(_, value) {
-                                    if (!value || getFieldValue('password') === value) {
-                                        return Promise.resolve();
-                                    }
-                                    return Promise.reject(new Error('The new password that you entered do not match!'));
-                                },
-                            }),
-                            ]}
-                        >
-                            <Input.Password size='large' placeholder='Confirm password' />
-                        </Form.Item>
-                    </div>
-                </Form>
+                {contextHolder}
+                <Spin size='large' spinning={isLoading} className={s.formCont}>
+                    {!showVerify ?
+                        <ChangePassForm onFinish={onFinishForm} menuSelection={menuSelection} />
+                        :
+                        <OTP onFinish={onFinishOTP} isLoading={isOTPLoading} menuSelection={menuSelection} />
+                    }
+                </Spin>
             </ConfigProvider>
         </>
     )

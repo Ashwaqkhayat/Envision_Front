@@ -18,7 +18,7 @@
 
 ###
 
-<h1 align="left">Tools & Languages</h1>
+<h1 align="left">Used Tools</h1>
 
 ###
 

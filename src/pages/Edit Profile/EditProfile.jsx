@@ -2,15 +2,18 @@ import React, { useState } from 'react'
 import s from './EditProfile_style.module.css'
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
-import MainInfo from './MainInfo'
+import MainInfoChild from './MainInfoChild'
+import MainInfoGuard from './MainInfoGuard'
 import ChangePass from './ChangePass'
 import Settings from './Settings'
-import { ConfigProvider, Menu} from 'antd'
+import { ConfigProvider, Menu } from 'antd'
 import userIcon from '../../assets/images/pfp.png'
 
 function EditProfile() {
     // Menu
     const [menuSelection, setMenuSelection] = useState('Edit Profile')
+    // Check user type
+    const accType = JSON.parse(window.localStorage.getItem("user-info")).userType
 
     return (
         <>
@@ -35,7 +38,7 @@ function EditProfile() {
                         }}>
                             <div className={s.leftMenu}>
                                 <div className={`${s.avatar} ${s.center_flex}`}>
-                                    <img src={userIcon} alt="Profile Picture" />
+                                    {accType == "child" && <img src={userIcon} alt="Profile Picture" /> }
                                     <h2>Ashwaq</h2>
                                     <p>@Ashwaqkhayat</p>
                                 </div>
@@ -53,12 +56,10 @@ function EditProfile() {
                                 </div>
                             </div>
                             <div className={s.rightContent}>
-                                {menuSelection=="Edit Profile" ?
-                                <MainInfo menuSelection={menuSelection}/>
-                                : menuSelection=="Change Password" ?
-                                <ChangePass menuSelection={menuSelection}/>
-                                :
-                                <Settings menuSelection={menuSelection}/>
+                                {menuSelection == "Edit Profile" ?
+                                    accType == "child" ? <MainInfoChild menuSelection={menuSelection} /> : <MainInfoGuard menuSelection={menuSelection} />
+                                : menuSelection == "Change Password" ? <ChangePass menuSelection={menuSelection} accType={accType} />
+                                : <Settings menuSelection={menuSelection} accType={accType} />
                                 }
                             </div>
                         </ConfigProvider>

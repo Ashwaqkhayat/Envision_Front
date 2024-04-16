@@ -31,6 +31,11 @@ function SignupForm() {
         messageApi.open({
             type: type,
             content: msg,
+            duration: 5,
+            style: {
+                fontSize: '18px',
+                justifyContent: 'center',
+            },
         })
     }
 
@@ -68,15 +73,14 @@ function SignupForm() {
     async function signupGuard(vals) {
         setIsLoading(true)
         const requestBody = {
-            email: mainInfo.email,
+            email: mainInfo.email.toLowerCase(),
             first_name: vals.first_name,
             last_name: vals.last_name,
             age: vals.age,
             password: mainInfo.password,
-            phone: "" + vals.phone_code + vals.phone_number
+            // phone: "" + vals.phone_code + vals.phone_number        <-- Future use
+            phone: "+966" + vals.phone_number
         }
-
-        console.warn(requestBody.phone)
 
         // Display loading message while fetching data
         info('Loading', 'loading')
@@ -89,24 +93,18 @@ function SignupForm() {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(requestBody)
+                    body: JSON.stringify(requestBody),
+                    credentials: 'include'
                 })
+                const data = await response.json()
 
                 if (response.ok) {
-                    const data = await response.json()
                     localStorage.setItem("user-info", JSON.stringify(data))
-                    console.log('Sign up successful:', data)
+                    console.log('Sign up successful')
                     setIsLoading(false) // Hide loading message
-
-                    setTimeout(() => {
-                        navigate('/')
-                    }, 1500);
-
-                } else if (response.status === 409) {
-                    info('Email is already used, try another one!', 'warning')
-                    setIsLoading(false)
+                    setTimeout(() => { navigate('/') }, 1500);
                 } else {
-                    info('Sign up failed', 'error')
+                    info(data.error, 'error')
                     setIsLoading(false)
                 }
             } catch (error) {
@@ -121,13 +119,12 @@ function SignupForm() {
     async function signupChild(vals) {
         setIsLoading(true)
         const requestBody = {
-            email: mainInfo.email,
+            email: mainInfo.email.toLowerCase(),
             first_name: childInfo.first_name,
             last_name: childInfo.last_name,
-            age: childInfo.age,
             password: mainInfo.password,
             gender: childInfo.gender,
-            favorite_color: vals.faveColor,
+            favorite_color: vals.faveColor.toLowerCase(),
             birth_date: vals.birth_date.$d
         };
 
@@ -146,25 +143,22 @@ function SignupForm() {
                     body: JSON.stringify(requestBody),
                     credentials: 'include'
                 })
+                const data = await response.json()
 
                 if (response.ok) {
-                    const data = await response.json()
-                    localStorage.setItem("user-info", JSON.stringify(data))
                     console.log('Sign up successful:', data)
                     setIsLoading(false) // Hide loading message
+                    localStorage.setItem("user-info", JSON.stringify(data))
+                    setTimeout(() => { navigate('/') }, 2000);
 
-                    setTimeout(() => {
-                        navigate('/')
-                    }, 2000);
-
-                } else if (response.status === 409) {
-                    info('Email is already used, try another one!', 'warning')
                 } else {
-                    info('Sign up failed', 'error')
+                    info(data.error, 'error')
+                    setIsLoading(false)
                 }
             } catch (error) {
                 console.error('Error during sign up:', error)
                 info('An error occurred. Please try again later.', 'error')
+                setIsLoading(false)
             }
         }
         fetchData()

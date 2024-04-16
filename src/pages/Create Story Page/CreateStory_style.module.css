@@ -5,85 +5,58 @@
     align-items: center;
 }
 
-.content {
-    flex: 1;  /* Occupies remaining space */
+.center_flex{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.content {
+    flex: 1;
     margin-top: -80px;
     padding-top: 3rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 .wrapper{
-    width: 495px;
-    height: auto;
+    width: 510px;
     background: white;
     border-radius: 10px;
-    padding: 50px;
+    padding: 3rem;
     position: relative;
     margin-bottom: 50px;
-
-    .prog_bar{
-        position: relative;
-        top: -20px;
-    }
-
-    .cancel_btn{
-        color: #8993ED;
-        text-decoration: none;
-    }
-
-    h1{
-        font-size: 2.6rem;
-        font-weight: bolder;
-        color: #81C3B4;
-    }
-
-    .input_box{
-        margin-top: 1.25rem;
-    }
-    
-    .radio_group{
-        width: 100%;
-    }
-
-    .gender_btns{
-        width: 50%;
-    }
-    .emotion_btns{
-        width: 25%;
-    }
 }
 
-.bottom_part{
+.form_changer{
+    position: absolute;
+    z-index: 1;
+    top: 20rem;
+    right: -40%;
+}
+
+.column{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin-top: 0.5rem;
-
-    p{
-        margin-top: 10px;
-        color: #494C4C;
-    }
-
-    .text_highlight{
-        text-decoration: none;
-        color: #8993ED;
-        font-weight: 600;
-    }
-
-    .text_highlight:hover{
-        text-decoration: underline;
-    }
+    margin-bottom: 20px;
 }
 
-.text_area{
-    position: relative;
+.header h1{
+    font-size: 2rem;
+    color: #8EC3B7;
 }
+
+/* ======= Description Form Styles ======= */
 .autoG_btn{
     position: relative;
-    bottom: 54px;
+    bottom: 43px;
     left: 8px;
     z-index: 1;
     color: #62939F;
@@ -101,28 +74,4 @@
 .autoG_btn:active{
     color: #62939F;
     background-color: #aacbd3;
-}
-.content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.content > h2{
-    font-size: 30pt;
-    color: #81C3B4;
-    text-align: center;
-    margin-bottom: 3rem;
-}
-.prog_circle{
-    margin-bottom: 3rem;
-}
-.storyCancel{
-    width: 50%;
-}
-
-.spinner{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

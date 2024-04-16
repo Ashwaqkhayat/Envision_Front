@@ -55,8 +55,8 @@ function ChildProfile(props) {
             .then((res) => res.json())
             .then((data) => {
                 console.log("Logged Out Successfully", data)
-                localStorage.clear();
-                window.location.reload(false);
+                localStorage.clear()
+                window.location.reload(false)
             })
             .catch((err) => {
                 console.error("Error signing out: ", err)

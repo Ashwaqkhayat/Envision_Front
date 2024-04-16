@@ -7,7 +7,7 @@ import './index.css'
 // import pages
 import SignupForm from './pages/Signup Page/SignupForm.jsx'
 import SigninForm from './pages/Signin Page/SigninForm.jsx'
-import CreateStoryForm  from './pages/Create Story Page/CreateStoryForm.jsx'
+import CreateStory  from './pages/Create Story Page/CreateStory.jsx'
 import DisplayStory  from './pages/Story/DisplayStory.jsx'
 import Contact  from './pages/Contact/Contact.jsx'
 import Library from './pages/Library/Library.jsx'
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/CreateStory',
-    element: <CreateStoryForm />
+    element: <CreateStory />
   },
   {
     path: '/Story',

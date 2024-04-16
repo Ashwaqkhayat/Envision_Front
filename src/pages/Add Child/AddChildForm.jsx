@@ -4,7 +4,7 @@ import Label from "../../components/Label/Label"
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import { Link, useNavigate } from "react-router-dom";
-import { ConfigProvider, Input, Form, Button, message, Spin, Space, DatePicker, Flex, Radio } from 'antd';
+import { ConfigProvider, Input, Form, Button, message, Spin, DatePicker, Radio } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
 
 function AddChild() {
@@ -28,7 +28,7 @@ function AddChild() {
             setIsLoading(true)
             const requestBody = {
                 email: values.email,
-                favorite_color: values.favorite_color,
+                favorite_color: values.favorite_color.toLowerCase(),
                 birth_date: values.birthdate,
                 relation: values.occupation,
             }

@@ -91,12 +91,30 @@
     margin-bottom: 50px;
 }
 
-.appearance h3, .accDelete h3, .accDelete .warning{
+.appearance h3, .accDelete h3, .otp h3, .accDelete .warning{
+    margin-bottom: 1rem;
+    color: #494C4C;
+    font-size: 18.79px;
+}
+
+.appearance p, .accDelete p, .otp p{
+    margin-bottom: 8px;
+    color: #494C4C;
+    font-size: 16px;
+}
+
+.otp p{
     margin-bottom: 1rem;
 }
 
-.appearance p, .accDelete p{
-    margin-bottom: 8px;
+.resend{
+    color: #494C4C;
+}
+
+.resend .resend_btn{
+    font-weight: 600;
+    text-decoration: none;
+    color: #8993ED;
 }
 
 .accDelete > p > span{
@@ -106,4 +124,9 @@
 
 .passInput{
     margin-bottom: 15px;
+}
+
+.formCont{
+    flex: 1;
+    height: 100%;
 }

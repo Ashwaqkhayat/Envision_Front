@@ -1,0 +1,8 @@
+.slide_in{
+    /* background-color: red; */
+    margin-right: 500%;
+    opacity: 0;
+    transition-property: margin-right, opacity;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+}

@@ -2,31 +2,13 @@ import React, { useEffect, useState } from "react"
 import s from './GuardianProfile_style.module.css'
 import Child from './ChildInfo'
 import { Button, Tooltip, message, Empty, Modal, Form, Input } from 'antd';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 import { SettingOutlined, PlusOutlined } from '@ant-design/icons'
 import InfiniteScroll from "react-infinite-scroll-component"
 
 function GuardianProfile(props) {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
-
-    // Modal Variables
-    const [open, setOpen] = useState(false)
-    const [confirmLoading, setConfirmLoading] = useState(false)
-    const showModal = () => {
-        setOpen(true);
-    }
-    const handleOk = async () => {
-        setConfirmLoading(true)
-        setTimeout(() => {
-            setOpen(false)
-            setConfirmLoading(false)
-        }, 3000)
-    }
-
-    const handleCancel = () => {
-        setOpen(false)
-    }
 
     // Get info
     let info = props.info
@@ -104,41 +86,6 @@ function GuardianProfile(props) {
     if (children !== null) { //Display profile only when everything is fetched..
         return (
             <>
-                <Modal
-                    title="Settings"
-                    open={open}
-                    onOk={handleOk}
-                    // confirmLoading={confirmLoading}
-                    onCancel={handleCancel}
-                >
-                    <Form>
-                        <Form.Item
-                            label="Username"
-                            name="username"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your username!',
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Password"
-                            name="password"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your password!',
-                                },
-                            ]}
-                        >
-                            <Input.Password />
-                        </Form.Item>
-                    </Form>
-                </Modal>
                 {contextHolder}
                 <div className={`${s.profile_header} ${s.center_flex}`}>
                     <h2>Welcome {Fname} !</h2>
@@ -181,9 +128,8 @@ function GuardianProfile(props) {
                             <Tooltip title="Settings">
                                 <Button
                                     style={{ borderColor: "#8993ED" }}
-                                    icon={<SettingOutlined
-                                        style={{ color: "#8993ED" }} />}
-                                    onClick={showModal}
+                                    icon={<SettingOutlined style={{ color: "#8993ED" }} />}
+                                    onClick={() => { navigate('/EditProfile') }}
                                 />
                             </Tooltip>
                         </div>

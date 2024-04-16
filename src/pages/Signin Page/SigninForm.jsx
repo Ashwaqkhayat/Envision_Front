@@ -25,6 +25,10 @@ function SigninForm() {
             type: type,
             content: msg,
             duration: 3.5,
+            style: {
+                fontSize: '18px',
+                justifyContent: 'center',
+            },
         })
     }
 
@@ -36,9 +40,10 @@ function SigninForm() {
         setIsLoading(true)
 
         const requestBody = {
-            email,
-            password
-        };
+            // email: email.toLowerCase(),         <-- SAVE LATER
+            email: email,
+            password: password,
+        }
         // Use fetch to send the POST request to the API
         try {
             const response = await fetch(`${process.env.REACT_APP_url}/login`, {
@@ -54,12 +59,11 @@ function SigninForm() {
             if (response.ok) {
                 setIsLoading(false)
                 localStorage.setItem("user-info", JSON.stringify(data))
-                //console.log('Sign in successful', response.headers.get('Authorization').split(' ')[1])
                 info('Successful Login', 'success')
 
                 setTimeout(() => {
                     navigate(-1)
-                }, 1200);
+                }, 1300);
 
             } else {
                 console.error('Sign in failed:', data.error);
