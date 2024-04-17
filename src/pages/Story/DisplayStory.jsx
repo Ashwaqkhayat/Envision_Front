@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react'
+import React, { useRef, createRef, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ConfigProvider, Button, Spin, Tour, Modal, Input, message, Carousel } from 'antd'
 import {
@@ -11,12 +11,77 @@ import s from './Story_style.module.css'
 // importing components
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
-import Page from './Page'
 
 // Delete later --------------------------------
+import tempData from './data.json'
 import Card from './Card'
 
 function DisplayStory() {
+    //                                                      <-- Delete later 
+    const data = tempData.data
+    console.log(data)
+
+    // Slider refs
+    const itemRef = useRef(null)
+    const sliderRef = useRef(null)
+    const nextRef = useRef(null)
+    const prevRef = useRef(null)
+
+    const storeElements = useRef([]);
+    const handleElementRef = (element) => {
+        storeElements.current.push(element);
+    };
+
+    let items = document.querySelectorAll('.slider .item')
+    let next = document.getElementById('next')
+    let prev = document.getElementById('prev')
+
+    function handleClick() {
+        storeElements.current.forEach((element) => {
+            if (element) {
+                element.style.color = 'black'; // Change to your desired color
+            }
+        });
+    }
+
+    let active = 3
+    useEffect(() => {
+        function loadShow() {
+            storeElements.current[active].style.transform = `none`;
+            storeElements.current[active].style.zIndex = 1;
+            storeElements.current[active].style.filter = 'none';
+            storeElements.current[active].style.opacity = 1;
+            // show after
+            let stt = 0;
+            for (var i = active + 1; i < storeElements.current.length; i++) {
+                stt++;
+                storeElements.current[i].style.transform = `translateX(${120 * stt}px) scale(${1 - 0.2 * stt}) perspective(16px) rotateY(-1deg)`;
+                storeElements.current[i].style.zIndex = `${-stt}`;
+                storeElements.current[i].style.filter = 'blur(5px)';
+                storeElements.current[i].style.opacity = `${stt} > 2 ? 0 : 0.6`;
+            }
+            stt = 0;
+            for (var i = (active - 1); i >= 0; i--) {
+                stt++;
+                storeElements.current[i].style.transform = `translateX(${-120 * stt}px) scale(${1 - 0.2 * stt}) perspective(16px) rotateY(1deg)`;
+                storeElements.current[i].style.zIndex = `${-stt}`;
+                storeElements.current[i].style.filter = 'blur(5px)';
+                storeElements.current[i].style.opacity = `${stt} > 2 ? 0 : 0.6`;
+            }
+        }
+        loadShow()
+    }, [active])
+
+    function handleNext(){
+        active = active + 1 < storeElements.current.length ?  active + 1 : active;
+        loadShow();
+     }
+    function handlePrev(){
+         active = active - 1 >= 0 ? active -1 : active;
+         loadShow();
+     }
+
+
     const navigate = useNavigate()
     const auth = JSON.parse(localStorage.getItem('user-info'))
     const isStoryExist = localStorage.getItem('story')
@@ -31,12 +96,12 @@ function DisplayStory() {
     const [story, setStory] = useState(null) //state item to store fetched story
     const [isLoading, setIsLoading] = useState(true) //Loading API fetching
 
-    //if there's no story in the local storage, redirect to main page
-    useEffect(() => {
-        if (isStoryExist === null) {
-            navigate('/')
-        }
-    }, [])
+    //if there's no story in the local storage, redirect to main page         <-- Restore later
+    // useEffect(() => {
+    //     if (isStoryExist === null) {
+    //         navigate('/')
+    //     }
+    // }, [])
 
     // References to components
     const saveRef = useRef(null)
@@ -110,43 +175,42 @@ function DisplayStory() {
     }
 
 
+    // Load Story from local storage                        <-- Restore later
+    // useEffect(() => {
+    //     setIsLoading(true) //Loading page content to be fetched
+    //     const story_data = JSON.parse(localStorage.getItem('story'))
+    //     //console.warn("Recieved Data: ", story_data)
+    //     const setData = async () => {
+    //         setStory({
+    //             title: story_data.title,
+    //             language: story_data.language,
+    //             prompt: story_data.prompt,
+    //             start_time: story_data.start_time,
+    //             end_time: story_data.end_time,
+    //             story_text: story_data.story_text,
+    //             story_images: story_data.story_images,
+    //             is_favorite: story_data.is_favorite,
+    //             is_saved: story_data.is_saved,
+    //             scenesNum: story_data.story_text.length,
+    //             id: story_data.id,
+    //         })
+    //         setIsSaved(story_data.is_saved)
+    //         setSave(story_data.is_saved ? <CloudFilled /> : <CloudOutlined />)
 
-    // Load Story from local storage
-    useEffect(() => {
-        setIsLoading(true) //Loading page content to be fetched
-        const story_data = JSON.parse(localStorage.getItem('story'))
-        //console.warn("Recieved Data: ", story_data)
-        const setData = async () => {
-            setStory({
-                title: story_data.title,
-                language: story_data.language,
-                prompt: story_data.prompt,
-                start_time: story_data.start_time,
-                end_time: story_data.end_time,
-                story_text: story_data.story_text,
-                story_images: story_data.story_images,
-                is_favorite: story_data.is_favorite,
-                is_saved: story_data.is_saved,
-                scenesNum: story_data.story_text.length,
-                id: story_data.id,
-            })
-            setIsSaved(story_data.is_saved)
-            setSave(story_data.is_saved ? <CloudFilled /> : <CloudOutlined />)
+    //         setIsFaved(story_data.is_favorite)
+    //         setFave(story_data.is_favorite ? <HeartFilled /> : <HeartOutlined />)
 
-            setIsFaved(story_data.is_favorite)
-            setFave(story_data.is_favorite ? <HeartFilled /> : <HeartOutlined />)
+    //         setTitle(story_data.title)
 
-            setTitle(story_data.title)
+    //         setIsLoading(false) //When data is fetched, set loading to false
+    //     }
 
-            setIsLoading(false) //When data is fetched, set loading to false
-        }
+    //     setData()
+    // }, []);
 
-        setData()
-    }, []);
-
-    function displayBase64Images(img) {
-        return `data:image/jpeg;base64,${img}`
-    }
+    // function displayBase64Images(img) {
+    //     return `data:image/jpeg;base64,${img}`
+    // }
 
     async function handleSave() {
         if (isSaved === false) { //if story isn't saved => Save
@@ -287,78 +351,68 @@ function DisplayStory() {
         }
     }
 
-    // Carousel Component customization
-    const contentStyle = {
-        margin: 0,
-        height: '160px',
-        color: '#fff',
-        lineHeight: '160px',
-        textAlign: 'center',
-        background: '#364d79',
-    };
+    // if (story) {
+    return (
+        <>
+            <ConfigProvider
+                theme={{ token: { colorPrimary: '#8993ed', } }}>
+                {contextHolder}
+                <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
+                <Modal title="Edit Title" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    <Input size='large' className="changeTitle" placeholder="Enter new title here" />
+                </Modal>
+            </ConfigProvider>
+            <div className={s.body}>
+                <Navbar />
+                <div className={s.wrapper}>
+                    <ConfigProvider theme={{ token: { colorPrimary: '#96CCC0', fontSize: 16, sizeStep: 2, } }} >
 
-    if (story) {
-        return (
-            <>
-                <ConfigProvider
-                    theme={{
-                        token: {
-                            colorPrimary: '#8993ed',
-                        }
-                    }}>
-                    {contextHolder}
-                    <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
-                    <Modal title="Edit Title" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                        <Input size='large' className="changeTitle" placeholder="Enter new title here" />
-                    </Modal>
-                </ConfigProvider>
-                <div className={s.body}>
-                    <Navbar />
-                    <div className={s.wrapper}>
-                        <ConfigProvider
-                            theme={{
-                                token: {
-                                    colorPrimary: '#96CCC0',
-                                    fontSize: 16,
-                                    sizeStep: 2,
-                                }
-                            }} >
-                            {isLoading ?
+                        {/* {isLoading ?
                                 <Spin size="large" tip="Just a few seconds more! Your story is loading..." />
-                                :
-                                <>
-                                    <div className={s.header}>
-                                        <div className={s.titles}>
-                                            <h1>{`Story title: ${title}`}</h1>
-                                            {auth.userType === "child" &&
-                                                <Button onClick={showModal} icon={<EditOutlined />} size='large' />
-                                            }
-                                            <Button onClick={playNarration} icon={<SoundOutlined />} size='large' />
-                                            <h2>{`#Scenes: ${story.scenesNum}`}</h2>
-                                        </div>
+                                : */}
+                        <>
+                            <div className={s.header}>
+                                <div className={s.titles}>
+                                    <h1>{`Story title: ${title}`}</h1>
+                                    {auth.userType === "child" &&
+                                        <Button onClick={showModal} icon={<EditOutlined />} size='large' />
+                                    }
+                                    <Button onClick={playNarration} icon={<SoundOutlined />} size='large' />
+                                </div>
 
-                                        {auth && auth.userType === "child" &&
-                                            <div className={s.buttons}>
-                                                <Button ref={saveRef} onClick={handleSave} size='large' icon={save}></Button>
-                                                <Button onClick={handleFave} size='large' icon={fave}></Button>
+                                {auth && auth.userType === "child" &&
+                                    <div className={s.buttons}>
+                                        <Button ref={saveRef} onClick={handleSave} size='large' icon={save}></Button>
+                                        <Button onClick={handleFave} size='large' icon={fave}></Button>
+                                    </div>
+                                }
+                            </div>
+
+                            <div className={s.slider} ref={sliderRef}>
+                                {
+                                    data.map((item, index) => {
+                                        return (
+                                            <div key={index} className={s.item} ref={(el) => handleElementRef(el)} >
+                                                <h3>{item.name}</h3>
+                                                <p>{item.job}</p>
                                             </div>
-                                        }
-                                    </div>
+                                        )
+                                    })
+                                }
 
-                                    <div className={s.scenes_cont}>
-                                        {story.story_text.map((item, index) => (
-                                            <Card img={displayBase64Images(story.story_images[index])} text={item} />
-                                        ))}
-                                    </div>
-                                </>
-                            }
-                        </ConfigProvider>
-                    </div>
+                                <Button onClick={handleNext} ref={nextRef} id={s.next} size='large' type='primary'>Next</Button>
+                                <Button onClick={handlePrev} ref={prevRef} id={s.prev} size='large' type='primary'>Prev</Button>
+                            </div>
+
+                        </>
+                        {/* } */}
+                    </ConfigProvider>
                 </div>
-                <Footer />
-            </>
-        )
-    }
+            </div>
+            <Footer />
+        </>
+    )
+    // }
 }
 
 export default DisplayStory

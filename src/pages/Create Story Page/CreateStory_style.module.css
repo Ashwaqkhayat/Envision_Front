@@ -12,7 +12,7 @@
 }
 
 .content {
-    flex: 1;
+    /* flex: 1; */
     margin-top: -80px;
     padding-top: 3rem;
     position: relative;
@@ -29,12 +29,24 @@
     margin-bottom: 50px;
 }
 
+.cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .form_changer{
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     z-index: 1;
-    top: 20rem;
-    right: -40%;
+    top: 15rem;
+    width: 100px;
+    right: -200px;
 }
+
+/* ======= Common Styles ======= */
 
 .column{
     display: flex;
@@ -75,3 +87,6 @@
     color: #62939F;
     background-color: #aacbd3;
 }
+
+
+/* TEMP ================ */

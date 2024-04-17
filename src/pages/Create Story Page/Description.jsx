@@ -35,67 +35,69 @@ function Description() {
                 }}
                 componentSize='large'
             >
-                <Form
-                    name='description'
-                    layout='vertical'
-                    onFinish={submitStory}
-                    form={form}
-                    requiredMark='optional'
-                >
-                    <div className={s.header}>
-                        <h1>New Story</h1>
-                        <Form.Item
-                            name='language'
-                            required
-                            style={{ marginBottom: 0 }}>
-                            <Select
-                                options={options}
-                                defaultValue={'en'}
-                                variant="filled"
-                                style={{ width: 120 }}
-                            />
-                        </Form.Item>
-                    </div>
-                    <div className={s.form_body}>
+                <div className={s.wrapper} >
+                    <Form
+                        name='description'
+                        layout='vertical'
+                        onFinish={submitStory}
+                        form={form}
+                        requiredMark='optional'
+                    >
+                        <div className={s.header}>
+                            <h1>New Story</h1>
+                            <Form.Item
+                                name='language'
+                                required
+                                style={{ marginBottom: 0 }}>
+                                <Select
+                                    options={options}
+                                    defaultValue={'en'}
+                                    variant="filled"
+                                    style={{ width: 120 }}
+                                />
+                            </Form.Item>
+                        </div>
+                        <div className={s.form_body}>
 
-                        <Form.Item
-                            label='Gender'
-                            name='gender'
-                            required
-                            tooltip={'Select the main character gender'}
-                        >
-                            <Radio.Group style={{ width: '100%' }}>
-                                <Radio.Button style={{ width: '50%' }} value="female">Female</Radio.Button>
-                                <Radio.Button style={{ width: '50%' }} value="male">Male</Radio.Button>
-                            </Radio.Group>
-                        </Form.Item>
-
-                        <Form.Item
-                            label='Story Description'
-                            name='description'
-                            required
-                            tooltip={'Write a full description of your story'}
+                            <Form.Item
+                                label='Gender'
+                                name='gender'
+                                required
+                                tooltip={'Select the main character gender'}
                             >
-                            <TextArea
-                                rows={6}
-                                placeholder="E.g. Rima is a young girl with brown eyes and black curly hair, and she wears a blue shirt with black pants. One day, she wanted to visit a house made of candies"
-                                maxLength={750}
-                                showCount
-                                allowClear
-                                style={{ resize: 'none', position: 'relative' }}
-                            />
-                        </Form.Item>
-                        <Link className={s.autoG_btn}>
-                            <RocketOutlined /> Auto-generate
-                        </Link>
+                                <Radio.Group style={{ width: '100%' }}>
+                                    <Radio.Button style={{ width: '50%' }} value="female">Female</Radio.Button>
+                                    <Radio.Button style={{ width: '50%' }} value="male">Male</Radio.Button>
+                                </Radio.Group>
+                            </Form.Item>
 
-                        <Form.Item style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }} >
-                            <Button style={{ width: 150 }} type="primary" htmlType="submit">
-                                Create Story
-                            </Button>
-                        </Form.Item>
-                    </div>
-                </Form>
+                            <Form.Item
+                                label='Story Description'
+                                name='description'
+                                required
+                                tooltip={'Write a full description of your story'}
+                            >
+                                <TextArea
+                                    rows={6}
+                                    placeholder="E.g. Rima is a young girl with brown eyes and black curly hair, and she wears a blue shirt with black pants. One day, she wanted to visit a house made of candies"
+                                    maxLength={750}
+                                    showCount
+                                    allowClear
+                                    style={{ resize: 'none', position: 'relative' }}
+                                />
+                            </Form.Item>
+                            <Link className={s.autoG_btn}>
+                                <RocketOutlined /> Auto-generate
+                            </Link>
+
+                            <Form.Item style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }} >
+                                <Button style={{ width: 150 }} type="primary" htmlType="submit">
+                                    Create Story
+                                </Button>
+                            </Form.Item>
+                        </div>
+                    </Form>
+                </div>
             </ConfigProvider>
         </>
     )

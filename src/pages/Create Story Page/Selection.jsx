@@ -84,98 +84,100 @@ function Selection() {
                 }}
                 componentSize='large'
             >
-                <Form
-                    name='selection'
-                    layout='vertical'
-                    onFinish={submitStory}
-                    form={form}
-                    requiredMark='optional'
-                >
-                    <div className={s.header}>
-                        <h1>New Story</h1>
-                        <Form.Item
-                            name='language'
-                            required
-                            style={{ marginBottom: 0 }}>
-                            <Select
-                                defaultActiveFirstOption
-                                variant="filled"
-                                defaultValue={{
-                                    value: 'en',
-                                    label: 'English',
-                                }}
-                                options={options}
-                                style={{ width: 120 }}
-                            />
-                        </Form.Item>
-                    </div>
-                    <div className={s.form_body}>
-                        <Form.Item
-                            label='Main Character Name'
-                            name='name'
-                            required
-                            rules={[{ required: true, message: 'Please enter a name' }]}
-                            tooltip={'Enter the main character name'}>
-                            <Input placeholder='E.g. Layan'></Input>
-                        </Form.Item>
+                <div className={s.wrapper}>
+                    <Form
+                        name='selection'
+                        layout='vertical'
+                        onFinish={submitStory}
+                        form={form}
+                        requiredMark='optional'
+                    >
+                        <div className={s.header}>
+                            <h1>New Story</h1>
+                            <Form.Item
+                                name='language'
+                                required
+                                style={{ marginBottom: 0 }}>
+                                <Select
+                                    defaultActiveFirstOption
+                                    variant="filled"
+                                    defaultValue={{
+                                        value: 'en',
+                                        label: 'English',
+                                    }}
+                                    options={options}
+                                    style={{ width: 120 }}
+                                />
+                            </Form.Item>
+                        </div>
+                        <div className={s.form_body}>
+                            <Form.Item
+                                label='Main Character Name'
+                                name='name'
+                                required
+                                rules={[{ required: true, message: 'Please enter a name' }]}
+                                tooltip={'Enter the main character name'}>
+                                <Input placeholder='E.g. Layan'></Input>
+                            </Form.Item>
 
-                        <Form.Item
-                            label='Gender'
-                            name='gender'
-                            required
-                            rules={[{ required: true, message: 'Please select a gender' }]}
-                            tooltip={'Select the main character gender'}
-                        >
-                            <Radio.Group style={{ width: '100%' }}>
-                                <Radio.Button style={{ width: '50%' }} value="female">Female</Radio.Button>
-                                <Radio.Button style={{ width: '50%' }} value="male">Male</Radio.Button>
-                            </Radio.Group>
-                        </Form.Item>
+                            <Form.Item
+                                label='Gender'
+                                name='gender'
+                                required
+                                rules={[{ required: true, message: 'Please select a gender' }]}
+                                tooltip={'Select the main character gender'}
+                            >
+                                <Radio.Group style={{ width: '100%' }}>
+                                    <Radio.Button style={{ width: '50%' }} value="female">Female</Radio.Button>
+                                    <Radio.Button style={{ width: '50%' }} value="male">Male</Radio.Button>
+                                </Radio.Group>
+                            </Form.Item>
 
-                        <Form.Item
-                            label='Emotion'
-                            name='emotion'
-                            tooltip={'Select the main character emotion'}
-                        >
-                            <Radio.Group style={{ width: '100%' }}>
-                                <Radio.Button value="happy">Happy</Radio.Button>
-                                <Radio.Button style={{ padding: '0px 21px' }} value="sad">Sad</Radio.Button>
-                                <Radio.Button value="angry">Angry</Radio.Button>
-                                <Radio.Button value="scared">Scared</Radio.Button>
-                                <Radio.Button value="disgusted">Disgusted</Radio.Button>
-                            </Radio.Group>
-                        </Form.Item>
+                            <Form.Item
+                                label='Emotion'
+                                name='emotion'
+                                tooltip={'Select the main character emotion'}
+                            >
+                                <Radio.Group style={{ width: '100%' }}>
+                                    <Radio.Button value="happy">Happy</Radio.Button>
+                                    <Radio.Button style={{ padding: '0px 21px' }} value="sad">Sad</Radio.Button>
+                                    <Radio.Button value="angry">Angry</Radio.Button>
+                                    <Radio.Button value="scared">Scared</Radio.Button>
+                                    <Radio.Button value="disgusted">Disgusted</Radio.Button>
+                                </Radio.Group>
+                            </Form.Item>
 
-                        <Form.Item
-                            label='Story Location'
-                            name='location'
-                            tooltip={'Enter where the story take place?'}>
-                            <Input placeholder='E.g. Home'></Input>
-                        </Form.Item>
+                            <Form.Item
+                                label='Story Location'
+                                name='location'
+                                tooltip={'Enter where the story take place?'}>
+                                <Input placeholder='E.g. Home'></Input>
+                            </Form.Item>
 
-                        <Form.Item
-                            label='Story Topic'
-                            name='topic'
-                            required
-                            rules={[{ required: true, message: 'Please write a story topic' }]}
-                            tooltip={'What is the story about?'}>
-                            <TextArea
-                                rows={2}
-                                placeholder="E.g. Visiting a house made of candies"
-                                maxLength={150}
-                                showCount
-                                allowClear
-                                style={{ resize: 'none' }}
-                            />
-                        </Form.Item>
+                            <Form.Item
+                                label='Story Topic'
+                                name='topic'
+                                required
+                                rules={[{ required: true, message: 'Please write a story topic' }]}
+                                tooltip={'What is the story about?'}>
+                                <TextArea
+                                    rows={2}
+                                    placeholder="E.g. Visiting a house made of candies"
+                                    maxLength={150}
+                                    showCount
+                                    allowClear
+                                    style={{ resize: 'none' }}
+                                />
+                            </Form.Item>
 
-                        <Form.Item style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }} >
-                            <Button style={{ width: 150 }} type="primary" htmlType="submit">
-                                Create Story
-                            </Button>
-                        </Form.Item>
-                    </div>
-                </Form>
+                            <Form.Item style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }} >
+                                <Button style={{ width: 150 }} type="primary" htmlType="submit">
+                                    Create Story
+                                </Button>
+                            </Form.Item>
+                        </div>
+                    </Form>
+                </div>
             </ConfigProvider>
         </>
     )

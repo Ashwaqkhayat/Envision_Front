@@ -18,8 +18,6 @@ import EditProfile from './pages/Edit Profile/EditProfile.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import Protected from './components/Protected Routes/Protected.jsx'
 
-import Test from './pages/Story/Test.jsx'
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -68,10 +66,6 @@ const router = createBrowserRouter([
   {
     path: '/Editprofile',
     element: <Protected Comp={EditProfile} />
-  },
-  {
-    path: '/test',
-    element: <Test /> //Delete later =================
   },
 ])
 

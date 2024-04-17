@@ -1,8 +1,26 @@
-.slide_in{
-    /* background-color: red; */
+/* .slide_in{
     margin-right: 500%;
     opacity: 0;
     transition-property: margin-right, opacity;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+} */
+
+.constant{
+    position: relative;
+    margin-right: 0px;
+    opacity: 1;
+    transition-property: margin-right, opacity;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+}
+
+.slide_out{
+    margin-left: 500%;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transition-property: margin-left, opacity;
     transition-duration: 1s;
     transition-timing-function: ease;
 }
