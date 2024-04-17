@@ -45,11 +45,13 @@ function Description() {
                     <div className={s.header}>
                         <h1>New Story</h1>
                         <Form.Item
+                            name='language'
                             required
                             style={{ marginBottom: 0 }}>
                             <Select
                                 options={options}
                                 defaultValue={'en'}
+                                variant="filled"
                                 style={{ width: 120 }}
                             />
                         </Form.Item>

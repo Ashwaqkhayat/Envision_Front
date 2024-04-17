@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+.fullHeight{
+    height: 100%;
+}
+
 .profile_header{
     flex-direction: column;
 }
@@ -43,7 +47,7 @@
     width: 100%;
     max-width: 60%;
     min-height: 100%;
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1.5rem;
     display: flex;
     flex-direction: column;
 }
@@ -70,7 +74,7 @@
     width: 100%;
     max-width: 40%;
     min-height: 100%;
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1.5rem;
     display: flex;
     flex-direction: column;
 }

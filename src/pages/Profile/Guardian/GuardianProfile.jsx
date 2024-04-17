@@ -10,6 +10,18 @@ function GuardianProfile(props) {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
 
+    // Check new user
+    const [modal2Open, setModal2Open] = useState(false);
+    const isNewUser = JSON.parse(localStorage.getItem("isNewUser"))
+    console.log("Check ", isNewUser)       // <-- Delete Later
+    useEffect(() => {
+        if (isNewUser == true) {
+            console.log("Welcome!!")
+            setModal2Open(true)
+            localStorage.setItem("isNewUser", JSON.stringify(false))
+        }
+    }, [])
+
     // Get info
     let info = props.info
     let Fname = info.first_name.charAt(0).toUpperCase() + info.first_name.slice(1)
@@ -87,6 +99,17 @@ function GuardianProfile(props) {
         return (
             <>
                 {contextHolder}
+                <Modal
+                    title="Welcome"
+                    centered
+                    open={modal2Open}
+                    onOk={() => navigate('/addchild')}
+                    okText='Add Child'
+                    cancelText='Later'
+                    onCancel={() => setModal2Open(false)}
+                >
+                    <p>Lets add your first existing child account!</p>
+                </Modal>
                 <div className={`${s.profile_header} ${s.center_flex}`}>
                     <h2>Welcome {Fname} !</h2>
                 </div>
@@ -102,7 +125,9 @@ function GuardianProfile(props) {
                         </div>
                         <div className={s.list_container}>
                             {children.length === 0 ?
-                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                <div className={`${s.center_flex} ${s.fullHeight}`}>
+                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                </div>
                                 :
                                 <InfiniteScroll
                                     className={s.scrollable}

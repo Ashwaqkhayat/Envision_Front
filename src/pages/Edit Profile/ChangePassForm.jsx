@@ -10,7 +10,7 @@ export default function ChangePassForm({ onFinish, menuSelection }) {
         <>
             <ConfigProvider theme={{ token: { colorPrimary: '#8993ED' }, }}>
                 <Form
-                    className={s.formCont}
+                    className={s.fullheight}
                     form={form}
                     onFinish={onFinish}
                     name="changePassword"

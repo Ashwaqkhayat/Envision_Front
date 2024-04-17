@@ -126,8 +126,12 @@ function Library() {
                                         />
                                     </Flex>
                                 </div>
-                                <Spin className={s.spin} spinning={isLoading} tip="Loading Stories..." size="large">
-                                    <div className={s.stories_container}>
+                                {isLoading ?
+                                    <div className={`${s.center_flex} ${s.fullHeight}`}>
+                                        <Spin tip="Loading Stories..." size="large" />
+                                    </div>
+                                    :
+                                    <div className={`${s.stories_container} ${s.fullHeight}`}>
                                         {((library === undefined) || (library === null) || (library.length === 0)) ?
                                             <Empty className={s.empty} image={Empty.PRESENTED_IMAGE_SIMPLE} />
                                             :
@@ -168,7 +172,7 @@ function Library() {
                                             </InfiniteScroll>
                                         }
                                     </div>
-                                </Spin>
+                                }
                             </div>
                         </div>
                     </ConfigProvider>

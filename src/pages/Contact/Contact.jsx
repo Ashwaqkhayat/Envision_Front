@@ -11,7 +11,7 @@ function Contact() {
     const [clientReady, setClientReady] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
 
-    //Antd items
+    // Antd items -messages-
     const [messageApi, contextHolder] = message.useMessage()
     const pop = (msg, type) => {
         messageApi.open({
@@ -20,6 +20,15 @@ function Contact() {
             duration: 3.5,
         })
     }
+    // Antd Notification
+    const [api, contextHolder2] = notification.useNotification();
+    const openNotification = (type, msg, desc) => {
+        api[type]({
+            message: msg,
+            description: desc,
+            placement: 'top',
+        });
+    };
 
     // To disable submit button at the beginning.
     useEffect(() => {
@@ -33,7 +42,6 @@ function Contact() {
             name: values.name,
             msg: values.message
         }
-
         try {
             const response = await fetch(`${process.env.REACT_APP_url}/contact`, {
                 method: 'POST',
@@ -48,7 +56,8 @@ function Contact() {
                 setIsLoading(false) // Hide loading message
                 form.resetFields()
                 console.log('Message is sent')
-                pop('We recieved your message!', 'success')
+                openNotification('success', 'Message Received', 'Thanks for contacting us, your message have been successfully delivered to us!')
+                // pop('We recieved your message!', 'success')
             } else {
                 console.error('Something is wrong, try again.');
                 pop('Something is wrong, try again.', 'error')
@@ -62,6 +71,7 @@ function Contact() {
 
     return (
         <>
+            {contextHolder2}
             <div className={s.body}>
                 <Navbar />
                 <div className={s.content}>

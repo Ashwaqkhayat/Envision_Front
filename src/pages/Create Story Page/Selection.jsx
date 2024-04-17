@@ -99,6 +99,7 @@ function Selection() {
                             style={{ marginBottom: 0 }}>
                             <Select
                                 defaultActiveFirstOption
+                                variant="filled"
                                 defaultValue={{
                                     value: 'en',
                                     label: 'English',

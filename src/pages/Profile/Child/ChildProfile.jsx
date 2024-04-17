@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import s from './ChildProfile_style.module.css'
 import { useNavigate } from 'react-router-dom'
 import Guardian from './GuardianInfo'
-import { Button, Tooltip, Spin, Empty, message } from 'antd'
+import { Button, Tooltip, Spin, Empty, message, Modal } from 'antd'
 import { SettingOutlined } from '@ant-design/icons'
 import InfiniteScroll from "react-infinite-scroll-component"
 import userIcon from '../../../assets/images/pfp.png'
@@ -10,6 +10,18 @@ import userIcon from '../../../assets/images/pfp.png'
 function ChildProfile(props) {
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
+
+    // Check new user
+    const [modal2Open, setModal2Open] = useState(false);
+    const isNewUser = JSON.parse(localStorage.getItem("isNewUser"))
+    console.log("Check ", isNewUser)       // <-- Delete Later
+    useEffect(() => {
+        if (isNewUser == true) {
+            console.log("Welcome!!")
+            setModal2Open(true)
+            localStorage.setItem("isNewUser", JSON.stringify(false))
+        }
+    }, [])
 
     // Notification Messages
     const [messageApi, contextHolder] = message.useMessage()
@@ -91,6 +103,17 @@ function ChildProfile(props) {
         return (
             <>
                 {contextHolder}
+                <Modal
+                    title="Welcome"
+                    centered
+                    open={modal2Open}
+                    onOk={() => navigate('/createstory')}
+                    okText='Create Story'
+                    cancelText='Later'
+                    onCancel={() => setModal2Open(false)}
+                >
+                    <p>Now lets create your first story!</p>
+                </Modal>
                 <div className={`${s.profile_header} ${s.center_flex}`}>
                     <div className={s.profile_img}>
                         <img src={userIcon} alt="Profile Picture" />
@@ -130,11 +153,11 @@ function ChildProfile(props) {
                             <div className={s.info_header}>
                                 <h2>My Information</h2>
                                 <Tooltip title="Settings">
-                                    <Button 
-                                    style={{ borderColor: "#8993ED" }} 
-                                    icon={<SettingOutlined 
-                                    style={{ color: "#8993ED" }} />} 
-                                    onClick={() => {navigate('/EditProfile')}} />
+                                    <Button
+                                        style={{ borderColor: "#8993ED" }}
+                                        icon={<SettingOutlined
+                                            style={{ color: "#8993ED" }} />}
+                                        onClick={() => { navigate('/EditProfile') }} />
                                 </Tooltip>
                             </div>
                             <div className={s.info_main}>

@@ -83,7 +83,7 @@ function ChangePass(props) {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
                     credentials: 'include',
-                    body: ({ otp: parseInt(code.otp) }),
+                    body: JSON.stringify({ otp: parseInt(code.otp) }),
                 })
                 const data = await response.json()
                 if (response.ok) {
@@ -147,13 +147,17 @@ function ChangePass(props) {
         <>
             <ConfigProvider theme={{ token: { colorPrimary: '#8993ED' }, }}>
                 {contextHolder}
-                <Spin size='large' spinning={isLoading} className={s.formCont}>
-                    {!showVerify ?
+                {isLoading ?
+                    <div className={`${s.center_flex} ${s.fullheight}`}>
+                        <Spin size='large' spinning={isLoading} />
+                    </div>
+                    :
+                    !showVerify ?
                         <ChangePassForm onFinish={onFinishForm} menuSelection={menuSelection} />
                         :
                         <OTP onFinish={onFinishOTP} isLoading={isOTPLoading} menuSelection={menuSelection} />
-                    }
-                </Spin>
+
+                }
             </ConfigProvider>
         </>
     )

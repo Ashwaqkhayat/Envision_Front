@@ -108,8 +108,7 @@
     }
 }
 
-.spin{
-    flex: 1;
+.fullHeight{
     height: 100%;
 }
 

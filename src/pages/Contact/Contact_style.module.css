@@ -76,20 +76,17 @@
 
 .form_area {
     width: 60%;
-    background-color: white;
     border-radius: 6px 0px 0px 6px;
-    padding: 6rem 7rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-
-    @media (max-height: 1180px) {
-        padding: 2rem 3rem;
-    }
 }
 
 .form_wrapper{
     width: 100%;
+    border-radius: 6px 0px 0px 6px;
+    padding: 2rem 3rem;
+    background-color: white;
 }
 
 .input_box {
@@ -126,11 +123,3 @@
     width: 200px;
     height: 40px;
 }
-
-
-.ant-notification-center {
-    left: 50%;
-    bottom: 50% !important;
-    margin-right: 30%;
-    transform: translate(-50%, -50%);
-  }

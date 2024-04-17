@@ -100,6 +100,7 @@ function SignupForm() {
 
                 if (response.ok) {
                     localStorage.setItem("user-info", JSON.stringify(data))
+                    localStorage.setItem("isNewUser", true)
                     console.log('Sign up successful')
                     setIsLoading(false) // Hide loading message
                     setTimeout(() => { navigate('/') }, 1500);
@@ -149,6 +150,7 @@ function SignupForm() {
                     console.log('Sign up successful:', data)
                     setIsLoading(false) // Hide loading message
                     localStorage.setItem("user-info", JSON.stringify(data))
+                    localStorage.setItem("isNewUser", true)
                     setTimeout(() => { navigate('/') }, 2000);
 
                 } else {

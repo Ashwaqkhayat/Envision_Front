@@ -29,6 +29,7 @@ function MainInfoChild(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setIsLoading(true)
                 const response = await fetch(`${process.env.REACT_APP_url}/children/profile`, {
                     method: 'GET',
                     credentials: 'include',
@@ -44,6 +45,8 @@ function MainInfoChild(props) {
             } catch (err) {
                 console.error("Failed getting user's profile: ", err)
                 navigate('/profile')
+            } finally {
+                setIsLoading(false)
             }
         }
         fetchData()
@@ -53,12 +56,12 @@ function MainInfoChild(props) {
     const onFinish = (values) => {
         setIsLoading(true)
         const requestBody = {
-            email: values.email.length<1 ? info.email : values.email,
-            first_name: values.first_name.length<1 ? info.first_name : values.first_name,
-            last_name: values.last_name.length<1 ? info.last_name : values.last_name,
-            gender: values.gender.length<1 ? info.gender : values.gender,
-            favorite_color: values.favorite_color.length<1 ? info.favorite_color : values.favorite_color,
-            birth_date: values.birth_date==undefined ? info.birth_date : values.birth_date.$d
+            email: values.email.length < 1 ? info.email : values.email,
+            first_name: values.first_name.length < 1 ? info.first_name : values.first_name,
+            last_name: values.last_name.length < 1 ? info.last_name : values.last_name,
+            gender: values.gender.length < 1 ? info.gender : values.gender,
+            favorite_color: values.favorite_color.length < 1 ? info.favorite_color : values.favorite_color,
+            birth_date: values.birth_date == undefined ? info.birth_date : values.birth_date.$d
         }
         const fetchData = async () => {
             try {
@@ -86,35 +89,40 @@ function MainInfoChild(props) {
         fetchData()
     }
 
-    if (info) {
-        return (
-            <>
-                <ConfigProvider theme={{
-                    token: {
-                        colorPrimary: '#8993ED'
-                    },
-                }}>
-                    {contextHolder}
-                    <Spin size='large' spinning={isLoading}>
-                        <Form
-                            form={form}
-                            onFinish={onFinish}
-                            name="editProfile"
-                            layout="vertical"
-                            initialValues={{
-                                email: info.email,
-                                first_name: info.first_name,
-                                last_name: info.last_name,
-                                gender: info.gender,
-                                favorite_color: info.favorite_color,
-                                birth_date: moment(info.birth_date)
-                            }}
-                        >
-                            <div className={s.header}>
-                                <h2>{menuSelection}</h2>
-                                <Button htmlType="submit" size='large' type='primary'>Save</Button>
-                            </div>
+    return (
+        <>
+            <ConfigProvider theme={{
+                token: {
+                    colorPrimary: '#8993ED'
+                },
+            }}>
+                {contextHolder}
+                {info == null ?
+                    <div className={`${s.center_flex} ${s.fullheight}`}>
+                        <Spin size='large' spinning={isLoading} />
+                    </div>
+                    :
+                    <Form
+                        className={s.fullheight}
+                        form={form}
+                        onFinish={onFinish}
+                        name="editProfile"
+                        layout="vertical"
+                        initialValues={{
+                            email: info.email,
+                            first_name: info.first_name,
+                            last_name: info.last_name,
+                            gender: info.gender,
+                            favorite_color: info.favorite_color,
+                            birth_date: moment(info.birth_date)
+                        }}
+                    >
+                        <div className={s.header}>
+                            <h2>{menuSelection}</h2>
+                            <Button htmlType="submit" size='large' type='primary'>Save</Button>
+                        </div>
 
+                        <div className={s.bodyInputs}>
                             <div className={s.columnInputs}>
                                 <Form.Item label="First Name" name={'first_name'}>
                                     <Input size='large' placeholder="First name" />
@@ -151,13 +159,13 @@ function MainInfoChild(props) {
                                     <Radio.Button className={s.radioBtn} value="yellow">Yellow</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
+                        </div>
+                    </Form>
+                }
+            </ConfigProvider>
+        </>
+    )
 
-                        </Form>
-                    </Spin>
-                </ConfigProvider>
-            </>
-        )
-    }
 }
 
 export default MainInfoChild

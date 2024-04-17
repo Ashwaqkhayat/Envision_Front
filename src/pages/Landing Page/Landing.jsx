@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import s from './Landing_style.module.css'
 
 //Navigations using buttons
@@ -17,6 +17,7 @@ import Footer from "../../components/Footer/Footer"
 
 export default function Landing() {
     const navigate = useNavigate()
+
     return (
         <>
             <Navbar />
