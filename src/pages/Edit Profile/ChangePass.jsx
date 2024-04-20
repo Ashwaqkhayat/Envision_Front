@@ -27,7 +27,6 @@ function ChangePass(props) {
 
     const [newPassword, setNewPassword] = useState(null)
 
-    // ========== DONE =============
     function onFinishForm(values) {
         // 0. set new password state
         // 1. Request OTP API
@@ -63,7 +62,6 @@ function ChangePass(props) {
         requestOTP()
     }
 
-    // ========== ERROR =============
     function onFinishOTP(code) {
         // 1. Verify OTP
         // 2. on OK, call changePassword API
@@ -79,7 +77,7 @@ function ChangePass(props) {
             setIsOTPLoading(true)
 
             try {
-                const response = await fetch(`${process.env.REACT_APP_url}/verify_otp`, {
+                const response = await fetch(`${process.env.REACT_APP_url}/verify-otp`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
                     credentials: 'include',
@@ -104,7 +102,6 @@ function ChangePass(props) {
 
     }
 
-    // on OK, hide OTP form using setShowVerify(false)
     async function changePass(pass) {
         let url = accountType == "child" ? "/children/password " : "/guardians/password"
         setIsLoading(true)

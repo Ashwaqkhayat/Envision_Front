@@ -1,4 +1,5 @@
-import React, { useRef, createRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
+import s from './Story_style.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { ConfigProvider, Button, Spin, Tour, Modal, Input, message, Carousel } from 'antd'
 import {
@@ -6,81 +7,19 @@ import {
     HeartFilled, CloudFilled, CloudOutlined, LoadingOutlined,
     EditOutlined, SoundOutlined,
 } from '@ant-design/icons'
-import 'boxicons'
-import s from './Story_style.module.css'
 // importing components
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
+import ContentSlider from './ContentSlider'
 
 // Delete later --------------------------------
 import tempData from './data.json'
-import Card from './Card'
+import tempData2 from './exampleStory.json'
 
 function DisplayStory() {
     //                                                      <-- Delete later 
-    const data = tempData.data
-    console.log(data)
-
-    // Slider refs
-    const itemRef = useRef(null)
-    const sliderRef = useRef(null)
-    const nextRef = useRef(null)
-    const prevRef = useRef(null)
-
-    const storeElements = useRef([]);
-    const handleElementRef = (element) => {
-        storeElements.current.push(element);
-    };
-
-    let items = document.querySelectorAll('.slider .item')
-    let next = document.getElementById('next')
-    let prev = document.getElementById('prev')
-
-    function handleClick() {
-        storeElements.current.forEach((element) => {
-            if (element) {
-                element.style.color = 'black'; // Change to your desired color
-            }
-        });
-    }
-
-    let active = 3
-    useEffect(() => {
-        function loadShow() {
-            storeElements.current[active].style.transform = `none`;
-            storeElements.current[active].style.zIndex = 1;
-            storeElements.current[active].style.filter = 'none';
-            storeElements.current[active].style.opacity = 1;
-            // show after
-            let stt = 0;
-            for (var i = active + 1; i < storeElements.current.length; i++) {
-                stt++;
-                storeElements.current[i].style.transform = `translateX(${120 * stt}px) scale(${1 - 0.2 * stt}) perspective(16px) rotateY(-1deg)`;
-                storeElements.current[i].style.zIndex = `${-stt}`;
-                storeElements.current[i].style.filter = 'blur(5px)';
-                storeElements.current[i].style.opacity = `${stt} > 2 ? 0 : 0.6`;
-            }
-            stt = 0;
-            for (var i = (active - 1); i >= 0; i--) {
-                stt++;
-                storeElements.current[i].style.transform = `translateX(${-120 * stt}px) scale(${1 - 0.2 * stt}) perspective(16px) rotateY(1deg)`;
-                storeElements.current[i].style.zIndex = `${-stt}`;
-                storeElements.current[i].style.filter = 'blur(5px)';
-                storeElements.current[i].style.opacity = `${stt} > 2 ? 0 : 0.6`;
-            }
-        }
-        loadShow()
-    }, [active])
-
-    function handleNext(){
-        active = active + 1 < storeElements.current.length ?  active + 1 : active;
-        loadShow();
-     }
-    function handlePrev(){
-         active = active - 1 >= 0 ? active -1 : active;
-         loadShow();
-     }
-
+    const data = tempData2.story[0]
+    // console.log(data)
 
     const navigate = useNavigate()
     const auth = JSON.parse(localStorage.getItem('user-info'))
@@ -88,10 +27,11 @@ function DisplayStory() {
 
     // Save & Fave buttons
     const [isSaved, setIsSaved] = useState(false)
-    const [save, setSave] = useState(<CloudOutlined />)
+    const [save, setSave] = useState('default')
 
     const [isFaved, setIsFaved] = useState(false)
-    const [fave, setFave] = useState(<HeartOutlined />)
+    const [fave, setFave] = useState('default')
+    const [faveColor, setFaveColor] = useState('#494C4C')
 
     const [story, setStory] = useState(null) //state item to store fetched story
     const [isLoading, setIsLoading] = useState(true) //Loading API fetching
@@ -225,7 +165,7 @@ function DisplayStory() {
             }
             try {
                 console.warn("Saving Story..")
-                setSave(<LoadingOutlined />)
+                // setSave(<LoadingOutlined />)
                 const response = await fetch(`${process.env.REACT_APP_url}/children/stories/save`, {
                     method: 'POST',
                     headers: {
@@ -240,7 +180,7 @@ function DisplayStory() {
                     console.log("data of story: ", data)
                     setStory({ ...story, id: data.story[0].id })
                     setIsSaved(true)
-                    setSave(<CloudFilled />)
+                    setSave('solid')
                     console.log("Successfully Saved!!")
                 } else {
                     console.warn("Save Response recieved but not OK: ", response.status)
@@ -261,12 +201,13 @@ function DisplayStory() {
                 })
                 if (response.ok) {
                     setIsSaved(false)
-                    setSave(<CloudOutlined />)
+                    setSave('default')
                     console.log("Successfully Deleted!")
 
                     // if Story was faved, remove favorite..
                     setIsFaved(false)
-                    setFave(<HeartOutlined />)
+                    setFave('default')
+                    setFaveColor('#494C4C')
                 } else {
                     console.warn("Delete Response recieved but not OK: ", response.status)
                 }
@@ -281,7 +222,7 @@ function DisplayStory() {
             setOpen(true)
         } else {
             if (!isFaved) { //if not faved, add to favorite
-                setFave(<LoadingOutlined />)
+                // setFave(<LoadingOutlined />)
                 try {
                     console.warn("Adding Story to Favorites...")
                     const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.id}`, {
@@ -295,7 +236,8 @@ function DisplayStory() {
                     if (response.ok) {
                         console.log("Successfully Added Story to Favorites!")
                         setIsFaved(true)
-                        setFave(<HeartFilled />)
+                        setFave('solid')
+                        setFaveColor('#d94848')
                     } else {
                         console.warn("Response recieved but not OK: ", response.status)
                     }
@@ -305,7 +247,7 @@ function DisplayStory() {
             } else { // if faved, remove
                 console.warn("Removing Story from Favorites...")
                 try {
-                    setFave(<LoadingOutlined />)
+                    // setFave(<LoadingOutlined />)
                     const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.id}`, {
                         method: 'PUT',
                         headers: {
@@ -317,7 +259,8 @@ function DisplayStory() {
                     if (response.ok) {
                         console.log("Successfully Removed Story from Favorites!")
                         setIsFaved(false)
-                        setFave(<HeartOutlined />)
+                        setFave('default')
+                        setFaveColor('#494C4C')
                     } else {
                         console.warn("Response recieved but not OK: ", response.status)
                     }
@@ -325,29 +268,6 @@ function DisplayStory() {
                     console.error('Error occured while updating favorites, ', e)
                 }
             }
-        }
-    }
-
-    async function playNarration() {
-        try {
-            console.warn("Playing Story Narration...")
-            const response = await fetch(`${process.env.REACT_APP_url}/children/stories/narrate`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({ story_text: story.story_text }),
-                credentials: 'include',
-            })
-            if (response.ok) {
-                const data = await response.json()
-                console.log("Successfully Playing Narration...", data)
-            } else {
-                console.warn("Response recieved but not OK: ", response.status)
-            }
-        } catch (e) {
-            console.error('Error occured while playing narration, ', e)
         }
     }
 
@@ -362,9 +282,10 @@ function DisplayStory() {
                     <Input size='large' className="changeTitle" placeholder="Enter new title here" />
                 </Modal>
             </ConfigProvider>
+
             <div className={s.body}>
                 <Navbar />
-                <div className={s.wrapper}>
+                <div className={s.content}>
                     <ConfigProvider theme={{ token: { colorPrimary: '#96CCC0', fontSize: 16, sizeStep: 2, } }} >
 
                         {/* {isLoading ?
@@ -373,37 +294,34 @@ function DisplayStory() {
                         <>
                             <div className={s.header}>
                                 <div className={s.titles}>
-                                    <h1>{`Story title: ${title}`}</h1>
+                                    <Link style={{ marginRight: '10px' }} to={-1}>
+                                        <CloseOutlined style={{ fontSize: '30px', color: '#494C4C' }} />
+                                    </Link>
+                                    <h1 style={{ color: '#8993ED' }}>{`Story title: ${title}`}</h1>
                                     {auth.userType === "child" &&
-                                        <Button onClick={showModal} icon={<EditOutlined />} size='large' />
+                                        <Link style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }} onClick={showModal}>
+                                            <box-icon color='#b3b3b3' size='30px' name='edit-alt' />
+                                        </Link>
                                     }
-                                    <Button onClick={playNarration} icon={<SoundOutlined />} size='large' />
                                 </div>
 
                                 {auth && auth.userType === "child" &&
                                     <div className={s.buttons}>
-                                        <Button ref={saveRef} onClick={handleSave} size='large' icon={save}></Button>
-                                        <Button onClick={handleFave} size='large' icon={fave}></Button>
+                                        <Link ref={saveRef} style={{ display: 'flex', alignItems: 'center' }} onClick={handleSave}>
+                                            <box-icon name='bookmark' type={save} size='40px' color="#494C4C" />
+                                        </Link>
+                                        <Link style={{ display: 'flex', alignItems: 'center' }} onClick={handleFave}>
+                                            <box-icon name='heart' type={fave} size='40px' color={faveColor} />
+                                        </Link>
+                                        {/* <Button ref={saveRef} onClick={handleSave} size='large' icon={save}></Button>
+                                        <Button onClick={handleFave} size='large' icon={fave}></Button> */}
                                     </div>
                                 }
                             </div>
 
-                            <div className={s.slider} ref={sliderRef}>
-                                {
-                                    data.map((item, index) => {
-                                        return (
-                                            <div key={index} className={s.item} ref={(el) => handleElementRef(el)} >
-                                                <h3>{item.name}</h3>
-                                                <p>{item.job}</p>
-                                            </div>
-                                        )
-                                    })
-                                }
-
-                                <Button onClick={handleNext} ref={nextRef} id={s.next} size='large' type='primary'>Next</Button>
-                                <Button onClick={handlePrev} ref={prevRef} id={s.prev} size='large' type='primary'>Prev</Button>
+                            <div className={s.contentSlider}>
+                                <ContentSlider content={data} />
                             </div>
-
                         </>
                         {/* } */}
                     </ConfigProvider>
