@@ -16,10 +16,8 @@ import { ConfigProvider, message, Spin, Button } from 'antd'
 function CreateStory() {
     // Slide animation
     const [startAnimate, setStartAnimate] = useState(true)
-    const [btnIcon, setBtnIcon] = useState('right-arrow-circle')
     const [mode, setMode] = useState("Select")
     useEffect(() => {
-        setBtnIcon(startAnimate ? 'left-arrow-circle' : 'right-arrow-circle')
         setMode(startAnimate ? 'Select' : 'Describe')
     }, [startAnimate])
     // Define variables
@@ -60,7 +58,9 @@ function CreateStory() {
                                             setStartAnimate(!startAnimate)
                                         }}
                                         icon={<box-icon
-                                            name={btnIcon}
+                                            className={s.arrowBtn}
+                                            name='right-arrow-circle'
+                                            style={ startAnimate ? {transform: 'rotate(-180deg)'} : {transform: 'rotate(0deg)'}}
                                             size='70px'
                                             color="#b3b3b3" ></box-icon>}
                                     ></Button>

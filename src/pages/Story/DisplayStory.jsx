@@ -25,6 +25,12 @@ function DisplayStory() {
     const auth = JSON.parse(localStorage.getItem('user-info'))
     const isStoryExist = localStorage.getItem('story')
 
+    useEffect(()=>{
+        if(!auth){
+            navigate(-1)
+        }
+    },[])
+
     // Save & Fave buttons
     const [isSaved, setIsSaved] = useState(false)
     const [save, setSave] = useState('default')
@@ -272,6 +278,7 @@ function DisplayStory() {
     }
 
     // if (story) {
+    if (auth) {
     return (
         <>
             <ConfigProvider
@@ -330,7 +337,7 @@ function DisplayStory() {
             <Footer />
         </>
     )
-    // }
+    }
 }
 
 export default DisplayStory

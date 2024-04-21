@@ -60,7 +60,7 @@ function Description() {
                         <div className={s.form_body}>
 
                             <Form.Item
-                                label='Gender'
+                                label='Main Character Gender'
                                 name='gender'
                                 required
                                 tooltip={'Select the main character gender'}

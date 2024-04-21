@@ -47,7 +47,7 @@ export default function Landing() {
                                     type="primary"
                                     size="large"
                                     onClick={() => navigate('/CreateStory')}
-                                >Start Now</Button>
+                                >START NOW</Button>
                             </ConfigProvider>
                         </div>
 
@@ -74,7 +74,7 @@ export default function Landing() {
                                 <h3>Simple Steps For Your Story</h3>
                             </div>
                             <div className={s.card}>
-                                <h3>Friendly Interface</h3>
+                                <h3>Designs Meet Autism Standards</h3>
                             </div>
                             <div className={s.card}>
                                 <h3>Guardian Monitoring</h3>
@@ -104,7 +104,7 @@ export default function Landing() {
                             <h3>01  Choose your preferred way to build your story</h3>
                         </div>
                         <div className={s.step_box2}>
-                            <h3>03  Enjoy reading your story</h3>
+                            <h3>03  Enjoy reading your wonderful story!</h3>
                         </div>
                     </div>
                     <div className={s.steps_right_column}>
@@ -113,7 +113,7 @@ export default function Landing() {
                             <hr />
                         </div>
                         <div className={s.step_box3}>
-                            <h3>02  Write a description of your story subject</h3>
+                            <h3>02  Specify the components for creating your story</h3>
                         </div>
                     </div>
                 </div>

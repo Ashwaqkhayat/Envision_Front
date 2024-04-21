@@ -121,7 +121,7 @@ function Selection() {
                             </Form.Item>
 
                             <Form.Item
-                                label='Gender'
+                                label='Main Character Gender'
                                 name='gender'
                                 required
                                 rules={[{ required: true, message: 'Please select a gender' }]}

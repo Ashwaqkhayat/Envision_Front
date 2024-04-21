@@ -65,6 +65,10 @@
     color: #8EC3B7;
 }
 
+.arrowBtn{
+    transition: transform .1s ease-in-out;
+}
+
 /* ======= Description Form Styles ======= */
 .autoG_btn{
     position: relative;

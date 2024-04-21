@@ -40,6 +40,7 @@ function Library() {
             } catch (err) {
                 console.error("Error Getting library", err)
                 setIsLoading(false)
+                localStorage.clear()
                 navigate('/')
             }
         }
