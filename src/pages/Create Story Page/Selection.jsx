@@ -33,39 +33,44 @@ function Selection() {
         start_time: "",
     })
 
-    const submitStory = async (values) => {
+    async function submitStory(values) {
         const requestBody = {
+            title: "Story Title",
             prompt: values.topic,
             name: values.name,
             gender: values.gender,
-            location: values.location == undefined ? 'places fit story events' : values.language,
-            emotion: values.emotion == undefined ? 'emotions fit story events' : values.language,
-            language: values.language == undefined ? 'en' : values.language,
+            location: (values.location === undefined || values.location == "") ? 'places suitable for story events' : values.location,
+            emotion: values.emotion === undefined ? 'feelings suit the story events' : values.emotion,
+            language: values.language === undefined ? 'en' : values.language,
         }
-        // let story_ar = []
-        // let story_images = []
-        // let story_en = []
-        // let title = ""
-        const start_time_date = new Date()
-        const start_time = start_time_date.toISOString()
 
         try {
             const response = await fetch(`${process.env.REACT_APP_url}/children/stories/`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', },
-                body: JSON.stringify(requestBody),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    "title": "title old",
+                    "prompt": "playing",
+                    "name": "Rima",
+                    "gender": "girl",
+                    "location": "School",
+                    "emotion": "happy",
+                    "language": "en"
+                }),
                 credentials: 'include',
             })
-            const data = await response.json()
             if (response.ok) {
-
+                const data = await response.json()
+                console.log("Response Data Selection: ", data)
             } else {
-                throw new Error("Response is not ok ", data.error)
+                throw new Error("Response is not ok ", response.status)
             }
         } catch (e) {
             console.error("An error occured: ", e)
         }
-
     }
 
     return (

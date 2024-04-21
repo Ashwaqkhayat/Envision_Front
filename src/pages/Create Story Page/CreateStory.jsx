@@ -49,7 +49,7 @@ function CreateStory() {
                             <div className={s.cont}>
                                 <Slide startAnimate={startAnimate} />
 
-                                <div className={s.form_changer}>
+                                <div className={`${s.form_changer} ${s.top_margin}`}>
                                     <h2 style={{ color: '#b3b3b3', marginBottom: '10px' }}>{mode}</h2>
                                     <Button
                                         style={{ backgroundColor: 'transparent', padding: 30, border: 'none' }}

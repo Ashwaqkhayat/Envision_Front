@@ -15,8 +15,38 @@ function Description() {
         { value: 'ar', label: 'Arabic' }
     ]
 
-    function submitStory() {
-
+    async function submitStory (values){
+        const request = {
+            title: "Story Title",
+            prompt: "Ashwaq is a girl playing badminton",
+            name: "Ashwaq",
+            gender: "female",
+            location: "School",
+            emotion: "happy",
+            language: "en",
+        }
+        console.log("rb ",request)
+        // const start_time_date = new Date()        <-- If we wanna use chunks
+        // const start_time = start_time_date.toISOString()
+        try {
+            const response = await fetch(`${process.env.REACT_APP_url}/children/stories/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify(request),
+                credentials: 'include'
+            })
+            if (response.ok) {
+                const data = await response.json()
+                console.log("Response Data: " , data)
+            } else {
+                throw new Error("Response is not ok ")
+            }
+        } catch (e) {
+            console.error("An error occured: ", e)
+        }
     }
 
     return (
@@ -35,7 +65,7 @@ function Description() {
                 }}
                 componentSize='large'
             >
-                <div className={s.wrapper} >
+                <div className={`${s.wrapper} ${s.top_margin}`} >
                     <Form
                         name='description'
                         layout='vertical'

@@ -25,12 +25,6 @@ function DisplayStory() {
     const auth = JSON.parse(localStorage.getItem('user-info'))
     const isStoryExist = localStorage.getItem('story')
 
-    useEffect(()=>{
-        if(!auth){
-            navigate(-1)
-        }
-    },[])
-
     // Save & Fave buttons
     const [isSaved, setIsSaved] = useState(false)
     const [save, setSave] = useState('default')
@@ -42,12 +36,12 @@ function DisplayStory() {
     const [story, setStory] = useState(null) //state item to store fetched story
     const [isLoading, setIsLoading] = useState(true) //Loading API fetching
 
-    //if there's no story in the local storage, redirect to main page         <-- Restore later
-    // useEffect(() => {
-    //     if (isStoryExist === null) {
-    //         navigate('/')
-    //     }
-    // }, [])
+    //if there's no story in the local storage, redirect to main page
+    useEffect(() => {
+        if (isStoryExist === null) {
+            navigate(-1)
+        }
+    }, [])
 
     // References to components
     const saveRef = useRef(null)
@@ -277,66 +271,65 @@ function DisplayStory() {
         }
     }
 
-    // if (story) {
-    if (auth) {
-    return (
-        <>
-            <ConfigProvider
-                theme={{ token: { colorPrimary: '#8993ed', } }}>
-                {contextHolder}
-                <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
-                <Modal title="Edit Title" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                    <Input size='large' className="changeTitle" placeholder="Enter new title here" />
-                </Modal>
-            </ConfigProvider>
+    if (story) {
+        return (
+            <>
+                <ConfigProvider
+                    theme={{ token: { colorPrimary: '#8993ed', } }}>
+                    {contextHolder}
+                    <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
+                    <Modal title="Edit Title" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                        <Input size='large' className="changeTitle" placeholder="Enter new title here" />
+                    </Modal>
+                </ConfigProvider>
 
-            <div className={s.body}>
-                <Navbar />
-                <div className={s.content}>
-                    <ConfigProvider theme={{ token: { colorPrimary: '#96CCC0', fontSize: 16, sizeStep: 2, } }} >
+                <div className={s.body}>
+                    <Navbar />
+                    <div className={s.content}>
+                        <ConfigProvider theme={{ token: { colorPrimary: '#96CCC0', fontSize: 16, sizeStep: 2, } }} >
 
-                        {/* {isLoading ?
+                            {isLoading ?
                                 <Spin size="large" tip="Just a few seconds more! Your story is loading..." />
-                                : */}
-                        <>
-                            <div className={s.header}>
-                                <div className={s.titles}>
-                                    <Link style={{ marginRight: '10px' }} to={-1}>
-                                        <CloseOutlined style={{ fontSize: '30px', color: '#494C4C' }} />
-                                    </Link>
-                                    <h1 style={{ color: '#8993ED' }}>{`Story title: ${title}`}</h1>
-                                    {auth.userType === "child" &&
-                                        <Link style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }} onClick={showModal}>
-                                            <box-icon color='#b3b3b3' size='30px' name='edit-alt' />
-                                        </Link>
-                                    }
-                                </div>
+                                :
+                                <>
+                                    <div className={s.header}>
+                                        <div className={s.titles}>
+                                            <Link style={{ marginRight: '10px' }} to={-1}>
+                                                <CloseOutlined style={{ fontSize: '30px', color: '#494C4C' }} />
+                                            </Link>
+                                            <h1 style={{ color: '#8993ED' }}>{`Story title: ${title}`}</h1>
+                                            {auth.userType === "child" &&
+                                                <Link style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }} onClick={showModal}>
+                                                    <box-icon color='#b3b3b3' size='30px' name='edit-alt' />
+                                                </Link>
+                                            }
+                                        </div>
 
-                                {auth && auth.userType === "child" &&
-                                    <div className={s.buttons}>
-                                        <Link ref={saveRef} style={{ display: 'flex', alignItems: 'center' }} onClick={handleSave}>
-                                            <box-icon name='bookmark' type={save} size='40px' color="#494C4C" />
-                                        </Link>
-                                        <Link style={{ display: 'flex', alignItems: 'center' }} onClick={handleFave}>
-                                            <box-icon name='heart' type={fave} size='40px' color={faveColor} />
-                                        </Link>
-                                        {/* <Button ref={saveRef} onClick={handleSave} size='large' icon={save}></Button>
+                                        {auth && auth.userType === "child" &&
+                                            <div className={s.buttons}>
+                                                <Link ref={saveRef} style={{ display: 'flex', alignItems: 'center' }} onClick={handleSave}>
+                                                    <box-icon name='bookmark' type={save} size='40px' color="#494C4C" />
+                                                </Link>
+                                                <Link style={{ display: 'flex', alignItems: 'center' }} onClick={handleFave}>
+                                                    <box-icon name='heart' type={fave} size='40px' color={faveColor} />
+                                                </Link>
+                                                {/* <Button ref={saveRef} onClick={handleSave} size='large' icon={save}></Button>
                                         <Button onClick={handleFave} size='large' icon={fave}></Button> */}
+                                            </div>
+                                        }
                                     </div>
-                                }
-                            </div>
 
-                            <div className={s.contentSlider}>
-                                <ContentSlider content={data} />
-                            </div>
-                        </>
-                        {/* } */}
-                    </ConfigProvider>
+                                    <div className={s.contentSlider}>
+                                        <ContentSlider content={data} />
+                                    </div>
+                                </>
+                            }
+                        </ConfigProvider>
+                    </div>
                 </div>
-            </div>
-            <Footer />
-        </>
-    )
+                <Footer />
+            </>
+        )
     }
 }
 
