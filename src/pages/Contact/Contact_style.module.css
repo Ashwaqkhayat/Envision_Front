@@ -23,7 +23,7 @@
     overflow: hidden;
 
     @media (max-height: 800px){
-        height: 30rem;
+        height: 40rem;
     }
 }
 
