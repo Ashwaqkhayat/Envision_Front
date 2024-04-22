@@ -116,37 +116,38 @@ function DisplayStory() {
 
 
     // Load Story from local storage                        <-- Restore later
-    // useEffect(() => {
-    //     setIsLoading(true) //Loading page content to be fetched
-    //     const story_data = JSON.parse(localStorage.getItem('story'))
-    //     //console.warn("Recieved Data: ", story_data)
-    //     const setData = async () => {
-    //         setStory({
-    //             title: story_data.title,
-    //             language: story_data.language,
-    //             prompt: story_data.prompt,
-    //             start_time: story_data.start_time,
-    //             end_time: story_data.end_time,
-    //             story_text: story_data.story_text,
-    //             story_images: story_data.story_images,
-    //             is_favorite: story_data.is_favorite,
-    //             is_saved: story_data.is_saved,
-    //             scenesNum: story_data.story_text.length,
-    //             id: story_data.id,
-    //         })
-    //         setIsSaved(story_data.is_saved)
-    //         setSave(story_data.is_saved ? <CloudFilled /> : <CloudOutlined />)
+    useEffect(() => {
+        setIsLoading(true) //Loading page content to be fetched
+        const story_data = JSON.parse(localStorage.getItem('story'))
+        //console.warn("Recieved Data: ", story_data)
+        const setData = async () => {
+            setStory({
+                title: story_data.title,
+                language: story_data.language,
+                prompt: story_data.prompt,
+                start_time: story_data.start_time,
+                end_time: story_data.end_time,
+                story_ar: story_data.story_ar,
+                story_en: story_data.story_en,
+                story_images: story_data.story_images,
+                is_favorite: story_data.is_favorite,
+                is_saved: story_data.is_saved,
+                scenesNum: story_data.story_text.length,
+                id: story_data.id,
+            })
+            setIsSaved(story_data.is_saved)
+            setSave(story_data.is_saved ? <CloudFilled /> : <CloudOutlined />)
 
-    //         setIsFaved(story_data.is_favorite)
-    //         setFave(story_data.is_favorite ? <HeartFilled /> : <HeartOutlined />)
+            setIsFaved(story_data.is_favorite)
+            setFave(story_data.is_favorite ? <HeartFilled /> : <HeartOutlined />)
 
-    //         setTitle(story_data.title)
+            setTitle(story_data.title)
 
-    //         setIsLoading(false) //When data is fetched, set loading to false
-    //     }
+            setIsLoading(false) //When data is fetched, set loading to false
+        }
 
-    //     setData()
-    // }, []);
+        setData()
+    }, []);
 
     // function displayBase64Images(img) {
     //     return `data:image/jpeg;base64,${img}`

@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ConfigProvider, Button, Flex } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 //importing images
-import logo from '../../assets/images/base.png'
+import logo from '../../assets/images/logo.png'
 
 export default function Navbar() {
     const navigate = useNavigate()
@@ -35,7 +35,7 @@ export default function Navbar() {
         <div className={s.nav}>
             <div className={s.nav_left}>
                 <a href='/'><img src={logo} className={s.nav_logo} alt="Envision Logo" /></a>
-                <Link to='/' className={s.nav_title}>Envision</Link>
+                <Link to='/' className={s.nav_title}>تخيـّــــل</Link>
             </div>
 
             <div className={s.nav_right}>
@@ -57,7 +57,7 @@ export default function Navbar() {
                             shape="round"
                             size="large"
                             onClick={() => {navigate('/')}}
-                            > Home</Button>
+                            > الرئيسية</Button>
 
                             {auth.userType === "child" &&
                             <Button 
@@ -65,7 +65,7 @@ export default function Navbar() {
                             shape="round"
                             size="large"
                             onClick={() => {navigate('/library')}}
-                            > My Library</Button>
+                            > مكتبتي</Button>
                             }
 
                             <Button 
@@ -74,7 +74,7 @@ export default function Navbar() {
                             shape="round" 
                             size="large"
                             icon={ <UserOutlined style={{ fontSize: '20px'}} /> }
-                            > My Profile </Button>
+                            > ملفي الشخصي </Button>
                         </>
                     :
                         <>
@@ -83,13 +83,13 @@ export default function Navbar() {
                         type="primary"
                         size="large"
                         onClick={() => navigate('/Signin') }
-                        >Login</Button>
+                        >تسجيل الدخول</Button>
 
                         <Button 
                         className={s.nav_register}
                         size="large"
                         onClick={() => navigate('/Signup')}
-                        >Register</Button>
+                        >التسجيل</Button>
                         </>
                     }
 

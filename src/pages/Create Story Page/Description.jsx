@@ -15,19 +15,13 @@ function Description() {
         { value: 'ar', label: 'Arabic' }
     ]
 
-    async function submitStory (values){
+    async function submitStory(values) {
         const request = {
             title: "Story Title",
-            prompt: "Ashwaq is a girl playing badminton",
-            name: "Ashwaq",
-            gender: "female",
-            location: "School",
-            emotion: "happy",
-            language: "en",
+            prompt: values.description,
+            language: values.language === undefined ? 'en' : values.language,
         }
-        console.log("rb ",request)
-        // const start_time_date = new Date()        <-- If we wanna use chunks
-        // const start_time = start_time_date.toISOString()
+
         try {
             const response = await fetch(`${process.env.REACT_APP_url}/children/stories/`, {
                 method: 'POST',
@@ -40,9 +34,9 @@ function Description() {
             })
             if (response.ok) {
                 const data = await response.json()
-                console.log("Response Data: " , data)
+                console.log("Response Data: ", data)
             } else {
-                throw new Error("Response is not ok ")
+                throw new Error(`Response is not ok: ${response.status}`)
             }
         } catch (e) {
             console.error("An error occured: ", e)
@@ -89,7 +83,7 @@ function Description() {
                         </div>
                         <div className={s.form_body}>
 
-                            <Form.Item
+                            {/* <Form.Item
                                 label='Main Character Gender'
                                 name='gender'
                                 required
@@ -99,7 +93,7 @@ function Description() {
                                     <Radio.Button style={{ width: '50%' }} value="female">Female</Radio.Button>
                                     <Radio.Button style={{ width: '50%' }} value="male">Male</Radio.Button>
                                 </Radio.Group>
-                            </Form.Item>
+                            </Form.Item> */}
 
                             <Form.Item
                                 label='Story Description'

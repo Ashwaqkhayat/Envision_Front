@@ -28,9 +28,9 @@ export default function Landing() {
                         <img className={s.hero_bg} src={planet} alt="planet image" />
 
                         <div className={s.hero_text}>
-                            <h1>Envision</h1>
+                            <h1>تخيـّـــــــل</h1>
                             <p className={s.desc}>
-                                Unleash your inner hero! Spark your imagination and create one of a kind stories with adventures designed just for you
+                                أطلق العنان لبطلك الداخلي! انطلق بخيالك وابتكر قصة فريدة من نوعها مع مغامرات مصممة خصيصا لك
                             </p>
 
                             <ConfigProvider //change color theme
@@ -47,7 +47,7 @@ export default function Landing() {
                                     type="primary"
                                     size="large"
                                     onClick={() => navigate('/CreateStory')}
-                                >START NOW</Button>
+                                >ابــدأ الآن</Button>
                             </ConfigProvider>
                         </div>
 
@@ -64,20 +64,21 @@ export default function Landing() {
                 <div className={s.feature_cont}>
                     <div className={s.feature_box}>
                         <div className={s.feature_text}>
-                            <h2>Why Envision?</h2>
-                            <p>In Envision, we designed a complete platform to
-                                start your journey in imagining your favorite experiences!</p>
+                            <h2>لم تخيـّــل؟</h2>
+                            <p style={{ fontWeight: '500', fontSize: '18pt', direction: 'rtl', textAlign: 'left' }}>
+                                في "تخيـّــل" ، قمنا بتصميم
+                                منصة كاملة لبدء رحلتك في تخيل تجاربك المفضلة!</p>
                         </div>
 
                         <div className={s.feature_cards}>
                             <div className={s.card}>
-                                <h3>Simple Steps For Your Story</h3>
+                                <h3>خطوات بسيطة لإنشاء قصتك</h3>
                             </div>
                             <div className={s.card}>
-                                <h3>Designs Meet Autism Standards</h3>
+                                <h3>تصاميم تتبع معايير اضطراب التوحد</h3>
                             </div>
                             <div className={s.card}>
-                                <h3>Guardian Monitoring</h3>
+                                <h3>مراقبة الأوصياء</h3>
                             </div>
                         </div>
                     </div>
@@ -86,9 +87,9 @@ export default function Landing() {
                 {/*======= goal =======*/}
                 <div className={s.goal_box}>
                     <div className={s.goal_content}>
-                        <h1>We want to empower children with autism to unleash
-                            their <span>imagination</span> and <span>creativity</span> in their own special
-                            worlds through visualized stories</h1>
+                        <h1>
+                            نريد تمكين الأطفال المصابين بالتوحد من إطلاق العنان <span>لخيالهم</span> و<span>إبداعهم</span> في عوالمهم الخاصة من خلال القصص المصورة
+                        </h1>
                     </div>
                 </div>
 
@@ -101,19 +102,19 @@ export default function Landing() {
 
                     <div className={s.steps_left_column}>
                         <div className={s.step_box1}>
-                            <h3>01  Choose your preferred way to build your story</h3>
+                            <h3 style={{ direction: 'rtl', textAlign: 'left' }}>01  اختر اسلوبك المفضل في إنشاء قصتك</h3>
                         </div>
                         <div className={s.step_box2}>
-                            <h3>03  Enjoy reading your wonderful story!</h3>
+                            <h3 style={{ direction: 'rtl', textAlign: 'left' }}>03  استمتع بقراءة قصتك الرائعة!</h3>
                         </div>
                     </div>
                     <div className={s.steps_right_column}>
                         <div className={s.step_box_title}>
-                            <h2>How Magic Works!</h2>
+                            <h2 style={{ direction: 'rtl', textAlign: 'left' }}>كيف نصنع القصص!</h2>
                             <hr />
                         </div>
                         <div className={s.step_box3}>
-                            <h3>02  Specify the components for creating your story</h3>
+                            <h3 style={{ direction: 'rtl', textAlign: 'left' }}>02  حدد مكونات وأجزاء تكوين قصتك</h3>
                         </div>
                     </div>
                 </div>

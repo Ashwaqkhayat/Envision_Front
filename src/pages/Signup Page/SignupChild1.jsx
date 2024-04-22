@@ -44,7 +44,7 @@ function SignupChild1({onFinish, initialValues}) {
                     </div>
                 </div>
 
-                <div className={s.input_box}>
+                {/* <div className={s.input_box}>
                     <Label
                         inputTitle="Age"
                         popTitle="How Old Are You?"
@@ -59,7 +59,7 @@ function SignupChild1({onFinish, initialValues}) {
                         defaultValue={1}
                         />
                     </Form.Item>
-                </div>
+                </div> */}
 
                 
                 <div className={s.input_box}>
