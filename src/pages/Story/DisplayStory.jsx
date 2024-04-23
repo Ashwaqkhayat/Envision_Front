@@ -111,7 +111,7 @@ function DisplayStory() {
     //if there's no story in the local storage, redirect to main page
     useEffect(() => {
         setIsLoading(true)
-        console.log("saved story: ", story)
+        // console.log("saved story: ", story)
         if (!story) { // If story isn't exist in localStorage, redirect back
             navigate(-1)
         }
@@ -148,6 +148,8 @@ function DisplayStory() {
                 end_time: story.end_time,
                 story_questions: [],
             }
+
+            console.log("saving story objreq: ", requestBody)
             try {
                 console.warn("Saving Story..")
                 // setSave(<LoadingOutlined />)
@@ -160,9 +162,9 @@ function DisplayStory() {
                     credentials: 'include',
                     body: JSON.stringify(requestBody),
                 })
+                const data = await response.json()
                 if (response.ok) {
-                    const data = await response.json()
-                    console.log("data of story: ", data)
+                    console.log("data of story saved: ", data)
                     setStory({ ...story, id: data.story[0].id })
                     setIsSaved(true)
                     setSave('solid')

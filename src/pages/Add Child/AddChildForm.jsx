@@ -29,7 +29,7 @@ function AddChild() {
             const requestBody = {
                 email: values.email,
                 favorite_color: values.favorite_color.toLowerCase(),
-                birth_date: values.birthdate,
+                birth_date: values.birthdate.$d,
                 relation: values.occupation,
             }
             console.log(requestBody)

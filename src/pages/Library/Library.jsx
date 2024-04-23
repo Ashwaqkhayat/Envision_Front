@@ -72,20 +72,19 @@ function Library() {
                         <div className={`${s.content} ${s.center_flex}`}>
                             <div className={s.left_part}>
                                 <div className={`${s.container} ${s.box1}`}>
-                                    <h1>Welcome {user && capitalize(user.first_name)}</h1>
+                                    <h1>مرحبـًــا {user && capitalize(user.first_name)}</h1>
                                 </div>
                                 <div className={`${s.container} ${s.box2}`}>
-                                    <h3>Build a new world inspired by your
-                                        imagination!</h3>
+                                    <h3 style={{direction:'rtl', textAlign: 'left'}}>ابن عالمك الخاص باستخدام خيالك!</h3>
                                     <Button
                                         className={s.service_btn}
                                         onClick={() => { navigate('/CreateStory') }}
-                                    >Create New Story</Button>
+                                    >اصنع قصة جديدة</Button>
                                 </div>
-                                <div className={`${s.container} ${s.box3}`}>
+                                {/* <div className={`${s.container} ${s.box3}`}>
                                     <h3>Need help using Envision?</h3>
-                                    <Button className={s.service_btn}>Display Tutorial</Button>
-                                </div>
+                                    <Button disabled className={s.service_btn}>اظهار ارشادات الاستخدام</Button>
+                                </div> */}
 
                             </div>
                             <div className={s.right_part}>
@@ -111,7 +110,7 @@ function Library() {
                                     <Flex className={s.lib_box} gap="middle" horizontal>
                                         <Search
                                             size="large"
-                                            placeholder="Search for a story"
+                                            placeholder="ابحث عن عنوان القصة"
                                             onChange={(e) => setSearch(e.target.value)}
                                         />
                                         <Select
@@ -119,9 +118,9 @@ function Library() {
                                             className={s.sort}
                                             defaultValue='creation_date'
                                             onChange={(e) => { setSort(e) }}
-                                            placeholder="Sort"
+                                            placeholder="ترتيب"
                                             options={[
-                                                { value: 'creation_date', label: <span>Creation Date</span> },
+                                                { value: 'creation_date', label: <span>تاريخ الإنشاء</span> },
                                                 { value: 'alphabetically', label: <span>A → Z</span> }
                                             ]}
                                         />
@@ -129,7 +128,7 @@ function Library() {
                                 </div>
                                 {isLoading ?
                                     <div className={`${s.center_flex} ${s.fullHeight}`}>
-                                        <Spin tip="Loading Stories..." size="large" />
+                                        <Spin tip="تحميل القصص..." size="large" />
                                     </div>
                                     :
                                     <div className={`${s.stories_container} ${s.fullHeight}`}>

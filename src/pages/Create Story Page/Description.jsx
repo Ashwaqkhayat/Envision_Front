@@ -38,6 +38,7 @@ function Description() {
             })
             if (response.ok) {
                 const data = await response.json()
+                console.warn("Created data: " , data)
                 let story = {
                     prompt: data.story.prompt,
                     language: data.story.requested_lamguage,

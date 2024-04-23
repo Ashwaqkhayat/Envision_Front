@@ -6,12 +6,12 @@ import { Button } from 'antd'
 import candy from '../../assets/images/candy.jpg'
 
 function ContentSlider({ language, storyTexts, storyImg }) {
-    console.log("Story images in slider: ",storyImg )
+    console.log("Story images in slider: ", storyImg)
     // Prepare story data                                   <-- Edit Later
     let storyText_ar = storyTexts.story_ar // <-- Array
     let storyText_en = storyTexts.story_en // <-- Array
 
-    const storyText = language=="en"?storyText_en : storyText_ar
+    const storyText = language == "en" ? storyText_en : storyText_ar
 
     //this.setState({ myArray: [...this.state.myArray, 'new value'] }) //simple value
     let [storyUrls, setStoryUrls] = useState([])
@@ -111,14 +111,14 @@ function ContentSlider({ language, storyTexts, storyImg }) {
                     }}>
                         <div className={s.content_wrapper} style={{ position: 'relative' }}>
                             <div className={s.openingq_start_text} style={{ borderRight: '#a8a8a8 solid 2px' }}>
-                                <h1>The End</h1>
-                                <p>Answer the following questions to test your understanding of the story.</p>
+                                <h1>النهايــة</h1>
+                                <p>أجب على الأسئلة التالية لاختبار استيعابك للقصة</p>
                                 <Button
                                     style={{ width: '150px', backgroundColor: '#8993ED' }}
                                     size='large'
                                     type='primary'
                                     onClick={showNextScene}
-                                >Go!</Button>
+                                >ابـــدأ!</Button>
                             </div>
                             <div style={{ position: 'relative' }}>
                                 <div
@@ -156,13 +156,13 @@ function ContentSlider({ language, storyTexts, storyImg }) {
                         transition: 'translate 0.5s ease-in-out',
                     }}>
                         <div className={s.content_wrapper} style={{ position: 'relative' }}>
-                            <div className={s.openingq_text} style={{ borderRight: '#a8a8a8 solid 2px' }}>
-                                <h3>What was the hero’s <span>name?</span></h3>
-                                <h3>What was the hero <span>wearing</span>?</h3>
-                                <h3>What <span>colors</span> did you see in the story?</h3>
-                                <h3>Where did the hero <span>go</span>?</h3>
-                                <h3>What <span>happened</span> to the hero?</h3>
-                                <h3>What did you <span>benefit</span> from the story?</h3>
+                            <div className={s.openingq_text} style={{ borderRight: '#a8a8a8 solid 2px', direction: 'rtl'}}>
+                                <h3>ما <span>اسم</span> البطل؟</h3>
+                                <h3>ماذا كان <span>يرتدي</span> البطل؟</h3>
+                                <h3>ما هي <span>الألوان</span> التي رأيتها في القصة؟</h3>
+                                <h3>إلى أين <span>ذهب</span> البطل؟</h3>
+                                <h3>ماذا <span>حدث</span> للبطل؟</h3>
+                                <h3>ما الذي <span>استفدته</span> من القصة؟</h3>
                             </div>
                             <div style={{ position: 'relative' }}>
                                 <div
