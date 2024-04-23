@@ -48,12 +48,12 @@ function Settings(props) {
     // Delete Confirm Modal
     const showDeleteConfirm = (values) => {
         confirm({
-            title: `Are you sure you want to delete this account?`,
+            title: `هل أنت متأكد من أنك تريد حذف هذا الحساب؟`,
             icon: <ExclamationCircleFilled />,
             centered: true,
-            okText: 'Yes',
+            okText: 'نعم',
             okType: 'danger',
-            cancelText: 'No',
+            cancelText: 'لا',
             cancelButtonProps: { style: { borderColor: '#7a7a7a', color: '#7a7a7a' } },
             onOk() {
                 console.log('Confirm delete request')
@@ -85,7 +85,7 @@ function Settings(props) {
                 const data = await response.json()
                 if (response.ok) {
                     console.log(data.message)
-                    popMsg('Account deleted successfully, we will miss you', 'success')
+                    popMsg('تم حذف الحساب بنجاح, سنفتقدك', 'success')
                     localStorage.clear()
                     setIsLoading(false)
                     setTimeout(() => {
@@ -119,12 +119,12 @@ function Settings(props) {
 
                     <div className={s.bodyInputs}>
                         <div className={s.appearance}>
-                            <h3>Appearance</h3>
-                            <p>Language</p>
+                            <h3>المظهـــر</h3>
+                            <p>اللغــة</p>
                             <Select
                                 disabled='true'
                                 size='large'
-                                defaultValue="English"
+                                defaultValue="english"
                                 onChange={handleChange}
                                 style={{
                                     width: 200,
@@ -132,27 +132,27 @@ function Settings(props) {
                                 options={[
                                     {
                                         value: 'english',
-                                        label: 'English',
+                                        label: 'الإنجليزية',
                                     },
                                     {
                                         value: 'arabic',
-                                        label: 'Arabic',
+                                        label: 'العربية',
                                     },
                                 ]}
                             />
                         </div>
                         <div className={s.accDelete}>
-                            <h3>Delete Account</h3>
-                            <p className={s.warning}><span>Warning:</span> closing your account is irreversible. It deletes all of your stories and guardians.</p>
+                            <h3>حذف الحســاب</h3>
+                            <p className={s.warning}><span>تنبيه:</span> حذف الحساب عملية لا يمكن التراجع عنها, سيتم حذف جميع القصص الخاصة بك والأوصياء</p>
 
                             <Form onFinish={showDeleteConfirm} >
                                 <div className={s.passInput}>
-                                    <p>Current Password</p>
+                                    <p>كلمة المرور الحالية</p>
                                     <Form.Item name={'password'} rules={[{ required: true, message: 'Please input your password' },]}>
                                         <Input.Password size='large' placeholder="Enter password" />
                                     </Form.Item>
                                 </div>
-                                <Button danger htmlType="submit" type='primary' size='large' >Delete Account</Button>
+                                <Button danger htmlType="submit" type='primary' size='large' >حذف الحساب</Button>
                             </Form>
                         </div>
                     </div>

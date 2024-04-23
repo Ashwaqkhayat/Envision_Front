@@ -40,8 +40,8 @@ function SignupForm() {
     }
 
     //Changing titles and buttons through steps..
-    const formTitles = ["Welcome!", "One More Step", "Last Step"]
-    const backBtn = ["Cancel", "Previous", "Previous"]
+    const formTitles = ["مرحبـًـا!", "تبقت خطوة واحدة", "الخطوة الأخيرة"]
+    const backBtn = ["إلغاء", "السابق", "السابق"]
     const progressPerc = [30, 60, 100]
 
     //Change between Pages
@@ -83,7 +83,7 @@ function SignupForm() {
         }
 
         // Display loading message while fetching data
-        info('Loading', 'loading')
+        info('جاري التسجيل..', 'loading')
 
         // Use fetch to send the POST request to the API
         const fetchData = async () => {
@@ -130,7 +130,7 @@ function SignupForm() {
         };
 
         // Display loading message while fetching data
-        info('Loading', 'loading')
+        info('جاري التسجيل..', 'loading')
 
         // Use fetch to send the POST request to the API
         const fetchData = async () => {
@@ -192,11 +192,10 @@ function SignupForm() {
                                 colorPrimary: '#8993ED',
                             }
                         }} >
-                        <Spin className={s.spin} spinning={isLoading} tip="Signing up..." size="large">
+                        <Spin className={s.spin} spinning={isLoading} tip="يتم التسجيل.." size="large">
                             <div className={s.wrapper}>
                                 <Progress className={s.prog_bar} percent={progressPerc[page]} showInfo={false} strokeColor='#8993ED' />
 
-                                {/* Back-Cancel button */}
                                 <Link
                                     className={s.cancel_btn}
                                     onClick={() => {

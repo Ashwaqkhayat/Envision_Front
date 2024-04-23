@@ -21,13 +21,13 @@ function SignupChild2({ onFinish, initialValues}) {
 
                 <div className={s.input_box}>
                     <Label
-                        inputTitle="Birthdate"
+                        inputTitle="تاريخ الميـلاد"
                         popTitle="What is Your Birth Date?"
                         popMsg="Please enter the date you were born and
-                    came to this beautiful life !"
+                        came to this beautiful life !"
                     />
                     <Space className={s.input_bdate} direction="vertical">
-                        <Form.Item name={'birth_date'} rules={[{required:true}]}>
+                        <Form.Item name={'birth_date'} rules={[{required:true, message: "يجب تحديد تاريخ الميلاد"}]}>
                             <DatePicker className={s.input_bdate} size="large" />
                         </Form.Item>
                     </Space>
@@ -37,7 +37,7 @@ function SignupChild2({ onFinish, initialValues}) {
                 <div className={`${s.input_box} ${s.input_color}`}>
 
                     <Label
-                        inputTitle="Favorite Color"
+                        inputTitle="اللون المفضـل"
                         popTitle="Choose Your Favoriye Color!"
                         popMsg="Please select your favorite wonderful color."
                     />
@@ -45,11 +45,11 @@ function SignupChild2({ onFinish, initialValues}) {
                     <Flex vertical gap="middle">
                         <Form.Item name={'faveColor'} rules={[{required:true}]}>
                             <Radio.Group size="large">
-                                <Radio.Button value="blue">Blue</Radio.Button>
-                                <Radio.Button value="pink">Pink</Radio.Button>
-                                <Radio.Button value="purple">Purple</Radio.Button>
-                                <Radio.Button value="green">Green</Radio.Button>
-                                <Radio.Button value="yellow">Yellow</Radio.Button>
+                                <Radio.Button value="blue">الأزرق</Radio.Button>
+                                <Radio.Button value="pink">الوردي</Radio.Button>
+                                <Radio.Button value="purple">البنفسجي</Radio.Button>
+                                <Radio.Button value="green">الأخضر</Radio.Button>
+                                <Radio.Button value="yellow">الأصفر</Radio.Button>
                             </Radio.Group>
                         </Form.Item>
                     </Flex>
@@ -66,7 +66,7 @@ function SignupChild2({ onFinish, initialValues}) {
 
                 <div className={s.bottom_part}>
                     <Button htmlType="submit" type="primary" size="large">
-                    Submit
+                    تسجــيل
                     </Button>
                 </div>
             </ConfigProvider>

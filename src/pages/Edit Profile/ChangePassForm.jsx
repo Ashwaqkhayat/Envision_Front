@@ -19,12 +19,12 @@ export default function ChangePassForm({ onFinish, menuSelection }) {
                 >
                     <div className={s.header}>
                         <h2>{menuSelection}</h2>
-                        <Button htmlType="submit" size='large' type='primary'>Save</Button>
+                        <Button htmlType="submit" size='large' type='primary'>حفظ</Button>
                     </div>
 
                     <div className={s.bodyInputs}>
                         <Form.Item
-                            label="New Password"
+                            label="كلمة المرور الجديدة"
                             name="password"
                             rules={[{ required: true, },]}
                         >
@@ -32,7 +32,7 @@ export default function ChangePassForm({ onFinish, menuSelection }) {
                         </Form.Item>
 
                         <Form.Item
-                            label="Confirm Password"
+                            label="تأكيد كلمة المرور الجديدة"
                             name="password2"
                             dependencies={['password']}
                             rules={[{ required: true, },

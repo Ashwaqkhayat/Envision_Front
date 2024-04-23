@@ -78,8 +78,8 @@ function Contact() {
                     <div className={s.outerWrapper}>
                         <div className={s.text_area}>
                             <div className={s.title}>
-                                <h1>Contact Us</h1>
-                                <h3>What would you like to tell us?</h3>
+                                <h1>تواصـل معنا</h1>
+                                <h3>ما الذي تود إخبارنا به؟</h3>
                             </div>
                             <div className={s.accounts}>
                                 <p><XOutlined className={s.icon} />@EnvisionASD </p>
@@ -103,21 +103,21 @@ function Contact() {
                                             colorPrimary: '#8993ED',
                                         }
                                     }} >
-                                    <Spin spinning={isLoading} tip="Sending..." size="large">
+                                    <Spin spinning={isLoading} tip="يتم الإرسال..." size="large">
 
                                         <div className={s.column}>
                                             <div className={s.column_part}>
                                                 <div className={s.input_box}>
-                                                    <p className={s.label}> Name </p>
-                                                    <Form.Item className={s.input} name="name" rules={[{ required: true, message: 'Please enter your name.' }]} >
-                                                        <Input allowClear size="large" placeholder='E.g. Sara Sami' />
+                                                    <p className={s.label}> الاسم </p>
+                                                    <Form.Item className={s.input} name="name" rules={[{ required: true, message: 'رجاءً قم بإدخال اسمك' }]} >
+                                                        <Input allowClear size="large" placeholder='مثال: سارة سامي' />
                                                     </Form.Item>
                                                 </div>
                                             </div>
                                             <div className={s.column_part}>
                                                 <div className={s.input_box}>
-                                                    <p className={s.label}> Email </p>
-                                                    <Form.Item name="email" rules={[{ required: true, message: 'Please enter your email.', type: 'email' }]} >
+                                                    <p className={s.label}> البريد الالكتروني </p>
+                                                    <Form.Item name="email" rules={[{ required: true, message: 'رجاءً قم بإدخال بريدك الالكتروني', type: 'email' }]} >
                                                         <Input allowClear size="large" placeholder='Name@Domain.com' />
                                                     </Form.Item>
                                                 </div>
@@ -125,7 +125,7 @@ function Contact() {
                                         </div>
 
                                         <div className={s.input_box}>
-                                            <p className={s.label}> Message </p>
+                                            <p className={s.label}> الرسالة </p>
                                             <Form.Item name="message" rules={[{ required: true, message: "What is your message?", }]} >
                                                 <Input.TextArea
                                                     size='large'
@@ -150,7 +150,7 @@ function Contact() {
                                                             !!form.getFieldsError().filter(({ errors }) => errors.length).length
                                                         }
                                                     >
-                                                        Send
+                                                        إرسال
                                                     </Button>
                                                 )}
                                             </Form.Item>

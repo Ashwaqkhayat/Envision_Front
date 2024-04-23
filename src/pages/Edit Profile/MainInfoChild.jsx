@@ -119,44 +119,44 @@ function MainInfoChild(props) {
                     >
                         <div className={s.header}>
                             <h2>{menuSelection}</h2>
-                            <Button htmlType="submit" size='large' type='primary'>Save</Button>
+                            <Button htmlType="submit" size='large' type='primary'>حفظ</Button>
                         </div>
 
                         <div className={s.bodyInputs}>
                             <div className={s.columnInputs}>
-                                <Form.Item label="First Name" name={'first_name'}>
+                                <Form.Item label="الاسم الأول" name={'first_name'}>
                                     <Input size='large' placeholder="First name" />
                                 </Form.Item>
-                                <Form.Item label="Last Name" name={'last_name'}>
+                                <Form.Item label="الاسم الأخير" name={'last_name'}>
                                     <Input size='large' placeholder="Last name" />
                                 </Form.Item>
                             </div>
 
-                            <Form.Item label="Email" name={'email'} rules={[{ required: false, type: 'email' }]}>
-                                <Input size='large' placeholder="Enter new email" />
+                            <Form.Item label="البريد الإلكترني" name={'email'} rules={[{ required: false, type: 'email' }]}>
+                                <Input size='large' placeholder="قم بإدخال البريد الجديد" />
                             </Form.Item>
 
 
 
                             <div className={s.columnInputs}>
-                                <Form.Item label="Gender" name={'gender'}>
+                                <Form.Item label="الجنس" name={'gender'}>
                                     <Radio.Group size="large">
-                                        <Radio.Button value="female">Female</Radio.Button>
-                                        <Radio.Button value="male">Male</Radio.Button>
+                                        <Radio.Button value="female">فتاة</Radio.Button>
+                                        <Radio.Button value="male">صبـي</Radio.Button>
                                     </Radio.Group>
                                 </Form.Item>
-                                <Form.Item name={'birth_date'} label="Birthdate" style={{ flex: 1 }}>
+                                <Form.Item name={'birth_date'} label="تاريخ الميلاد" style={{ flex: 1 }}>
                                     <DatePicker className={s.input_bdate} size="large" style={{ width: '100%' }} />
                                 </Form.Item>
                             </div>
 
-                            <Form.Item label="Favorite Color" name={'favorite_color'} style={{ width: '100%' }}>
+                            <Form.Item label="اللون المفضل" name={'favorite_color'} style={{ width: '100%' }}>
                                 <Radio.Group size="large">
-                                    <Radio.Button className={s.radioBtn} value="blue">Blue</Radio.Button>
-                                    <Radio.Button className={s.radioBtn} value="pink">Pink</Radio.Button>
-                                    <Radio.Button className={s.radioBtn} value="purple">Purple</Radio.Button>
-                                    <Radio.Button className={s.radioBtn} value="green">Green</Radio.Button>
-                                    <Radio.Button className={s.radioBtn} value="yellow">Yellow</Radio.Button>
+                                    <Radio.Button className={s.radioBtn} value="blue">أزرق</Radio.Button>
+                                    <Radio.Button className={s.radioBtn} value="pink">وردي</Radio.Button>
+                                    <Radio.Button className={s.radioBtn} value="purple">بنفسجي</Radio.Button>
+                                    <Radio.Button className={s.radioBtn} value="green">أخضر</Radio.Button>
+                                    <Radio.Button className={s.radioBtn} value="yellow">أصفر</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
                         </div>

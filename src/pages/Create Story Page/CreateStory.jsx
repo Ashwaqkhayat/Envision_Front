@@ -16,9 +16,9 @@ import { ConfigProvider, message, Spin, Button } from 'antd'
 function CreateStory() {
     // Slide animation
     const [startAnimate, setStartAnimate] = useState(true)
-    const [mode, setMode] = useState("Select")
+    const [mode, setMode] = useState("خيارات")
     useEffect(() => {
-        setMode(startAnimate ? 'Select' : 'Describe')
+        setMode(startAnimate ? 'خيارات' : 'وصــف')
     }, [startAnimate])
     // Define variables
     const navigate = useNavigate()

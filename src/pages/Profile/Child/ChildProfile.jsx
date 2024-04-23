@@ -104,15 +104,15 @@ function ChildProfile(props) {
             <>
                 {contextHolder}
                 <Modal
-                    title="Welcome"
+                    title="مرحبًا"
                     centered
                     open={modal2Open}
                     onOk={() => navigate('/createstory')}
-                    okText='Create Story'
-                    cancelText='Later'
+                    okText='إنشاء قصة'
+                    cancelText='لاحقًا'
                     onCancel={() => setModal2Open(false)}
                 >
-                    <p>Now lets create your first story!</p>
+                    <p>لنقم الآن بإنشاء أول قصة</p>
                 </Modal>
                 <div className={`${s.profile_header} ${s.center_flex}`}>
                     <div className={s.profile_img}>
@@ -126,7 +126,7 @@ function ChildProfile(props) {
                     :
                     <div className={s.profile_windows}>
                         <div className={s.guardList_box}>
-                            <h2>My Guardians</h2>
+                            <h2>أوصيائــــي</h2>
                             <div className={s.list_container}>
                                 {guards.length === 0 ?
                                     <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
@@ -151,8 +151,8 @@ function ChildProfile(props) {
                         </div>
                         <div className={s.profileInfo_box}>
                             <div className={s.info_header}>
-                                <h2>My Information</h2>
-                                <Tooltip title="Settings">
+                                <h2>معلوماتي الشخصية</h2>
+                                <Tooltip title="الإعدادات">
                                     <Button
                                         style={{ borderColor: "#8993ED" }}
                                         icon={<SettingOutlined
@@ -162,19 +162,19 @@ function ChildProfile(props) {
                             </div>
                             <div className={s.info_main}>
                                 <div className={s.info_left}>
-                                    <p>Name: {fullName}</p>
-                                    <p>Age: {age}</p>
-                                    <p>Gender: {gender}</p>
+                                    <p>الاسم: {fullName}</p>
+                                    <p>العمر: {age}</p>
+                                    <p>الجنس: {gender}</p>
                                 </div>
                                 <div className={s.info_right}>
-                                    <p>Email: {email}</p>
-                                    <p>Favorite Color: {fcolor}</p>
-                                    <p>Birthday: {bdate}</p>
+                                    <p>البريد الإلكتروني: {email}</p>
+                                    <p>اللون المفضل: {fcolor}</p>
+                                    <p>الميلاد: {bdate}</p>
                                 </div>
                             </div>
                             <div className={s.info_footer}>
-                                <Button type="primary" href="/contact">Report Problem</Button>
-                                <Button type="primary" danger onClick={logOut}>Sign Out</Button>
+                                <Button type="primary" href="/contact">إرسال شكوى</Button>
+                                <Button type="primary" danger onClick={logOut}>تسجيل الخروج</Button>
                             </div>
                         </div>
                     </div>

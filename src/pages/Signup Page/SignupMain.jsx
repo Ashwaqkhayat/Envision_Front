@@ -25,13 +25,13 @@ function SignupMain({onFinish, initialValues}) {
                 <div className={s.input_box}>
 
                     <Label
-                        inputTitle="Email"
+                        inputTitle="البريد الألكتروني"
                         popTitle="Email Address"
                         popMsg="Please enter your email address."
                     />
 
                     <Form.Item name={'email'} rules={[{
-                        required:true, type:'email' }]}>
+                        required:true, type:'email', message: "البريد الإلكتروني مطلوب"}]}>
                         <Input
                             size="large"
                             placeholder="Name@Domain.com"
@@ -42,13 +42,13 @@ function SignupMain({onFinish, initialValues}) {
 
                 <div className={s.input_box}>
                     <Label
-                        inputTitle="Password"
+                        inputTitle="كلمة المرور"
                         popTitle="Password"
                         popMsg="Please enter your secret password !"
                     />
 
                     <Form.Item name={'password'} rules={[{
-                        required:true }]}>
+                        required:true, message: "يجب إدخال كلمة المرور" }]}>
                         <Input.Password
                             size="large"
                             maxLength={10}
@@ -59,19 +59,16 @@ function SignupMain({onFinish, initialValues}) {
 
                 <div className={s.input_box}>
                     <Label
-                        inputTitle="Account Type"
+                        inputTitle="نوع الحساب"
                         popTitle="Choose Account Type"
-                        popMsg="Please select your account type.
-                        The Child option is for minors under the age of 18,
-                        while the Guardian option is for parents
-                        or legal guardians managing their child's account."
+                        popMsg="Please select your account type."
                     />
 
                     <Flex vertical gap="middle">
-                        <Form.Item name={'accType'} rules={[{required:true }]}>
-                            <Radio.Group size="large">
-                                <Radio.Button value="child">Child</Radio.Button>
-                                <Radio.Button value="guardian">Guardian</Radio.Button>
+                        <Form.Item name={'accType'} rules={[{required:true, message :"يجب اختيار نوع الحساب" }]}>
+                            <Radio.Group size="large" style={{ width: '100%' }}>
+                                <Radio.Button style={{ width: '50%' }} value="child">طفــل</Radio.Button>
+                                <Radio.Button style={{ width: '50%' }} value="guardian">وصــيّ</Radio.Button>
                             </Radio.Group>
                         </Form.Item>
                     </Flex>
@@ -88,10 +85,10 @@ function SignupMain({onFinish, initialValues}) {
 
                 <div className={s.bottom_part}>
                     <Button htmlType="submit" type="primary" size="large" >
-                    Next
+                    التالي
                     </Button>
                 
-                    <p>Already have an account? <Link className={s.text_highlight} to='/Signin'>Sign In</Link></p>
+                    <p>تمتلك حسابًا؟ <Link className={s.text_highlight} to='/Signin'>سجل دخولك</Link></p>
                 </div>
             </ConfigProvider>
 

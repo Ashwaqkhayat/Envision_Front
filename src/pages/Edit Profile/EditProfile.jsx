@@ -11,9 +11,12 @@ import userIcon from '../../assets/images/pfp.png'
 
 function EditProfile() {
     // Menu
-    const [menuSelection, setMenuSelection] = useState('Edit Profile')
+    const [menuSelection, setMenuSelection] = useState('تعديل البيانات')
     // Check user type
-    const accType = JSON.parse(window.localStorage.getItem("user-info")).userType
+    const auth = JSON.parse(window.localStorage.getItem("user-info"))
+    const accType = auth.userType
+    let Fname = auth.first_name
+    let Lname = auth.last_name
 
     return (
         <>
@@ -39,26 +42,26 @@ function EditProfile() {
                             <div className={s.leftMenu}>
                                 <div className={`${s.avatar} ${s.center_flex}`}>
                                     {accType == "child" && <img src={userIcon} alt="Profile Picture" /> }
-                                    <h2>Ashwaq</h2>
-                                    <p>@Ashwaqkhayat</p>
+                                    <h2>{Fname}</h2>
+                                    <p>{`@${Fname}${Lname}`}</p>
                                 </div>
                                 <div className={s.menues}>
                                     <Menu
                                         onClick={(e) => { setMenuSelection(e.key) }}
-                                        defaultSelectedKeys={['Edit Profile']}
+                                        defaultSelectedKeys={['تعديل البيانات']}
                                         items={[
-                                            { label: "Edit Profile", key: "Edit Profile" },
-                                            { label: "Change Password", key: "Change Password" },
-                                            { label: "Settings", key: "Settings" },
+                                            { label: "تعديل البيانات", key: "تعديل البيانات" },
+                                            { label: "تغيير كلمة المرور", key: "تغيير كلمة المرور" },
+                                            { label: "إعدادات", key: "الإعدادات" },
                                         ]}
                                     >
                                     </Menu>
                                 </div>
                             </div>
                             <div className={s.rightContent}>
-                                {menuSelection == "Edit Profile" ?
+                                {menuSelection == "تعديل البيانات" ?
                                     accType == "child" ? <MainInfoChild menuSelection={menuSelection} /> : <MainInfoGuard menuSelection={menuSelection} />
-                                : menuSelection == "Change Password" ? <ChangePass menuSelection={menuSelection} accType={accType} />
+                                : menuSelection == "تغيير كلمة المرور" ? <ChangePass menuSelection={menuSelection} accType={accType} />
                                 : <Settings menuSelection={menuSelection} accType={accType} />
                                 }
                             </div>

@@ -9,10 +9,10 @@ import { Select, Space } from 'antd';
 function SignupChild1({onFinish, initialValues}) {
 
     const options = [
-        { value: '+966', label: 'Saudi Arabia', },
-        { value: '+974', label: 'Qatar', },
-        { value: '+971', label: 'UAE', },
-        { value: '+965', label: 'Kuwait', },
+        { value: '+966', label: 'السعودية', },
+        { value: '+974', label: 'قطر', },
+        { value: '+971', label: 'الإمارات المتحدة', },
+        { value: '+965', label: 'الكويت', },
         { value: '+973', label: 'Bahrain', },
         { value: '+20', label: 'Egypt', },
         { value: '+249', label: 'Sudan', },
@@ -40,22 +40,22 @@ function SignupChild1({onFinish, initialValues}) {
                     <div className={s.column}>
                         <div className={s.namePart}>
                             <Label
-                                inputTitle="First Name"
+                                inputTitle="الاسم الأول"
                                 popTitle="First Name"
                                 popMsg="Please enter your first name."
                             />
-                            <Form.Item name={'first_name'} rules={[{required:true}]}>
-                                <Input size="large" placeholder="Ashwaq" />
+                            <Form.Item name={'first_name'} rules={[{required:true, message: "الاسم الأول مطلوب"}]}>
+                                <Input size="large" placeholder="أشواق" />
                             </Form.Item>
                         </div>
                         <div className={s.namePart}>
                             <Label
-                                inputTitle="Last Name"
+                                inputTitle="الاسم الأخير"
                                 popTitle="Last Name"
                                 popMsg="Please enter your last name."
                             />
-                            <Form.Item name={'last_name'} rules={[{required:true}]}>
-                                <Input size="large" placeholder="Khayat" />
+                            <Form.Item name={'last_name'} rules={[{required:true, message:"الاسم الأخير مطلوب"}]}>
+                                <Input size="large" placeholder="خياط" />
                             </Form.Item>
                         </div>
                     </div>
@@ -64,7 +64,7 @@ function SignupChild1({onFinish, initialValues}) {
                 <div className={s.input_box}>
 
                     <Label
-                        inputTitle="Phone Number"
+                        inputTitle="رقم الهاتف"
                         popTitle="Enter Phone Number"
                         popMsg="Please enter a valid phone number."
                     />
@@ -74,8 +74,8 @@ function SignupChild1({onFinish, initialValues}) {
                                 <Select disabled size="large" placeholder="+966" options={options} />
                             </Form.Item>
                             <Form.Item className={s.input_pnumber} name={'phone_number'} rules={[
-                                { required: true, message: "Phone number is required" },
-                                { pattern: new RegExp(/^\d{9}$/),  message: "Enter only 9 digits, without dialing code", }
+                                { required: true, message: "رقم الهاتف مطلوب" },
+                                { pattern: new RegExp(/^\d{9}$/),  message: "قم بإدخال 9 أرقام, دون تضمين رمز الدولة", }
                             ]} >
                                 <Input size="large" placeholder="500000000" maxLength='9' />
                             </Form.Item>
@@ -86,11 +86,11 @@ function SignupChild1({onFinish, initialValues}) {
 
                 <div className={s.input_box}>
                     <Label
-                        inputTitle="Age"
+                        inputTitle="العمر"
                         popTitle="How Old Are You?"
                         popMsg="Please enter your age."
                     />
-                    <Form.Item name={'age'} rules={[{required:true}]}>
+                    <Form.Item name={'age'} rules={[{required:true, message: "العمر مطلوب"}]}>
                         <InputNumber
                         className={s.input_age}
                         size="large"
@@ -113,7 +113,7 @@ function SignupChild1({onFinish, initialValues}) {
 
                 <div className={s.bottom_part}>
                     <Button htmlType="submit" type="primary" size="large">
-                    Submit
+                    تسجيل
                     </Button>
                 </div>
             </ConfigProvider>

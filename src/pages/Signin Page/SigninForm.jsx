@@ -97,22 +97,22 @@ function SigninForm() {
                                     <Link
                                         className={s.cancel_btn}
                                         to={'/'}
-                                    >Cancel
+                                    >إلغاء
                                     </Link>
 
-                                    <h1>Welcome Back!</h1>
+                                    <h1 style={{ direction: 'rtl', textAlign: 'left' }}>أهلاً بعودتك!</h1>
 
                                     <div className={s.form_part}>
 
                                         <div className={s.input_box}>
                                             <Label
-                                                inputTitle="Email"
+                                                inputTitle="البريد الالكتروني"
                                                 popTitle="Email Address"
                                                 popMsg="Please enter your email address."
                                             />
 
                                             <Form.Item name={'email'} rules={[{
-                                                required: true, type: 'email'
+                                                required: true, type: 'email', message: "البريد الإلكتروني مطلوب"
                                             }]}>
                                                 <Input
                                                     size="large"
@@ -124,13 +124,14 @@ function SigninForm() {
 
                                         <div className={s.input_box}>
                                             <Label
-                                                inputTitle="Password"
+                                                inputTitle="كلمة المرور"
                                                 popTitle="Password"
                                                 popMsg="Please enter your password"
                                             />
 
                                             <Form.Item name={'password'} rules={[{
-                                                required: true
+                                                required: true,
+                                                message: "يجب إدخال كلمة المرور"
                                             }]}>
                                                 <Input.Password
                                                     size="large"
@@ -139,7 +140,7 @@ function SigninForm() {
                                             </Form.Item>
 
                                             <div className={s.forgot_pass}>
-                                                <Link className={s.text_highlight} to='/'>Forgot your password?</Link>
+                                                <Link className={s.text_highlight} to='/'>هل نسيت كلمة المرور؟</Link>
                                             </div>
 
                                         </div>
@@ -156,10 +157,10 @@ function SigninForm() {
 
                                         <div className={s.bottom_part}>
                                             <Button htmlType="submit" type="primary" size="large" >
-                                                Login
+                                                تسجيل الدخول
                                             </Button>
 
-                                            <p>Do not have an account? <Link className={s.text_highlight} to='/Signup'>Sign Up</Link></p>
+                                            <p>لا تمتلك حسابًا؟ <Link className={s.text_highlight} to='/Signup'>سجل الآن</Link></p>
                                         </div>
                                     </ConfigProvider>
                                 </div>

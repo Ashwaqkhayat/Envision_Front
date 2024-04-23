@@ -15,15 +15,17 @@ function Story(props) {
     function openStory() {
         localStorage.setItem("story", JSON.stringify({
             title: storyTitle,
-            story_text: storyTexts,
-            story_images: storyImages,
             language: content.language,
             prompt: content.prompt,
+            story_ar: content.story_ar,
+            story_en: content.story_en,
+            story_images: content.story_images,
             start_time: content.start_time,
             end_time: content.end_time,
             is_favorite: content.is_favorite,
             is_saved: true,
             id: content.id,
+            story_questions: [],
         }))
         navigate('/Story')
     }
@@ -31,14 +33,14 @@ function Story(props) {
     const navigate = useNavigate()
     const content = props.content
     let storyTitle = content.title
-    let storyImages = extractContent(content.story_images)
-    let storyTexts = extractContent(content.story_text)
-    let cover = displayImages(storyImages[0])
+    let storyImages = content.story_images
+    let storyTexts = content.language == "en" ? content.story_en : content.story_ar 
+    // let cover = displayImages(storyImages[0][0])
     let scNum = storyTexts.length
 
     return (
         <div className={s.container} onClick={openStory}>
-            <img src={cover} alt="cover image" />
+            {/* <img src={cover} alt="cover image" /> */}
             <h3>{storyTitle}</h3>
         </div>
     )

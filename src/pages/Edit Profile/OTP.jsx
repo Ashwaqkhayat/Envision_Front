@@ -64,8 +64,8 @@ function OTP({onFinish, isLoading, menuSelection}) {
                 <div className={s.bodyInputs}>
                     <Form onFinish={onFinish} >
                         <div className={s.otp}>
-                            <h3>Verification Code</h3>
-                            <p>Please enter code sent to your email address</p>
+                            <h3>رمز التأكيــــد</h3>
+                            <p>رجاءً قم بإدخال الرمز المرسل إلى بريدك الإلكتروني</p>
                             <Form.Item name={'otp'} rules={[{ required: true, message: 'Please enter OTP code' },]}>
                                 <Input.OTP size='large' length={6} formatter={(str) => str.toUpperCase()} />
                             </Form.Item>
@@ -77,7 +77,7 @@ function OTP({onFinish, isLoading, menuSelection}) {
                                     htmlType="submit"
                                     loading={isLoading}
                                     size='large'>
-                                    Verify
+                                    تأكيد
                                 </Button>
                             </Form.Item>
                         </div>
