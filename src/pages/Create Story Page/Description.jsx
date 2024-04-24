@@ -54,16 +54,14 @@ function Description() {
                     end_time: data.story.end_time,
                 }
                 localStorage.setItem('story', JSON.stringify(story))
-                setIsLoading(false)
                 navigate('/Story')
+                setIsLoading(false)
                 console.log("Story is created successfully ", story)
             } else {
                 throw new Error(`Response is not ok: ${response.status}`)
             }
         } catch (e) {
             console.error("An error occured: ", e)
-            setIsLoading(false)
-        } finally {
             setIsLoading(false)
         }
     }
@@ -141,7 +139,7 @@ function Description() {
                                 </Link> */}
 
                                 <Form.Item style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }} >
-                                    <Button style={{ width: 150 }} type="primary" htmlType="submit">
+                                    <Button style={{ width: 150 }} type="primary" htmlType="submit" disabled={isLoading}>
                                         إنشاء القصة
                                     </Button>
                                 </Form.Item>

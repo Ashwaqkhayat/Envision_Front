@@ -60,7 +60,8 @@ function AddChild() {
                 // 401 means token isn't there
                 localStorage.clear()
             } else {
-                console.error(`Error in sending HTTP request: ${response.status}`)
+                popMsg(data.error, 'error')
+                console.error(`Error in sending HTTP request: ${data.error}`)
                 setIsLoading(false)
             }
         } catch (err) {

@@ -77,14 +77,8 @@ function Story(props) {
     return (
         <ConfigProvider
             theme={{
-                components: {
-                    Spin: {
-                        colorPrimary: '#8993ED',
-                    },
-                },
-                token: {
-                    colorPrimary: '#76A795',
-                }
+                components: { Spin: { colorPrimary: '#8993ED' } },
+                token: { colorPrimary: '#76A795' }
             }}>
             <Spin spinning={isLoading} size="large">
                 <div className={s.container} onClick={openStory}>

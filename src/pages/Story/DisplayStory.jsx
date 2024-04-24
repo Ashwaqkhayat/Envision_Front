@@ -283,7 +283,7 @@ function DisplayStory() {
                                             <CloseOutlined style={{ fontSize: '30px', color: '#494C4C' }} />
                                         </Link>
                                         <h1 style={{ color: '#8993ED' }}>{`عنوان القصة: ${title}`}</h1>
-                                        {auth.userType === "child" &&
+                                        {auth && auth.userType === "child" &&
                                             <Link style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }} onClick={showModal}>
                                                 <box-icon color='#b3b3b3' size='30px' name='edit-alt' />
                                             </Link>
