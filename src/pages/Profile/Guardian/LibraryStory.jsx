@@ -63,7 +63,7 @@ function LibraryStory(props) {
                                 //     story_images: extractContent(content.story_images)
                                 // }
                                 // localStorage.setItem('story', JSON.stringify(content))
-                                // navigate('/Story')
+                                navigate('/Story')
 
                             }
                         >Read</Button>
