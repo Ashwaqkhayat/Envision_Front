@@ -37,7 +37,7 @@ function LibraryStory(props) {
                 localStorage.setItem('story', JSON.stringify(story))
                 console.log("Story is fetched successfully ", data)
                 setIsLoading(false)
-                // navigate('/Story')
+                navigate('/Story')
             } else {
                 throw new Error("Response is recieved but not ok..", response.status)
             }
@@ -63,7 +63,7 @@ function LibraryStory(props) {
                                 //     story_images: extractContent(content.story_images)
                                 // }
                                 // localStorage.setItem('story', JSON.stringify(content))
-                                navigate('/Story')
+                                // navigate('/Story')
 
                             }
                         >Read</Button>
