@@ -12,29 +12,21 @@ import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import ContentSlider from './ContentSlider'
 
-// Delete later --------------------------------
-// import tempData from './data.json'
-// import tempData2 from './exampleStory.json'
 
 function DisplayStory() {
-    //                                                      <-- Delete later 
-    // const data = tempData2.story[0]
-    // console.log(data)
 
     const navigate = useNavigate()
     const auth = JSON.parse(localStorage.getItem('user-info'))
-    // const isStoryExist = localStorage.getItem('story')
 
     // Save & Fave buttons
     const [isSaved, setIsSaved] = useState(false)
-    const [save, setSave] = useState('default')
+    const [saveIcon, setSaveIcon] = useState(<box-icon name='bookmark' type='default' size='40px' color="#494C4C" />)
 
     const [isFaved, setIsFaved] = useState(false)
-    const [fave, setFave] = useState('default')
+    const [faveIcon, setFaveIcon] = useState('default')
     const [faveColor, setFaveColor] = useState('#494C4C')
 
     const [story, setStory] = useState(JSON.parse(localStorage.getItem('story'))) //state item to store fetched story
-    // let [storyUrls, setStoryUrls] = useState([])
     const [isLoading, setIsLoading] = useState(true) //Loading API fetching
 
     // References to components
@@ -111,22 +103,18 @@ function DisplayStory() {
     //if there's no story in the local storage, redirect to main page
     useEffect(() => {
         setIsLoading(true)
-        // console.log("saved story: ", story)
-        if (!story) { // If story isn't exist in localStorage, redirect back
-            navigate(-1)
+        // If story isn't exist in localStorage, redirect back
+        if (!story) {  navigate(-1) 
+
         }
         setIsSaved(story.is_saved)
-        setSave(story.is_saved ? 'solid' : 'default')
+        setSaveIcon(story.is_saved ? <box-icon name='bookmark' type='solid' size='40px' color="#494C4C" /> : <box-icon name='bookmark' type='default' size='40px' color="#494C4C" />)
 
         setIsFaved(story.is_favorite)
-        setFave(story.is_favorite ? 'solid' : 'default')
+        setFaveIcon(story.is_favorite ? 'solid' : 'default')
         setFaveColor(story.is_favorite ? '#d94848' : '#494C4C')
 
         setTitle(story.title)
-
-        // story.story_images.map(scene => {
-        //     setStoryUrls([...storyUrls, displayBase64Images(scene[0])])
-        // })
         setIsLoading(false)
 
     }, [])
@@ -167,7 +155,7 @@ function DisplayStory() {
                     console.log("data of story saved: ", data)
                     setStory({ ...story, id: data.story[0].id })
                     setIsSaved(true)
-                    setSave('solid')
+                    setSaveIcon(<box-icon name='bookmark' type='solid' size='40px' color="#494C4C" />)
                     console.log("Successfully Saved!!")
                 } else {
                     console.warn("Save Response recieved but not OK: ", response.status)
@@ -187,12 +175,12 @@ function DisplayStory() {
                 })
                 if (response.ok) {
                     setIsSaved(false)
-                    setSave('default')
+                    setSaveIcon(<box-icon name='bookmark' type='default' size='40px' color="#494C4C" />)
                     console.log("Successfully Deleted!")
 
                     // if Story was faved, remove favorite..
                     setIsFaved(false)
-                    setFave('default')
+                    setFaveIcon('default')
                     setFaveColor('#494C4C')
                 } else {
                     console.warn("Delete Response recieved but not OK: ", response.status)
@@ -208,7 +196,6 @@ function DisplayStory() {
             setOpen(true)
         } else {
             if (!isFaved) { //if not faved, add to favorite
-                // setFave(<LoadingOutlined />)
                 try {
                     console.warn("Adding Story to Favorites...")
                     const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.id}`, {
@@ -222,7 +209,7 @@ function DisplayStory() {
                     if (response.ok) {
                         console.log("Successfully Added Story to Favorites!")
                         setIsFaved(true)
-                        setFave('solid')
+                        setFaveIcon('solid')
                         setFaveColor('#d94848')
                     } else {
                         console.warn("Response recieved but not OK: ", response.status)
@@ -245,7 +232,7 @@ function DisplayStory() {
                     if (response.ok) {
                         console.log("Successfully Removed Story from Favorites!")
                         setIsFaved(false)
-                        setFave('default')
+                        setFaveIcon('default')
                         setFaveColor('#494C4C')
                     } else {
                         console.warn("Response recieved but not OK: ", response.status)
@@ -293,10 +280,10 @@ function DisplayStory() {
                                     {auth && auth.userType === "child" &&
                                         <div className={s.buttons}>
                                             <Link ref={saveRef} style={{ display: 'flex', alignItems: 'center' }} onClick={handleSave}>
-                                                <box-icon name='bookmark' type={save} size='40px' color="#494C4C" />
+                                                <Button icon={saveIcon} />
                                             </Link>
                                             <Link style={{ display: 'flex', alignItems: 'center' }} onClick={handleFave}>
-                                                <box-icon name='heart' type={fave} size='40px' color={faveColor} />
+                                                <box-icon name='heart' type={faveIcon} size='40px' color={faveColor} />
                                             </Link>
                                         </div>
                                     }

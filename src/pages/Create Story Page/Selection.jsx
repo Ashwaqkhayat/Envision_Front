@@ -132,8 +132,10 @@ function Selection() {
                                     tooltip={'Select the main character gender'}
                                 >
                                     <Radio.Group style={{ width: '100%' }}>
-                                        <Radio.Button style={{ width: '50%' }} value="female">أنثى</Radio.Button>
-                                        <Radio.Button style={{ width: '50%' }} value="male">ذكـر</Radio.Button>
+                                        <Radio.Button style={{ width: '50%'}} value="female">
+                                        أنثى
+                                        </Radio.Button>
+                                        <Radio.Button style={{ width: '50%'}} value="male">ذكـر</Radio.Button>
                                     </Radio.Group>
                                 </Form.Item>
 

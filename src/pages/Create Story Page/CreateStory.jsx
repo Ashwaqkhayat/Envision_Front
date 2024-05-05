@@ -6,8 +6,6 @@ import 'boxicons'
 //Import components
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
-import Selection from './Selection'
-import Description from './Description'
 import Slide from '../../components/Slide/Slide'
 
 //import Ant Components
@@ -16,9 +14,9 @@ import { ConfigProvider, message, Spin, Button } from 'antd'
 function CreateStory() {
     // Slide animation
     const [startAnimate, setStartAnimate] = useState(true)
-    const [mode, setMode] = useState("خيارات")
+    const [mode, setMode] = useState("وصف")
     useEffect(() => {
-        setMode(startAnimate ? 'خيارات' : 'وصــف')
+        setMode(startAnimate ? 'وصف' : 'خيارات')
     }, [startAnimate])
     // Define variables
     const navigate = useNavigate()

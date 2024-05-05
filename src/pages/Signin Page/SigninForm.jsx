@@ -59,7 +59,7 @@ function SigninForm() {
             if (response.ok) {
                 setIsLoading(false)
                 localStorage.setItem("user-info", JSON.stringify(data))
-                info('Successful Login', 'success')
+                info('تم تسجيل الدخول بنجاح', 'success')
 
                 setTimeout(() => {
                     navigate(-1)
@@ -73,7 +73,7 @@ function SigninForm() {
         } catch (error) {
             console.error('Error during sign in:', error);
             setIsLoading(false)
-            info('Error during login', 'error')
+            info('لقد حدث خطأ ما, قم بالمحاولة لاحقًا', 'error')
         }
     }
   

@@ -81,10 +81,10 @@ function Library() {
                                         onClick={() => { navigate('/CreateStory') }}
                                     >اصنع قصة جديدة</Button>
                                 </div>
-                                {/* <div className={`${s.container} ${s.box3}`}>
-                                    <h3>Need help using Envision?</h3>
-                                    <Button disabled className={s.service_btn}>اظهار ارشادات الاستخدام</Button>
-                                </div> */}
+                                <div className={`${s.container} ${s.box3}`}>
+                                    <h3>هل تحتاج مساعدة في استخدام الموقع؟</h3>
+                                    <Button disabled className={s.service_btn}> ارشادات الاستخدام</Button>
+                                </div>
 
                             </div>
                             <div className={s.right_part}>

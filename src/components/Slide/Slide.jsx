@@ -10,10 +10,10 @@ const Slide = ({ startAnimate }) => {
 
     return (
         <>
-            <div className={s.constant} style={transitionProperties_slideIn}>
+            <div className={s.slide_out} style={transitionProperties_slideOut}>
                 <Selection />
             </div>
-            <div className={s.slide_out} style={transitionProperties_slideOut}>
+            <div className={s.constant} style={transitionProperties_slideIn}>
                 <Description />
             </div>
         </>
