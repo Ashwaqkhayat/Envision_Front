@@ -108,7 +108,7 @@ function DisplayStory() {
 
         }
         setIsSaved(story.is_saved)
-        setSaveIcon(story.is_saved ? <box-icon name='bookmark' type='solid' size='40px' color="#494C4C" /> : <box-icon name='bookmark' type='default' size='40px' color="#494C4C" />)
+        setSaveIcon(story.is_saved ? 'solid' : 'default')
 
         setIsFaved(story.is_favorite)
         setFaveIcon(story.is_favorite ? 'solid' : 'default')
@@ -280,7 +280,7 @@ function DisplayStory() {
                                     {auth && auth.userType === "child" &&
                                         <div className={s.buttons}>
                                             <Link ref={saveRef} style={{ display: 'flex', alignItems: 'center' }} onClick={handleSave}>
-                                                <Button icon={saveIcon} />
+                                                <box-icon name='bookmark' type={saveIcon} size='40px' />
                                             </Link>
                                             <Link style={{ display: 'flex', alignItems: 'center' }} onClick={handleFave}>
                                                 <box-icon name='heart' type={faveIcon} size='40px' color={faveColor} />

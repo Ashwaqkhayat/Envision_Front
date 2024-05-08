@@ -91,7 +91,7 @@ function AddChild() {
                                     >Cancel
                                     </Link>
 
-                                    <h1>Add Child</h1>
+                                    <h1>إضافة طفــل</h1>
 
                                     <div className={s.form_part}>
                                         <div className={s.input_box}>
@@ -165,7 +165,7 @@ function AddChild() {
 
                                     <div className={s.bottom_part}>
                                         <Button className={s.submitBtn} htmlType="submit" type="primary" size="large" >
-                                            إضافة طفل
+                                            إضافة الطفل
                                         </Button>
                                     </div>
                                 </div>

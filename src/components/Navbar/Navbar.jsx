@@ -47,12 +47,13 @@ export default function Navbar() {
                     {/* If user is authinticated/logged in then show the profile, otherwise show the login/register btns */}
                     {auth? 
                         <>
-                            <Button 
-                            type="text" 
-                            shape="round"
+                        <Button 
+                            type="primary"
+                            onClick={() => {navigate('/profile')}}
+                            shape="round" 
                             size="large"
-                            onClick={() => {navigate('/')}}
-                            > الرئيسية</Button>
+                            icon={ <UserOutlined style={{ fontSize: '20px'}} /> }
+                            > ملفي الشخصي </Button>
 
                             {auth.userType === "child" &&
                             <Button 
@@ -64,27 +65,27 @@ export default function Navbar() {
                             }
 
                             <Button 
-                            type="primary"
-                            onClick={() => {navigate('/profile')}}
-                            shape="round" 
+                            type="text" 
+                            shape="round"
                             size="large"
-                            icon={ <UserOutlined style={{ fontSize: '20px'}} /> }
-                            > ملفي الشخصي </Button>
+                            onClick={() => {navigate('/')}}
+                            > الرئيسية</Button>
+                            
                         </>
                     :
                         <>
-                        <Button
-                        className={s.nav_login}
-                        type="primary"
-                        size="large"
-                        onClick={() => navigate('/Signin') }
-                        >تسجيل الدخول</Button>
-
                         <Button 
                         className={s.nav_register}
                         size="large"
                         onClick={() => navigate('/Signup')}
                         >التسجيل</Button>
+
+                        <Button
+                        className={s.nav_login}
+                        type="primary"
+                        size="large"
+                        onClick={() => navigate('/Signin') }
+                        >تسجيل الدخول</Button>                        
                         </>
                     }
 
