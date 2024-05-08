@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import s from './Landing_style.module.css'
-
 //Navigations using buttons
 import { Link, useNavigate } from "react-router-dom";
 //photos
@@ -11,61 +10,63 @@ import wind from '../../assets/images/magicWind.png'
 //Antd imports 
 import { ConfigProvider, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons'
-
+// Navbar + Footer
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from "../../components/Footer/Footer"
+// Parallax Images
+import brush from '../../assets/images/parallax/brush.png'
+import castle from '../../assets/images/parallax/castle.png'
+import mountains from '../../assets/images/parallax/mountains.png'
+import path from '../../assets/images/parallax/path.png'
+import pegions from '../../assets/images/parallax/pegions.png'
+import trees from '../../assets/images/parallax/trees.png'
 
 export default function Landing() {
     const navigate = useNavigate()
 
     return (
         <>
-            <Navbar />
-            <div className={s.body}>
-                {/*======= Hero =======*/}
+            <div className={s.parallax}>
+                <Navbar />
                 <div className={s.hero}>
-                    <div className={s.hero_content}>
-                        <img className={s.hero_bg} src={planet} alt="planet image" />
+                    <div className={s.hero_text}>
+                        <h1>مرحبـًـــا</h1>
+                        <p className={s.desc}> أطلق العنان لبطلك الداخلي! انطلق بخيالك وابتكر قصة فريدة من نوعها مع مغامرات مصممة خصيصا لك
 
-                        <div className={s.hero_text}>
-                            <h1>تخيـّـــــــل</h1>
-                            <p className={s.desc}>
-                                أطلق العنان لبطلك الداخلي! انطلق بخيالك وابتكر قصة فريدة من نوعها مع مغامرات مصممة خصيصا لك
-                            </p>
-
-                            <ConfigProvider //change color theme
-                                theme={{
-                                    token: {
-                                        colorPrimary: '#8993ED',
-                                        fontSize: 16,
-                                        sizeStep: 20,
-                                    }
-                                }}
-                            >
-                                <Button
-                                    className={s.hero_startbtn}
-                                    type="primary"
-                                    size="large"
-                                    onClick={() => navigate('/CreateStory')}
-                                >ابــدأ الآن</Button>
-                            </ConfigProvider>
-                        </div>
-
-                        {/*======= Down Arrow =======*/}
-                        <Link className={s.arrow_link} to=''>
-                            <DownOutlined style={{ color: '#ededed', fontSize: '20px' }} />
-                        </Link>
+                        </p>
                     </div>
-
-
+                    <ConfigProvider //change color theme
+                        theme={{
+                            token: {
+                                colorPrimary: '#8993ED',
+                                sizeStep: 18,
+                            }
+                        }}
+                    >
+                        <Button
+                        style={{height:"70px", fontSize:"18pt", fontWeight:"500"}}
+                            className={s.hero_startbtn}
+                            type="primary"
+                            size="large"
+                            onClick={() => navigate('/CreateStory')}
+                        >ابــدأ الآن</Button>
+                    </ConfigProvider>
                 </div>
+                <img className={s.parallax_brush} src={brush}></img>
+                <img className={`${s.parallax_castle} ${s.opac}`} src={castle}></img>
+                <img className={`${s.parallax_mountains} ${s.opac}`} src={mountains}></img>
+                <img className={`${s.parallax_trees} ${s.opac}`} src={trees}></img>
+                <img className={`${s.parallax_path} ${s.opac}`} src={path}></img>
+                <img className={`${s.parallax_pegions} ${s.opac}`} src={pegions}></img>
+            </div>
 
+            <div className={s.main_content}>
                 {/*======= Why Envision =======*/}
                 <div className={s.feature_cont}>
                     <div className={s.feature_box}>
                         <div className={s.feature_text}>
                             <h2>لم تخيـّــل؟</h2>
-                            <p style={{ fontWeight: '500', fontSize: '18pt', direction: 'rtl', textAlign: 'left' }}>
+                            <p style={{ fontWeight: '500', fontSize: '18pt', direction: 'rtl' }}>
                                 في "تخيـّــل" ، قمنا بتصميم
                                 منصة كاملة لبدء رحلتك في تخيل تجاربك المفضلة!</p>
                         </div>
@@ -118,8 +119,8 @@ export default function Landing() {
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
-            <Footer />
         </>
     )
 }

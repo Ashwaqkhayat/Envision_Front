@@ -34,11 +34,6 @@ export default function Navbar() {
     return (
         <div className={s.nav}>
             <div className={s.nav_left}>
-                <a href='/'><img src={logo} className={s.nav_logo} alt="Envision Logo" /></a>
-                <Link to='/' className={s.nav_title}>تخيـّــــل</Link>
-            </div>
-
-            <div className={s.nav_right}>
                 <Flex gap="small" wrap="wrap">
                 <ConfigProvider
                 theme={{
@@ -95,6 +90,11 @@ export default function Navbar() {
 
                 </ConfigProvider>
                 </Flex>
+            </div>
+
+            <div className={s.nav_right}>
+                {/* <a href='/'><img src={logo} className={s.nav_logo} alt="Envision Logo" /></a> */}
+                <Link to='/' className={s.nav_title}>تخيـّـــــــل </Link>
             </div>
         </div>
     )

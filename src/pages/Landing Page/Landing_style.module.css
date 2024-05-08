@@ -1,82 +1,129 @@
-
-
-/* ========== HERO ========== */
-
-.hero {
+/* .hero {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding-top: 3rem;
-    position: relative;
-    /* Container Sizing */
-    max-width: 1280px;
+    position: relative; */
+/* Container Sizing */
+/* max-width: 1280px;
     margin: 0 auto 8rem auto;
     padding: 0 1rem;
 
     @media (max-width: 1360px) {
         padding: 0 3rem;
     }
+} */
 
-    .hero_content {
-        min-height: 30rem;
-        width: 100%;
-        background-color: #e0e0e0;
-        border-radius: 2rem;
-        position: relative;
+.parallax {
+    /* min-height: 95vh; */
+    position: relative;
+    z-index: 0;
+    min-height: min(calc(100vw * 0.5625), 95vh);
+    display: grid;
+    grid-template-areas: "stack";
+}
+
+.parallax>* {
+    grid-area: stack;
+    animation: parallax linear;
+    animation-timeline: scroll();
+}
+
+.parallax>img {
+    /* opacity: 70%; */
+    position: absolute;
+    padding-top: 0;
+    top: calc(-10px - 5vw);
+    width: 100%;
+}
+
+.parallax_brush {
+    --parallax-speed: 5;
+    z-index: 1;
+}
+
+.parallax_castle {
+    --parallax-speed: 3;
+    z-index: 2;
+}
+
+.parallax_mountains {
+    --parallax-speed: 2;
+    z-index: 3;
+}
+
+.parallax_trees {
+    --parallax-speed: 3;
+    z-index: 4;
+}
+
+.parallax_path {
+    --parallax-speed: 1;
+    z-index: 5;
+}
+
+.parallax_pegions {
+    --parallax-speed: 5;
+    z-index: 1;
+}
+
+.hero {
+    position: absolute;
+    --parallax-speed: 5;
+    top: 170px;
+    left: 16%;
+    z-index: 10;
+    display: flex;
+    margin-left: auto;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    max-width: 520px;
+}
+
+.hero_text {
+    h1 {
+        font-weight: 700;
+        font-size: 4.5rem;
+        margin-bottom: 10px;
+        color: #4c4c4c;
+    }
+
+    p {
+        font-weight: 500;
+        font-size: 1.56rem;
+        margin-bottom: 20px;
+        color: #4c4c4c;
+    }
+
+    .hero_startbtn {
         display: flex;
-        align-items: center;
         justify-content: center;
-        padding: 0rem 7rem;
-
-        @media (max-height: 400px) {
-            height: 27rem;
-        }
-
-        .hero_bg {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50%;
-        }
-
-        .hero_text {
-            display: flex;
-            margin-left: auto;
-            flex-direction: column;
-            text-align: center;
-            align-items: center;
-            max-width: 590px;
-            position: relative;
-
-            h1 {
-                font-weight: 700;
-                font-size: 4.5rem;
-                margin-bottom: 10px;
-                color: #4c4c4c;
-            }
-
-            p {
-                font-weight: 500;
-                font-size: 1.56rem;
-                margin-bottom: 30px;
-                color: #4c4c4c;
-            }
-
-            .hero_startbtn {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                color: #ffffff;
-                font-weight: 550;
-                width: 15rem;
-                border-radius: 10px;
-                height: 50px;
-            }
-        }
+        align-items: center;
+        color: #ffffff;
+        font-weight: 550;
+        width: 15rem;
+        border-radius: 10px;
+        height: 50px;
     }
 }
 
+@keyframes parallax {
+    to {
+        transform:
+            translateY(calc(var(--parallax-speed) * 200px));
+    }
+}
+
+.main_content {
+    position: relative;
+    z-index: 1;
+    background-color: #EDEDED;
+    /* Add padding and stuff */
+}
+
+/*  Arrow Link.. */
 .arrow_link {
     position: absolute;
     bottom: -5%;
@@ -95,8 +142,7 @@
     transform: translateY(7px);
 }
 
-.feature_cont{
-    /* Container Sizing */
+.feature_cont {
     max-width: 1280px;
     margin: 0 auto 8rem auto;
     padding: 0 1rem;
@@ -112,6 +158,9 @@
     border-radius: 2rem;
     position: relative;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 
     @media (max-width: 1180px) {
         display: flex;
@@ -122,7 +171,8 @@
     color: #4c4c4c;
     position: relative;
     top: 20%;
-    left: 7%;
+    /* left: 55%; */
+    text-align: center;
     max-width: 25rem;
 
     h2 {
@@ -137,45 +187,49 @@
 
 .feature_cards {
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     column-gap: 1.56rem;
+    /* position: absolute;
+    right: 50%;
+    top: 32%; */
     position: absolute;
-    right: -22%;
-    top: 32%;
+    top: 70%;
 
-    @media (max-width: 1707px) {
+    /* @media (max-width: 1707px) {
         top: 70%;
-        right: -7%;
+        right: 50%;
     }
 
     @media (max-width: 1180px) {
         position: relative;
         width: 900px;
         top: 8rem;
-        right: -10%;
+        right: 50%;
+    } */
+}
+
+.card {
+    background-color: #EDEDED;
+    border-radius: 1rem;
+    border: 1.5px solid #8EC3B7;
+    width: 20rem;
+    padding: 1rem 3rem 4rem 3rem;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 1180px) {
+        width: 15rem;
+        height: 10rem;
     }
 
-    .card {
-        background-color: #EDEDED;
-        border-radius: 1rem;
-        border: 1.5px solid #8EC3B7;
-        width: 20rem;
-        padding: 1rem 3rem 4rem 1.5rem;
-
-        @media (max-width: 1180px) {
-            width: 15rem;
-            height: 10rem;
-        }
-
-        h3 {
-            font-size: 1.6rem;
-            line-height: 30px;
-            color: #353636;
-        }
+    h3 {
+        font-size: 1.6rem;
+        line-height: 30px;
+        color: #353636;
     }
 }
 
-.goal_box{
+.goal_box {
     height: 23rem;
     display: flex;
     justify-content: center;
@@ -184,12 +238,13 @@
     max-width: 1280px;
     margin: 0 auto 8rem auto;
     padding: 0 1rem;
-    
+
 
     @media (max-width: 1360px) {
         padding: 0 5rem;
     }
 }
+
 .goal_content span {
     background-color: #C7CDFF;
     border-radius: 1rem;
@@ -281,4 +336,33 @@
     top: -5rem;
     left: -11rem;
     transform: rotate(12deg);
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .parallax>img {
+        padding-top: calc(10vw);
+        /* Increases 10% of the viewport width */
+    }
+
+    .hero {
+        top: 230px;
+    }
+
+    .feature_box {
+        height: 21rem;
+        /* display: flex;
+        justify-content: center;
+        text-align: center; */
+    }
+
+    .feature_text {
+        top: 13%;
+        /* left: 0; */
+    }
+
+    .feature_cont,
+    .goal_box,
+    .steps {
+        max-width: 1080px;
+    }
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import s from './Footer.module.css'
 //importing images
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/test.png'
 
 export default function Footer() {
     const auth = JSON.parse(localStorage.getItem('user-info'))

@@ -48,7 +48,7 @@ function AddChild() {
             if (response.ok) {
                 console.log("> Child added successfully")
                 setIsLoading(false)
-                popMsg('Child added successfully!', 'success')
+                popMsg('تمت إضافة الطفل بنجاح', 'success')
                 setTimeout(() => {
                     navigate('/profile')
                 }, 1300)
@@ -66,11 +66,10 @@ function AddChild() {
             }
         } catch (err) {
             console.error("Failed adding child, ", err)
-            popMsg('Something went wrong, try again later.')
+            popMsg('حدث خطأ ما, أعد المحاولة مرة أخرى')
             setIsLoading(false)
         }
     }
-
     return (
         <>
             <div className={s.body}>
@@ -84,7 +83,7 @@ function AddChild() {
                                     colorPrimary: '#8993ED',
                                 }
                             }} >
-                            <Spin className={s.spin} spinning={isLoading} tip="Adding child..." size="large">
+                            <Spin className={s.spin} spinning={isLoading} tip="يتم إضافة الطفل..." size="large">
                                 <div className={s.wrapper}>
                                     <Link
                                         className={s.cancel_btn}
@@ -97,13 +96,13 @@ function AddChild() {
                                     <div className={s.form_part}>
                                         <div className={s.input_box}>
                                             <Label
-                                                inputTitle="Child Email"
-                                                popTitle="Child Email Address"
-                                                popMsg="Please enter the email address of the child you want to add to your children list."
+                                                inputTitle="البريد الإلكتروني للطفل"
+                                                popTitle="البريد الإلكتروني للطفل"
+                                                popMsg="رجاءً قم بإدخال البريد الإلكتروني الخاص بالطفل المراد إضافته"
                                             />
 
                                             <Form.Item name={'email'} rules={[{
-                                                required: true, type: 'email', message: 'Please enter the email address'
+                                                required: true, type: 'email', message: 'رجاءً قم بإدخال البريد الإلكتروني'
                                             }]}>
                                                 <Input
                                                     size="large"
@@ -114,15 +113,15 @@ function AddChild() {
                                         </div>
                                         <div className={s.input_box}>
                                             <Label
-                                                inputTitle="Child Birthdate"
-                                                popTitle="When the child born?"
-                                                popMsg="Please enter the birthdate of the child"
+                                                inputTitle="تاريخ ميلاد الطفل"
+                                                popTitle="متى ولد الطفل؟"
+                                                popMsg="رجاءً قم تاريخ ميلاد الطفل المراد إضافته"
                                             />
 
                                             {/* <Space className={s.input_bdate} direction="vertical"> */}
                                             <Form.Item className={s.input_bdate} name={'birthdate'} rules={[{
                                                 required: true,
-                                                message: 'Please enter the birthdate'
+                                                message: 'رجاءً قم بإدخال تاريخ الميلاد'
                                             }]}>
                                                 <DatePicker className={s.input_bdate} size="large" />
                                             </Form.Item>
@@ -130,35 +129,35 @@ function AddChild() {
                                         </div>
                                         <div className={s.input_box}>
                                             <Label
-                                                inputTitle="Child Favorite Color"
-                                                popTitle="What is the child's favorite color?"
-                                                popMsg="Is it Red? Blue? Green, Yellow, Pink, or Purple?"
+                                                inputTitle="اللون المفضل للطفل"
+                                                popTitle="ما هو اللون المفضل للطفل؟"
+                                                popMsg="هل هو البنفسجي؟ الأزرق, الأخضر, الأصفر, أم الوردي"
                                             />
 
                                             <Form.Item name={'favorite_color'} rules={[{
                                                 required: true,
-                                                message: 'Please enter the favorite color'
+                                                message: 'رجاءُ قم بإدخال اللون المفضل'
                                             }]}>
                                                 <Input size="large" placeholder="Blue" />
                                             </Form.Item>
                                         </div>
                                         <div className={s.input_box}>
                                             <Label
-                                                inputTitle="Guardian Occupation"
-                                                popTitle="What is your occupation?"
-                                                popMsg="Please choose your role based on your relationship with the child"
+                                                inputTitle="مهنة الوصي"
+                                                popTitle="ما هي مهنتك؟"
+                                                popMsg="رجاءً قم بتحديد دورك بناءً على علاقتك بالطفل"
                                             />
 
                                             <Form.Item name={'occupation'} rules={[{
                                                 required: true,
-                                                message: 'Please choose your occupation'
+                                                message: 'رجاء قم بتحديد مهنتك'
                                             }]}>
                                                 <Radio.Group size="large">
-                                                    <Radio.Button value="relative">Relative</Radio.Button>
-                                                    <Radio.Button value="teacher">Teacher</Radio.Button>
-                                                    <Radio.Button value="doctor">Doctor</Radio.Button>
-                                                    <Radio.Button value="specialist">Specialist</Radio.Button>
-                                                    <Radio.Button value="other">Other</Radio.Button>
+                                                    <Radio.Button value="relative">قريب</Radio.Button>
+                                                    <Radio.Button value="teacher">معلم</Radio.Button>
+                                                    <Radio.Button value="doctor">طبيب</Radio.Button>
+                                                    <Radio.Button value="specialist">أخصائي</Radio.Button>
+                                                    <Radio.Button value="other">آخر</Radio.Button>
                                                 </Radio.Group>
                                             </Form.Item>
                                         </div>
@@ -166,7 +165,7 @@ function AddChild() {
 
                                     <div className={s.bottom_part}>
                                         <Button className={s.submitBtn} htmlType="submit" type="primary" size="large" >
-                                            Add Child
+                                            إضافة طفل
                                         </Button>
                                     </div>
                                 </div>
