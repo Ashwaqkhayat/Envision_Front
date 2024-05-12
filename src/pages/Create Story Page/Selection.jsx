@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import s from "./CreateStory_style.module.css"
 import { useNavigate } from "react-router-dom";
-import { ConfigProvider, Spin, Form, Button, Select, Input, Radio } from 'antd'
+import { ConfigProvider, Spin, Form, Button, Select, Input, Radio, message } from 'antd'
 
 function Selection() {
     const navigate = useNavigate()
@@ -16,14 +16,27 @@ function Selection() {
         { value: 'ar', label: 'العربية' }
     ]
 
-    async function submitStory(values) {
+    const [messageApi, contextHolder] = message.useMessage() //Popup messages
+    const popMsg = (text, type) => {
+        messageApi.open({
+            type: type,
+            content: text,
+            duration: 5,
+            style: {
+                fontSize: '18px',
+                justifyContent: 'center',
+            },
+        })
+    }
+
+    async function submitStory(values) {        
         const requestBody = {
             title: "Story Title",
             name: values.name,
             gender: values.gender,
             location: values.location,
             emotion: values.emotion,
-            language: values.language === undefined ? 'en' : values.language,
+            language: values.language === undefined ? 'ar' : values.language,
             // location: (values.location === undefined || values.location === "") ? 'places suitable for story events' : values.location,
             // emotion: values.emotion === undefined ? 'feelings suit the story events' : values.emotion,
             // language: values.language === undefined ? 'en' : values.language,
@@ -42,8 +55,13 @@ function Selection() {
                 credentials: 'include',
             });
 
-            if (response.ok) {
+            if (response.status==422){
+                popMsg("لقد استخدمت كلمة سيئة, حاول مرة أخرى","warning")
+                console.log("Unethical Prompt Detected.")
+                setIsLoading(false)
+            } else if (response.ok) {
                 const data = await response.json()
+                console.log("Created story: ", data)
                 let story = {
                     prompt: data.story.prompt,
                     language: data.story.requested_lamguage,
@@ -58,21 +76,28 @@ function Selection() {
                     start_time: data.story.start_time,
                     end_time: data.story.end_time,
                 }
-                localStorage.setItem('story', JSON.stringify(story))
-                navigate('/Story')
-                setIsLoading(false)
-                console.log("Story is created successfully")
+                if(data.story.story_images.length<3){
+                    popMsg("حدث خطأ ما, حاول مرة أخرى","error")
+                    setIsLoading(false)
+                } else {
+                    localStorage.setItem('story', JSON.stringify(story))
+                    navigate('/Story')
+                    setIsLoading(false)
+                    console.log("Story is created successfully", data)
+                }
             } else {
                 throw new Error(`Response is not ok: ${response.status}`);
             }
         } catch (e) {
-            console.error("An error occurred: ", e);
+            console.error("An error occurred: ", e)
+            popMsg("حدث خطأ ما, قم بالمحاولة لاحقًا", "error")
             setIsLoading(false)
         }
     }
 
     return (
         <>
+            {contextHolder}
             <ConfigProvider
                 theme={{
                     token: { colorPrimary: '#8993ED', },
@@ -106,8 +131,8 @@ function Selection() {
                                         defaultActiveFirstOption
                                         variant="filled"
                                         defaultValue={{
-                                            value: 'en',
-                                            label: 'الإنجليزية',
+                                            value: 'ar',
+                                            label: 'العربية',
                                         }}
                                         options={options}
                                         style={{ width: 120 }}
@@ -120,7 +145,7 @@ function Selection() {
                                     name='name'
                                     required
                                     rules={[{ required: true, message: 'رجاءً قم باختيار اسم' }]}
-                                    tooltip={'Enter the main character name'}>
+                                    tooltip={'ما الاسم الخاص ببطل القصة؟'}>
                                     <Input placeholder='مثال: ليان'></Input>
                                 </Form.Item>
 
@@ -129,13 +154,13 @@ function Selection() {
                                     name='gender'
                                     required
                                     rules={[{ required: true, message: 'رجاءً قم بتحديد الجنس' }]}
-                                    tooltip={'Select the main character gender'}
+                                    tooltip={'هل البطل صبي أم فتاة'}
                                 >
                                     <Radio.Group style={{ width: '100%' }}>
                                         <Radio.Button style={{ width: '50%'}} value="female">
-                                        أنثى
+                                        فتــاة
                                         </Radio.Button>
-                                        <Radio.Button style={{ width: '50%'}} value="male">ذكـر</Radio.Button>
+                                        <Radio.Button style={{ width: '50%'}} value="male">صبـي</Radio.Button>
                                     </Radio.Group>
                                 </Form.Item>
 
@@ -144,14 +169,14 @@ function Selection() {
                                     name='emotion'
                                     required
                                     rules={[{ required: true, message: 'رجاءً قم باختيار المشاعر التي يشعر بها البطل' }]}
-                                    tooltip={'Select the main character emotion'}
+                                    tooltip={'اختر المشاعر التي يشعر بها البطل'}
                                 >
                                     <Radio.Group style={{ width: '100%' }}>
                                         <Radio.Button style={{ width: '20%' }} value="happy">سعادة</Radio.Button>
                                         <Radio.Button style={{ width: '20%' }} value="sad">حزن</Radio.Button>
                                         <Radio.Button style={{ width: '20%' }} value="angry">غضب</Radio.Button>
                                         <Radio.Button style={{ width: '20%' }} value="scared">خوف</Radio.Button>
-                                        <Radio.Button style={{ width: '20%' }} value="disgusted">اشمئزاز</Radio.Button>
+                                        <Radio.Button style={{ width: '20%' }} value="energetic">نشاط</Radio.Button>
                                     </Radio.Group>
                                 </Form.Item>
 
@@ -160,7 +185,7 @@ function Selection() {
                                     name='location'
                                     required
                                     rules={[{ required: true, message: 'رجاءً قم باختيار موقع حدوث القصة' }]}
-                                    tooltip={'Choose where the story events take place'}
+                                    tooltip={'أين ستحدث أحداث القصة؟'}
                                 >
                                     <Radio.Group style={{ width: '100%' }}>
                                         <Radio.Button style={{ width: '20%' }} value="home">المنزل</Radio.Button>

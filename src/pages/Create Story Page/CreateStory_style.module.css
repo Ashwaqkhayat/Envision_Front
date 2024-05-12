@@ -14,11 +14,12 @@
 
 .content {
     flex: 1;
-    margin-top: -80px;
+    margin-top: -20px;
     padding-top: 3rem;
     position: relative;
     display: flex;
     justify-content: center;
+    /* align-items: center; */
 }
 
 .wrapper {
@@ -49,7 +50,7 @@
     flex-direction: column;
     align-items: center;
     z-index: 1;
-    top: 15rem;
+    top: 18rem;
     width: 100px;
     right: -200px;
 }

@@ -91,7 +91,7 @@ function SigninForm() {
                                     colorPrimary: '#8993ED',
                                 }
                             }} >
-                            <Spin className={s.spin} spinning={isLoading} tip="Logging in..." size="large">
+                            <Spin className={s.spin} spinning={isLoading} tip="يتم تسجيل الدخول..." size="large">
 
                                 <div className={s.wrapper}>
                                     <Link

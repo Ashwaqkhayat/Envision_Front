@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import s from "./CreateStory_style.module.css"
 import { useNavigate, Link } from "react-router-dom";
-import { ConfigProvider, Spin, Form, Button, Select, Input, Radio } from 'antd'
+import { ConfigProvider, Spin, Form, Button, Select, Input, Radio, message } from 'antd'
 import { RocketOutlined } from '@ant-design/icons'
 
 function Description() {
@@ -17,11 +17,24 @@ function Description() {
         { value: 'ar', label: 'العربية' }
     ]
 
+    const [messageApi, contextHolder] = message.useMessage() //Popup messages
+    const popMsg = (text, type) => {
+        messageApi.open({
+            type: type,
+            content: text,
+            duration: 5,
+            style: {
+                fontSize: '18px',
+                justifyContent: 'center',
+            },
+        })
+    }
+
     async function submitStory(values) {
         const requestBody = {
             title: "Story Title",
             prompt: values.description,
-            language: values.language === undefined ? 'en' : values.language,
+            language: values.language === undefined ? 'ar' : values.language,
         }
 
         try {
@@ -36,7 +49,11 @@ function Description() {
                 body: JSON.stringify(requestBody),
                 credentials: 'include'
             })
-            if (response.ok) {
+            if (response.status==422){
+                popMsg("لقد استخدمت كلمة سيئة, حاول مرة أخرى","warning")
+                console.log("Unethical Prompt Detected.")
+                setIsLoading(false)
+            } else if (response.ok) {
                 const data = await response.json()
                 console.warn("Created data: " , data)
                 let story = {
@@ -53,21 +70,28 @@ function Description() {
                     start_time: data.story.start_time,
                     end_time: data.story.end_time,
                 }
-                localStorage.setItem('story', JSON.stringify(story))
-                navigate('/Story')
-                setIsLoading(false)
-                console.log("Story is created successfully ", story)
+                if(data.story.story_images.length<3){
+                    popMsg("حدث خطأ ما, حاول مرة أخرى","error")
+                    setIsLoading(false)
+                } else {
+                    localStorage.setItem('story', JSON.stringify(story))
+                    navigate('/Story')
+                    setIsLoading(false)
+                    console.log("Story is created successfully")
+                }
             } else {
                 throw new Error(`Response is not ok: ${response.status}`)
             }
         } catch (e) {
             console.error("An error occured: ", e)
+            popMsg("حدث خطأ ما, قم بالمحاولة لاحقًا", "error")
             setIsLoading(false)
         }
     }
 
     return (
         <>
+            {contextHolder}
             <ConfigProvider
                 theme={{
                     token: { colorPrimary: '#8993ED', },
@@ -99,7 +123,7 @@ function Description() {
                                     style={{ marginBottom: 0 }}>
                                     <Select
                                         options={options}
-                                        defaultValue={'en'}
+                                        defaultValue={'ar'}
                                         variant="filled"
                                         style={{ width: 120 }}
                                     />
@@ -123,7 +147,7 @@ function Description() {
                                     label='وصــف القـصة'
                                     name='description'
                                     required
-                                    tooltip={'Write a full description of your story'}
+                                    tooltip={'اكتب وصفًا عن قصتك, ما اسم البطل؟ أين ذهب وما الأحداث التي ستحصل؟'}
                                 >
                                     <TextArea
                                         rows={6}

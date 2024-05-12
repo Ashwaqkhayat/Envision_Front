@@ -25,11 +25,6 @@ function Settings(props) {
         })
     }
 
-    // Delete Account Form
-    // const onFinish = (values) => {
-    //     showDeleteConfirm(values)
-    // }
-
     //Selection (Soon...)
     const handleChange = (value) => {
         console.log(`selected ${value}`)
@@ -124,7 +119,7 @@ function Settings(props) {
                             <Select
                                 disabled='true'
                                 size='large'
-                                defaultValue="english"
+                                defaultValue="arabic"
                                 onChange={handleChange}
                                 style={{
                                     width: 200,

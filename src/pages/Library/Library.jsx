@@ -34,8 +34,12 @@ function Library() {
                 }
                 console.log("Library fetched successfully")
                 const data = await response.json();
-                setLibrary(JSON.parse(JSON.stringify(data)).stories)
-                console.log("data are: ", JSON.parse(JSON.stringify(data)).stories)
+                // setLibrary(JSON.parse(JSON.stringify(data)).stories)
+                // console.log("Data are: ", data)
+                const arrayOfObjects = Object.entries(data).map(([key, value]) => {
+                    return { key, ...value }
+                })
+                setLibrary(arrayOfObjects)
                 setIsLoading(false)
             } catch (err) {
                 console.error("Error Getting library", err)
@@ -75,7 +79,7 @@ function Library() {
                                     <h1>مرحبـًــا {user && capitalize(user.first_name)}</h1>
                                 </div>
                                 <div className={`${s.container} ${s.box2}`}>
-                                    <h3 style={{direction:'rtl', textAlign: 'left'}}>ابن عالمك الخاص باستخدام خيالك!</h3>
+                                    <h3 style={{ direction: 'rtl', textAlign: 'left' }}>ابن عالمك الخاص باستخدام خيالك!</h3>
                                     <Button
                                         className={s.service_btn}
                                         onClick={() => { navigate('/CreateStory') }}
@@ -96,12 +100,12 @@ function Library() {
                                         onChange={(value) => { setSegmented(value) }}
                                         options={[
                                             {
-                                                label: 'My Library',
+                                                label: 'مكتبتــي',
                                                 value: 'Library',
                                                 icon: <BarsOutlined />,
                                             },
                                             {
-                                                label: 'Favorites',
+                                                label: 'المفضلــة',
                                                 value: 'Favorites',
                                                 icon: <HeartOutlined />,
                                             },

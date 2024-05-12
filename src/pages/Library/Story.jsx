@@ -3,8 +3,6 @@ import s from './Story_style.module.css'
 import { useNavigate } from "react-router-dom"
 import { ConfigProvider, Spin } from 'antd'
 
-import bookCover from '../../assets/images/bookCover.png'
-
 function Story(props) {
     let storyId = props.content.id
     const [isLoading, setIsLoading] = useState(false)
@@ -69,9 +67,9 @@ function Story(props) {
     const navigate = useNavigate()
     const content = props.content
     let storyTitle = content.title
-    // let storyImages = content.story_images
+    let storyImages = content.story_images
     // let storyTexts = content.language == "en" ? content.story_en : content.story_ar 
-    // let cover = displayImages(storyImages[0][0])
+    let cover = displayImages(storyImages[1])
     // let scNum = storyTexts.length
 
     return (
@@ -82,7 +80,7 @@ function Story(props) {
             }}>
             <Spin spinning={isLoading} size="large">
                 <div className={s.container} onClick={openStory}>
-                    <img src={bookCover} alt="cover image" />
+                    <img src={cover} alt="cover image" />
                     <h3>{storyTitle}</h3>
                 </div>
             </Spin>
