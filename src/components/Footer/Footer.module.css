@@ -5,6 +5,7 @@
     grid-template-columns: repeat(3, 1fr);
     padding: 60px 17%;
     margin-top: auto;
+    z-index: 1000;
 }
 
 .left_side, .middle, .right_side{

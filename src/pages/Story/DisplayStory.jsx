@@ -4,8 +4,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ConfigProvider, Button, Spin, Tour, Modal, Input, message } from 'antd'
 import {
     CloseOutlined, HeartOutlined,
-    HeartFilled, CloudFilled, CloudOutlined, LoadingOutlined,
-    EditOutlined, SoundOutlined,
+    HeartFilled, LoadingOutlined, EditOutlined, 
+    SoundOutlined, FolderOutlined, FolderFilled, 
+    SaveOutlined,
+    SaveFilled,
 } from '@ant-design/icons'
 // importing components
 import Navbar from '../../components/Navbar/Navbar'
@@ -20,11 +22,14 @@ function DisplayStory() {
 
     // Save & Fave buttons
     const [isSaved, setIsSaved] = useState(false)
-    const [saveIcon, setSaveIcon] = useState(<box-icon name='bookmark' type='default' size='40px' color="#494C4C" />)
+    const [saveIcon, setSaveIcon] = useState(<FolderOutlined />)
 
     const [isFaved, setIsFaved] = useState(false)
-    const [faveIcon, setFaveIcon] = useState('default')
+    const [faveIcon, setFaveIcon] = useState(<HeartOutlined />)
     const [faveColor, setFaveColor] = useState('#494C4C')
+
+    const [saveLoading, setSaveLoading] = useState(false)
+    const [faveLoading, setFaveLoading] = useState(false)
 
     const [story, setStory] = useState(JSON.parse(localStorage.getItem('story'))) //state item to store fetched story
     const [isLoading, setIsLoading] = useState(true) //Loading API fetching
@@ -104,14 +109,12 @@ function DisplayStory() {
     useEffect(() => {
         setIsLoading(true)
         // If story isn't exist in localStorage, redirect back
-        if (!story) {  navigate(-1) 
-
-        }
+        if (!story) {  navigate(-1) }
         setIsSaved(story.is_saved)
-        setSaveIcon(story.is_saved ? 'solid' : 'default')
+        setSaveIcon(story.is_saved ? <FolderFilled style={{fontSize:'24pt'}}/> : <FolderOutlined style={{fontSize:'24pt'}}/>)
 
         setIsFaved(story.is_favorite)
-        setFaveIcon(story.is_favorite ? 'solid' : 'default')
+        setFaveIcon(story.is_favorite ? <HeartFilled style={{fontSize:'24pt'}}/> : <HeartOutlined style={{fontSize:'24pt'}}/>)
         setFaveColor(story.is_favorite ? '#d94848' : '#494C4C')
 
         setTitle(story.title)
@@ -136,11 +139,10 @@ function DisplayStory() {
                 end_time: story.end_time,
                 story_questions: [],
             }
-
-            console.log("saving story objreq: ", requestBody)
             try {
+                setSaveLoading(true)
                 console.warn("Saving Story..")
-                // setSave(<LoadingOutlined />)
+                setSaveIcon(<LoadingOutlined style={{fontSize:'24pt'}}/>)
                 const response = await fetch(`${process.env.REACT_APP_url}/children/stories/save`, {
                     method: 'POST',
                     headers: {
@@ -155,10 +157,12 @@ function DisplayStory() {
                     console.log("data of story saved: ", data)
                     setStory({ ...story, id: data.story[0].id })
                     setIsSaved(true)
-                    setSaveIcon(<box-icon name='bookmark' type='solid' size='40px' color="#494C4C" />)
+                    setSaveIcon(<FolderFilled style={{fontSize:'24pt'}}/>)
                     console.log("Successfully Saved!!")
                 } else {
                     console.warn("Save Response recieved but not OK: ", response.status)
+                    setSaveIcon(<FolderOutlined style={{fontSize:'24pt'}}/>)
+                    setIsSaved(false)
                 }
             } catch (e) {
                 console.error('Error occured while saving story, ', e)
@@ -166,6 +170,7 @@ function DisplayStory() {
         } else { //if story is saved => Delete
             try {
                 console.warn("Deleting Story..")
+                setSaveIcon(<LoadingOutlined style={{fontSize:'24pt'}}/>)
                 const response = await fetch(`${process.env.REACT_APP_url}/children/stories?id=${story.id}`, {
                     method: 'DELETE',
                     headers: {
@@ -175,15 +180,17 @@ function DisplayStory() {
                 })
                 if (response.ok) {
                     setIsSaved(false)
-                    setSaveIcon(<box-icon name='bookmark' type='default' size='40px' color="#494C4C" />)
+                    setSaveIcon(<FolderOutlined style={{fontSize:'24pt'}}/>)
                     console.log("Successfully Deleted!")
 
                     // if Story was faved, remove favorite..
                     setIsFaved(false)
-                    setFaveIcon('default')
+                    setFaveIcon(<HeartOutlined style={{fontSize:'24pt'}}/>)
                     setFaveColor('#494C4C')
                 } else {
                     console.warn("Delete Response recieved but not OK: ", response.status)
+                    setSaveIcon(<FolderFilled style={{fontSize:'24pt'}}/>)
+                    setIsSaved(true)
                 }
             } catch (e) {
                 console.error('Error occured while deleting story, ', e)
@@ -198,6 +205,7 @@ function DisplayStory() {
             if (!isFaved) { //if not faved, add to favorite
                 try {
                     console.warn("Adding Story to Favorites...")
+                    setFaveIcon(<LoadingOutlined style={{fontSize:'24pt'}}/>)
                     const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.id}`, {
                         method: 'PUT',
                         headers: {
@@ -209,10 +217,13 @@ function DisplayStory() {
                     if (response.ok) {
                         console.log("Successfully Added Story to Favorites!")
                         setIsFaved(true)
-                        setFaveIcon('solid')
+                        setFaveIcon(<HeartFilled style={{fontSize:'24pt'}}/>)
                         setFaveColor('#d94848')
                     } else {
                         console.warn("Response recieved but not OK: ", response.status)
+                        setIsFaved(false)
+                        setFaveIcon(<HeartOutlined style={{fontSize:'24pt'}}/>)
+                        setFaveColor('#494C4C')
                     }
                 } catch (e) {
                     console.error('Error occured while updating favorites, ', e)
@@ -220,7 +231,7 @@ function DisplayStory() {
             } else { // if faved, remove
                 console.warn("Removing Story from Favorites...")
                 try {
-                    // setFave(<LoadingOutlined />)
+                    setFaveIcon(<LoadingOutlined style={{fontSize:'24pt'}}/>)
                     const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.id}`, {
                         method: 'PUT',
                         headers: {
@@ -232,10 +243,13 @@ function DisplayStory() {
                     if (response.ok) {
                         console.log("Successfully Removed Story from Favorites!")
                         setIsFaved(false)
-                        setFaveIcon('default')
+                        setFaveIcon(<HeartOutlined style={{fontSize:'24pt'}}/>)
                         setFaveColor('#494C4C')
                     } else {
                         console.warn("Response recieved but not OK: ", response.status)
+                        setFaveIcon(<HeartFilled style={{fontSize:'24pt'}}/>)
+                        setIsFaved(true)
+                        setFaveColor('#d94848')
                     }
                 } catch (e) {
                     console.error('Error occured while updating favorites, ', e)
@@ -279,12 +293,14 @@ function DisplayStory() {
 
                                     {auth && auth.userType === "child" &&
                                         <div className={s.buttons}>
-                                            <Link ref={saveRef} style={{ display: 'flex', alignItems: 'center' }} onClick={handleSave}>
+                                            <Button icon={saveIcon} ref={saveRef} size='large' type='link' style={{color: '#494C4C', width:'50px', height:'50px'}} onClick={handleSave}/>
+                                            <Button icon={faveIcon} size='large' type='link' style={{color: `${faveColor}`, width:'50px', height:'50px'}} onClick={handleFave}/>
+                                            {/* <Link ref={saveRef} style={{ display: 'flex', alignItems: 'center' }} onClick={handleSave}>
                                                 <box-icon name='bookmark' type={saveIcon} size='40px' />
                                             </Link>
                                             <Link style={{ display: 'flex', alignItems: 'center' }} onClick={handleFave}>
                                                 <box-icon name='heart' type={faveIcon} size='40px' color={faveColor} />
-                                            </Link>
+                                            </Link> */}
                                         </div>
                                     }
                                 </div>
