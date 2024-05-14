@@ -91,7 +91,7 @@ function GuardianProfile(props) {
             })
             .catch((err) => {
                 console.error("Error signing out..")
-                popMsg('Something went wrong. Please try again. ', 'error')
+                popMsg('حدث خطأ ما, قم بالمحاولة لاحقا', 'error')
             })
     }
 
@@ -100,28 +100,28 @@ function GuardianProfile(props) {
             <>
                 {contextHolder}
                 <Modal
-                    title="Welcome"
+                    title="مرحبـًا"
                     centered
                     open={modal2Open}
                     onOk={() => navigate('/addchild')}
-                    okText='Add Child'
-                    cancelText='Later'
+                    okText='إضافة طفل'
+                    cancelText='لاحقًا'
                     onCancel={() => setModal2Open(false)}
                 >
-                    <p>Lets add your first existing child account!</p>
+                    <p>لنقم بإضافة أول طفل لقائمة أطفالك</p>
                 </Modal>
                 <div className={`${s.profile_header} ${s.center_flex}`}>
-                    <h2>Welcome {Fname} !</h2>
+                    <h2>مرحبــًا {Fname} !</h2>
                 </div>
                 <div className={s.profile_windows}>
                     <div className={s.childList_box}>
                         <div className={s.list_header}>
-                            <h2>My Children</h2>
+                            <h2>أطفالـــي</h2>
                             <Button
                                 type="primary"
                                 icon={<PlusOutlined />}
                                 onClick={() => { navigate('/addchild') }}
-                            >Add Child</Button>
+                            >إضافة طفل</Button>
                         </div>
                         <div className={s.list_container}>
                             {children.length === 0 ?
@@ -149,8 +149,8 @@ function GuardianProfile(props) {
                     </div>
                     <div className={s.profileInfo_box}>
                         <div className={s.info_header}>
-                            <h2>My Information</h2>
-                            <Tooltip title="Settings">
+                            <h2>معلومـاتي الشخصية</h2>
+                            <Tooltip title="الإعدادات">
                                 <Button
                                     style={{ borderColor: "#8993ED" }}
                                     icon={<SettingOutlined style={{ color: "#8993ED" }} />}
@@ -160,16 +160,16 @@ function GuardianProfile(props) {
                         </div>
                         <div className={s.info_main}>
                             <div className={s.info_left}>
-                                <p>Name: {fullName}</p>
-                                <p>Age: {age}</p>
-                                <p>Email: {email}</p>
-                                <p>Phone Number: {pnum}</p>
-                                <p>Children Number: {children.length}</p>
+                                <p style={{direction: 'ltr'}}>الاسم: {fullName}</p>
+                                <p style={{direction: 'ltr'}}>العمر: {age}</p>
+                                <p style={{direction: 'ltr'}}>البريد الإلكتروني: {email}</p>
+                                <p style={{direction: 'ltr'}}>رقم الجوال: {pnum}</p>
+                                <p style={{direction: 'ltr'}}>عدد الأطفال: {children.length}</p>
                             </div>
                         </div>
                         <div className={s.info_footer}>
-                            <Button type="primary" href="/contact">Report Problem</Button>
-                            <Button type="primary" danger onClick={logOut}>Sign Out</Button>
+                            <Button type="primary" href="/contact">إرسال شكوى</Button>
+                            <Button type="primary" danger onClick={logOut}>تسجيل الخروج</Button>
                         </div>
                     </div>
                 </div>

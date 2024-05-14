@@ -39,7 +39,7 @@ function Child(props) {
                         <SmileTwoTone twoToneColor={faceColor} />
                     </div>
                 </div>
-                <p className={s.age}>{age}yo</p>
+                <p style={{direction: 'rtl'}} className={s.age}>{age} سنة</p>
                 <Button
                     type="primary"
                     size="small"
@@ -47,7 +47,7 @@ function Child(props) {
                         localStorage.setItem("visited-Child", JSON.stringify(info.id))
                         navigate('/viewChild')
                     }}
-                    >View Profile
+                    >الملف الشخصي
                 </Button>
             </div>
         </ConfigProvider>

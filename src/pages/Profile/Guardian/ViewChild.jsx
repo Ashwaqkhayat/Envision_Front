@@ -22,7 +22,7 @@ function ViewChild() {
     // Modal to inform errors
     const openErrorModal = (msg) => {
         Modal.error({
-            title: 'Something went wrong!',
+            title: 'حدث خطأ ما!',
             content: msg,
             centered: true,
             okButtonProps: { style: { backgroundColor: '#8993ED' } },
@@ -37,12 +37,12 @@ function ViewChild() {
     // Delete Confirm Modal
     const showDeleteConfirm = () => {
         confirm({
-            title: `Are you sure you want to delete ${profile.first_name}?`,
+            title: `هل أنت متأكد من حذف ${profile.first_name}?`,
             icon: <ExclamationCircleFilled />,
             centered: true,
-            okText: 'Yes',
+            okText: 'نعم',
             okType: 'danger',
-            cancelText: 'No',
+            cancelText: 'لا',
             cancelButtonProps: { style: { borderColor: '#7a7a7a', color: '#7a7a7a' } },
             onOk() {
                 console.log('Confirm delete request');
@@ -145,9 +145,9 @@ function ViewChild() {
                                 <div className={s.libraryList_box}>
                                     <div className={s.backArrow_btn} onClick={() => { navigate('/profile') }}>
                                         <box-icon name='left-arrow-alt' size='md' color='#494C4C'></box-icon>
-                                        <h2>Back</h2>
+                                        <h2>تراجع</h2>
                                     </div>
-                                    <h2>Library</h2>
+                                    <h2>المكتبـة</h2>
                                     <div className={s.list_container}>
                                         {isLibraryLoading ?
                                             <div className={`${s.center_flex} ${s.fullDiv}`}>
@@ -174,22 +174,22 @@ function ViewChild() {
                                 </div>
                                 <div className={s.profileInfo_box}>
                                     <div className={s.info_header}>
-                                        <h2>Personal Information</h2>
+                                        <h2>المعلومـات الشخصية</h2>
                                     </div>
                                     <div className={s.info_main}>
                                         <div className={s.info_left}>
-                                            <p>Name: {profile.first_name + " " + profile.last_name}</p>
-                                            <p>Age: {profile.age}</p>
-                                            <p>Gender: {profile.gender}</p>
+                                            <p>الاسم: {profile.first_name + " " + profile.last_name}</p>
+                                            <p>العمر: {profile.age}</p>
+                                            <p>الجنس: {profile.gender}</p>
                                         </div>
                                         <div className={s.info_right}>
-                                            <p>Email: {profile.email}</p>
-                                            <p>Favorite Color: {profile.favorite_color}</p>
-                                            <p>Birthday: {bdate}</p>
+                                            <p>البريد الإلكتروني: {profile.email}</p>
+                                            <p>اللون المفضل: {profile.favorite_color}</p>
+                                            <p>تاريخ الميلاد: {bdate}</p>
                                         </div>
                                     </div>
                                     <div className={s.info_footer}>
-                                        <Button type="primary" danger onClick={showDeleteConfirm}>Delete Child</Button>
+                                        <Button type="primary" danger onClick={showDeleteConfirm}>حذف الطفل</Button>
                                     </div>
                                 </div>
                             </div>

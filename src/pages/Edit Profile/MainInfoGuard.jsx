@@ -137,26 +137,26 @@ function MainInfoGuard(props) {
                         >
                             <div className={s.header}>
                                 <h2>{menuSelection}</h2>
-                                <Button htmlType="submit" size='large' type='primary'>Save</Button>
+                                <Button htmlType="submit" size='large' type='primary'>حفظ</Button>
                             </div>
 
                             <div className={s.bodyInputs}>
                                 <div className={s.columnInputs}>
-                                    <Form.Item label="First Name" name={'first_name'}>
+                                    <Form.Item label="الاسم الأول" name={'first_name'}>
                                         <Input size='large' placeholder="First name" />
                                     </Form.Item>
-                                    <Form.Item label="Last Name" name={'last_name'}>
+                                    <Form.Item label="الاسم الأخير" name={'last_name'}>
                                         <Input size='large' placeholder="Last name" />
                                     </Form.Item>
                                 </div>
 
-                                <Form.Item label="Email" name={'email'} rules={[{ required: false, type: 'email' }]}>
+                                <Form.Item label="البريد الإلكتروني" name={'email'} rules={[{ required: false, type: 'email' }]}>
                                     <Input size='large' placeholder="Enter new email" />
                                 </Form.Item>
 
                                 <div className={s.columnInputs}>
                                     <Form.Item
-                                        label="Phone Number"
+                                        label="رقم الجوال"
                                         className={s.input_pnumber}
                                         name={'phone_number'}
                                         rules={[
@@ -170,7 +170,7 @@ function MainInfoGuard(props) {
                                             style={{ width: 230 }}
                                         />
                                     </Form.Item>
-                                    <Form.Item name={'age'} label="Age" style={{ flex: 1 }}>
+                                    <Form.Item name={'age'} label="العمر" style={{ flex: 1 }}>
                                         <InputNumber
                                             style={{ width: '100%' }}
                                             size="large"

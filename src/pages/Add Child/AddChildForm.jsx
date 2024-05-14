@@ -24,11 +24,26 @@ function AddChild() {
     }
 
     const addChild = async (values) => { // When form is submitted
+
+        let fcolor = values.favorite_color
+        if (fcolor == 'ازرق' || fcolor == 'أزرق' || fcolor == 'الازرق' || fcolor == 'الأزرق'){
+            fcolor = 'blue'
+        } else if (fcolor == 'وردي' || fcolor == 'الوردي' || fcolor == 'زهري' || fcolor == 'الزهري'){
+            fcolor = 'pink'
+        } else if (fcolor == 'بنفسجي' || fcolor == 'البنفسجي' || fcolor == 'موفي' || fcolor == 'الموفي'){
+            fcolor = 'purple'
+        } else if (fcolor == 'اخضر' || fcolor == 'الأخضر' || fcolor == 'أخضر' || fcolor == 'الاخضر'){
+            fcolor = 'green'
+        } else if (fcolor == 'اصفر' || fcolor == 'أصفر' || fcolor == 'الأصفر' || fcolor == 'الاصفر'){
+            fcolor = 'yellow'
+        } else {
+            fcolor = 'black'
+        }
         try {
             setIsLoading(true)
             const requestBody = {
                 email: values.email,
-                favorite_color: values.favorite_color.toLowerCase(),
+                favorite_color: fcolor.toLowerCase(),
                 birth_date: values.birthdate.$d,
                 relation: values.occupation,
             }
