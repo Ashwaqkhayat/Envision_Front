@@ -35,7 +35,7 @@ function Library() {
                 console.log("Library fetched successfully")
                 const data = await response.json();
                 // setLibrary(JSON.parse(JSON.stringify(data)).stories)
-                // console.log("Data are: ", data)
+                console.log("Data are: ", data)
                 const arrayOfObjects = Object.entries(data).map(([key, value]) => {
                     return { key, ...value }
                 })
@@ -44,8 +44,8 @@ function Library() {
             } catch (err) {
                 console.error("Error Getting library", err)
                 setIsLoading(false)
-                localStorage.clear()
-                navigate('/')
+                // localStorage.clear()
+                // navigate('/')
             }
         }
 
