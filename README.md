@@ -18,6 +18,16 @@
 
 ###
 
+<h1 align="left">Preview</h1>
+
+###
+
+<div align="left">
+  <img height="200" src="https://s6.ezgif.com/tmp/ezgif-6-c9d13bc50c.gif"  />
+</div>
+
+###
+
 <h1 align="left">Used Tools</h1>
 
 ###
@@ -42,5 +52,3 @@
   <img src="https://static-00.iconduck.com/assets.00/ant-design-icon-2048x2046-dl3neb73.png" height="40" alt="Antd logo"  />
   <img width="12" />
 </div>
-
-###
