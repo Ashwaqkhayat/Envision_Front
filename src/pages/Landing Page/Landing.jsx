@@ -120,10 +120,10 @@ export default function Landing() {
 
                         <div className={s.steps_left_column}>
                             <div className={s.step_box1}>
-                                <h3 style={{ direction: 'rtl', textAlign: 'left' }}>01  اختر اسلوبك المفضل في إنشاء قصتك</h3>
+                                <h3 style={{ direction: 'rtl', textAlign: 'left' }}>اختر اسلوبك المفضل في إنشاء قصتك</h3>
                             </div>
                             <div className={s.step_box2}>
-                                <h3 style={{ direction: 'rtl', textAlign: 'left' }}>03  استمتع بقراءة قصتك الرائعة!</h3>
+                                <h3 style={{ direction: 'rtl', textAlign: 'left' }}>استمتع بقراءة قصتك الرائعة!</h3>
                             </div>
                         </div>
                         <div className={s.steps_right_column}>
@@ -132,7 +132,7 @@ export default function Landing() {
                                 <hr />
                             </div>
                             <div className={s.step_box3}>
-                                <h3 style={{ direction: 'rtl', textAlign: 'left' }}>02  حدد مكونات وأجزاء تكوين قصتك</h3>
+                                <h3 style={{ direction: 'rtl', textAlign: 'left' }}>حدد مكونات وأجزاء تكوين قصتك</h3>
                             </div>
                         </div>
                     </div>
