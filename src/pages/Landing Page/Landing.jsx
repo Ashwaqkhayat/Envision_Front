@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import s from './Landing_style.module.css'
 //Navigations using buttons
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +13,9 @@ import { DownOutlined } from '@ant-design/icons'
 // Navbar + Footer
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from "../../components/Footer/Footer"
+// translation hook
+import { useTranslation } from 'react-i18next';
+
 // Parallax Images
 import brush from '../../assets/images/parallax/brush.png'
 import castle from '../../assets/images/parallax/castle.png'
@@ -21,10 +24,12 @@ import path from '../../assets/images/parallax/path.png'
 import pegions from '../../assets/images/parallax/pegions.png'
 import trees from '../../assets/images/parallax/trees.png'
 
-import LandingBody from "./LandingBody"
-
 export default function Landing() {
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate()
+    // const lang = Cookies.get("i18next");
+    // const [direc, setDirec] = "rtl";
+    
 
     // Parallax Scripts
     let brushRef = useRef(null)
@@ -55,9 +60,8 @@ export default function Landing() {
                     <Navbar />
                     <div className={s.hero} id={s.hero}>
                         <div className={s.hero_text}>
-                            <h1>مرحبـًـــا</h1>
-                            <p className={s.desc}> اطلق العنان لبطلك الداخلي! انطلق بخيالك وابتكر قصة فريدة من نوعها مع مغامرات مصممة خصيصا لك
-                            </p>
+                            <h1>{t('lp hero title')}</h1>
+                            <p className={s.desc}>{t('lp hero desc')}</p>
                         </div>
                         <ConfigProvider theme={{ token: { colorPrimary: '#8993ED', sizeStep: 18, } }} >
                             <Button
@@ -66,7 +70,7 @@ export default function Landing() {
                                 type="primary"
                                 size="large"
                                 onClick={() => navigate('/CreateStory')}
-                            >ابــدأ الآن
+                            >{t('lp start button')}
                             </Button>
                         </ConfigProvider>
                     </div>
@@ -82,21 +86,21 @@ export default function Landing() {
                     <div className={s.feature_cont}>
                         <div className={s.feature_box}>
                             <div className={s.feature_text}>
-                                <h2>لم تخيـّــل؟</h2>
+                                <h2>{t('lp features title')}</h2>
                                 <p style={{ fontWeight: '500', fontSize: '18pt', direction: 'rtl' }}>
-                                    في "تخيـّــل" ، قمنا بتصميم
-                                    منصة كاملة لبدء رحلتك في تخيل تجاربك المفضلة!</p>
+                                {t('lp features desc')}
+                                </p>
                             </div>
 
                             <div className={s.feature_cards}>
                                 <div className={s.card}>
-                                    <h3>خطوات بسيطة لإنشاء قصتك</h3>
+                                    <h3>{t('lp features 1')}</h3>
                                 </div>
                                 <div className={s.card}>
-                                    <h3>تصاميم تتبع معايير اضطراب التوحد</h3>
+                                    <h3>{t('lp features 2')}</h3>
                                 </div>
                                 <div className={s.card}>
-                                    <h3>مراقبة الأوصياء</h3>
+                                    <h3>{t('lp features 3')}</h3>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +110,7 @@ export default function Landing() {
                     <div className={s.goal_box}>
                         <div className={s.goal_content}>
                             <h1>
-                                نريد تمكين الأطفال المصابين بالتوحد من إطلاق العنان <span>لخيالهم</span> و<span>إبداعهم</span> في عوالمهم الخاصة من خلال القصص المصورة
+                            {t('lp goal 1')}<span>{t('lp goal 2')}</span>{t('lp goal and')}<span>{t('lp goal 3')}</span>{t('lp goal 4')}
                             </h1>
                         </div>
                     </div>
@@ -120,19 +124,19 @@ export default function Landing() {
 
                         <div className={s.steps_left_column}>
                             <div className={s.step_box1}>
-                                <h3 style={{ direction: 'rtl', textAlign: 'left' }}>اختر اسلوبك المفضل في إنشاء قصتك</h3>
+                                <h3 style={{ direction: "rtl", textAlign: 'left' }}>{t('lp steps 1')}</h3>
                             </div>
                             <div className={s.step_box2}>
-                                <h3 style={{ direction: 'rtl', textAlign: 'left' }}>استمتع بقراءة قصتك الرائعة!</h3>
+                                <h3 style={{ direction: "rtl", textAlign: 'left' }}>{t('lp steps 3')}</h3>
                             </div>
                         </div>
                         <div className={s.steps_right_column}>
                             <div className={s.step_box_title}>
-                                <h2 style={{ direction: 'rtl', textAlign: 'left' }}>كيف نصنع القصص!</h2>
+                                <h2 style={{ direction: "rtl", textAlign: 'left' }}>{t('lp steps title')}</h2>
                                 <hr />
                             </div>
                             <div className={s.step_box3}>
-                                <h3 style={{ direction: 'rtl', textAlign: 'left' }}>حدد مكونات وأجزاء تكوين قصتك</h3>
+                                <h3 style={{ direction: "rtl", textAlign: 'left' }}>{t('lp steps 2')}</h3>
                             </div>
                         </div>
                     </div>

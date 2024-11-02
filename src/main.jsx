@@ -1,8 +1,11 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import './index.css'
+
+//Languages file
+import './i18n'
 
 // import pages
 import SignupForm from './pages/Signup Page/SignupForm.jsx'
