@@ -10,7 +10,7 @@
     "footer title": "Envision",
     "footer contact": "Contact Us",
 
-    "lp hero title": "Envision",
+    "lp hero title": "Welcome",
     "lp hero desc": "Unleash your inner hero! Spark your imagination and create one of a kind stories with adventures designed just for you",
     "lp start button": "START NOW",
     "lp features title": "Why Envision?",
@@ -23,8 +23,26 @@
     "lp goal and": " and ",
     "lp goal 3": "creativity",
     "lp goal 4": " in their own special worlds through visualized stories",
-    "lp steps title": "How Magic Works",
+    "lp steps title": "How Magic Works!",
     "lp steps 1": "Choose your preferred way to build your story",
     "lp steps 2": "Specify the components for creating your story",
-    "lp steps 3": "Enjoy reading your wonderful story"
+    "lp steps 3": "Enjoy reading your wonderful story!",
+
+    "login popmsg success login": "Welcome Back!",
+    "login popmsg invalid login": "Invalid Email or Password",
+    "login popmsg error login": "Something went wrong, try again later",
+    "login loading tip": "Logging in...",
+    "login cancel btn": "Cancel",
+    "login title": "Welcome Back!",
+    "login email label": "Email",
+    "login email tooltip": "Please enter your email address",
+    "login email msg": "Valid email required",
+    "login pass label": "Password",
+    "login pass tooltip": "Please enter your password",
+    "login pass msg": "Password required",
+    "login pass placeholder": "Password",
+    "login forgot pass": "Forgot your password?",
+    "login login btn": "Login",
+    "login no acc": "Do not have an account? ",
+    "login signup btn": "Sign Up"
 }

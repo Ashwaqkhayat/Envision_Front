@@ -20,11 +20,30 @@
     "lp features 3": "مراقبة الأوصياء",
     "lp goal 1": "نريد تمكين الأطفال المصابين بالتوحد من إطلاق العنان ",
     "lp goal 2": "لخيالهم",
-    "lp goal and": "و ",
+    "lp goal and": " و",
     "lp goal 3": "إبداعهم",
     "lp goal 4": " في عوالمهم الخاصة من خلال القصص المصورة",
-    "lp steps title": "كيف نصنع القصص",
+    "lp steps title": "كيف نصنع القصص!",
     "lp steps 1": "اختر اسلوبك المفضل في إنشاء قصتك",
     "lp steps 2": "حدد مكونات وأجزاء تكوين قصتك",
-    "lp steps 3": "استمتع بقراءة قصتك الرائعة"
+    "lp steps 3": "استمتع بقراءة قصتك الرائعة!",
+
+    "login popmsg success login": "مرحبــًا بعودتك",
+    "login popmsg invalid login": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+    "login popmsg error login": "حدث خطأ ما, قم بالمحاولة لاحقًا",
+    "login loading tip": "يتم تسجيل الدخول...",
+    "login cancel btn": "إلغاء",
+    "login title": "أهلاً بعودتك!",
+    "login email label": "البريد الإلكتروني",
+    "login email tooltip": "رجاءً أدخل البريد الإلكتروني الخاص بك",
+    "login email msg": "البريد الإلكتروني مطلوب",
+    "login pass label": "كلمة المرور",
+    "login pass tooltip": "رجاءً أدخل كلمة المرور الخاصة بك",
+    "login pass msg": "يجب إدخال كلمة المرور",
+    "login pass placeholder": "كلمة المرور",
+    "login forgot pass": "هل نسيت كلمة المرور؟",
+    "login login btn": "تسجيل الدخول",
+    "login no acc": "لا تمتلك حسابًا؟ ",
+    "login signup btn": "سجل الآن"
+
 }

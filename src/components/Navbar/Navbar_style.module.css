@@ -1,9 +1,11 @@
-.nav{
+.nav {
     position: relative;
     top: 0;
     right: 0;
     z-index: 1000;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
     height: 150px;
     width: 100%;
@@ -15,43 +17,44 @@
         padding: 0 3rem;
     }
 
-    .nav_right{
+    .nav_right {
         display: flex;
         align-items: center;
     }
 
-    .nav_logo, a{
+    .nav_logo,
+    a {
         max-height: 80px;
         /* img {
             transform: scaleX(-1);
         } */
     }
 
-    .nav_logo{
+    .nav_logo {
         margin-right: 20px;
     }
 
-    .nav_title{
+    .nav_title {
         text-decoration: none;
         font-size: 2.5rem;
         font-weight: 700;
         color: #8EC3B7;
-        margin-bottom: 0;
+        /* margin-bottom: 0; */
     }
 
-    .nav_left{
+    .nav_left {
         display: flex;
         align-items: center;
-        margin-right: auto;
 
-        .nav_login{
+        .nav_login {
             box-shadow: none;
         }
 
-        .nav_register{
+        .nav_register {
             background-color: transparent;
             color: #8993ED;
-            border: 1px solid #8993ED;;
+            border: 1px solid #8993ED;
+            ;
         }
     }
 }

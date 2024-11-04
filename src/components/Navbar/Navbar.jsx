@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import s from './Navbar_style.module.css'
 import { useNavigate, Link } from "react-router-dom";
 //Antd buttons
-import { ConfigProvider, Button, Flex } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { ConfigProvider, Button, Select, Flex } from 'antd';
+import Icon, { UserOutlined, SnippetsOutlined } from '@ant-design/icons';
 // translation hook
 import { useTranslation } from 'react-i18next';
 
@@ -12,8 +12,16 @@ export default function Navbar() {
     const navigate = useNavigate()
     const auth = JSON.parse(localStorage.getItem('user-info'))
 
+    const handleChange = (lang) => {
+        i18n.changeLanguage(lang);
+    };
+
     return (
-        <div className={s.nav}>
+        <div className={s.nav} style={{ direction: i18n.dir() }}>
+            <div className={s.nav_right}>
+                <Link to='/' className={s.nav_title}>{t('nav title')}</Link>
+            </div>
+
             <div className={s.nav_left}>
                 <Flex gap="small" wrap="wrap">
                     <ConfigProvider
@@ -25,6 +33,19 @@ export default function Navbar() {
                             }
                         }} >
 
+                        <Select
+                            variant="borderless"
+                            size="large"
+                            defaultValue={i18n.dir() == "ltr" 
+                                ? "English"
+                                : "عربـــي"}
+                            // style={{ width: 116, }}
+                            onChange={handleChange}
+                            options={[
+                                { value: 'en', label: 'English', },
+                                { value: 'ar', label: 'عربـــي', },
+                            ]}
+                        />
                         {/* If user is authinticated/logged in then show the profile, otherwise show the login/register btns */}
                         {auth ?
                             <>
@@ -73,12 +94,6 @@ export default function Navbar() {
 
                     </ConfigProvider>
                 </Flex>
-            </div>
-
-            <div className={s.nav_right}>
-                <Link to='/' className={s.nav_title}>{t('nav title')}</Link>
-                <Button onClick={() => { i18n.changeLanguage("en") }}>En</Button>
-                <Button onClick={() => { i18n.changeLanguage("ar") }}>Ar</Button>
             </div>
         </div>
     )

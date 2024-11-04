@@ -15,7 +15,7 @@ import Navbar from "../../components/Navbar/Navbar"
 import Footer from "../../components/Footer/Footer"
 // translation hook
 import { useTranslation } from 'react-i18next';
-
+import Cookies from "js-cookie";
 // Parallax Images
 import brush from '../../assets/images/parallax/brush.png'
 import castle from '../../assets/images/parallax/castle.png'
@@ -25,11 +25,19 @@ import pegions from '../../assets/images/parallax/pegions.png'
 import trees from '../../assets/images/parallax/trees.png'
 
 export default function Landing() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const navigate = useNavigate()
-    // const lang = Cookies.get("i18next");
-    // const [direc, setDirec] = "rtl";
-    
+
+    // Control page direction
+    const [direc, setDirec] = useState("rtl");
+    const lang = Cookies.get("i18next");
+    useEffect(() => {
+        if (lang == "en") {
+            setDirec("ltr");
+        } else {
+            setDirec("rtl");
+        }
+    }, [lang]);
 
     // Parallax Scripts
     let brushRef = useRef(null)
@@ -87,8 +95,8 @@ export default function Landing() {
                         <div className={s.feature_box}>
                             <div className={s.feature_text}>
                                 <h2>{t('lp features title')}</h2>
-                                <p style={{ fontWeight: '500', fontSize: '18pt', direction: 'rtl' }}>
-                                {t('lp features desc')}
+                                <p style={{ fontWeight: '500', fontSize: '18pt', direction: direc }}>
+                                    {t('lp features desc')}
                                 </p>
                             </div>
 
@@ -110,7 +118,7 @@ export default function Landing() {
                     <div className={s.goal_box}>
                         <div className={s.goal_content}>
                             <h1>
-                            {t('lp goal 1')}<span>{t('lp goal 2')}</span>{t('lp goal and')}<span>{t('lp goal 3')}</span>{t('lp goal 4')}
+                                {t('lp goal 1')}<span>{t('lp goal 2')}</span>{t('lp goal and')}<span>{t('lp goal 3')}</span>{t('lp goal 4')}
                             </h1>
                         </div>
                     </div>
@@ -124,19 +132,19 @@ export default function Landing() {
 
                         <div className={s.steps_left_column}>
                             <div className={s.step_box1}>
-                                <h3 style={{ direction: "rtl", textAlign: 'left' }}>{t('lp steps 1')}</h3>
+                                <h3 style={{ direction: direc, textAlign: 'left' }}>{t('lp steps 1')}</h3>
                             </div>
                             <div className={s.step_box2}>
-                                <h3 style={{ direction: "rtl", textAlign: 'left' }}>{t('lp steps 3')}</h3>
+                                <h3 style={{ direction: direc, textAlign: 'left' }}>{t('lp steps 3')}</h3>
                             </div>
                         </div>
                         <div className={s.steps_right_column}>
                             <div className={s.step_box_title}>
-                                <h2 style={{ direction: "rtl", textAlign: 'left' }}>{t('lp steps title')}</h2>
+                                <h2 style={{ direction: direc, textAlign: 'left' }}>{t('lp steps title')}</h2>
                                 <hr />
                             </div>
                             <div className={s.step_box3}>
-                                <h3 style={{ direction: "rtl", textAlign: 'left' }}>{t('lp steps 2')}</h3>
+                                <h3 style={{ direction: direc, textAlign: 'left' }}>{t('lp steps 2')}</h3>
                             </div>
                         </div>
                     </div>

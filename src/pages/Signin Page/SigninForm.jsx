@@ -6,10 +6,16 @@ import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import { ConfigProvider, Input, Form, Button, message, Spin } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
+// translation hook
+import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
 
 function SigninForm() {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
+    // Form
+    const [form] = Form.useForm()
+    const { t, i18n } = useTranslation()
 
     // if user is logged in/ signed up and tried to enter the signup page, he'll be redirected to the home page
     useEffect(() => {
@@ -44,7 +50,6 @@ function SigninForm() {
             email: email,
             password: password,
         }
-        // Use fetch to send the POST request to the API
         try {
             const response = await fetch(`${process.env.REACT_APP_url}/login`, {
                 method: 'POST',
@@ -59,7 +64,7 @@ function SigninForm() {
             if (response.ok) {
                 setIsLoading(false)
                 localStorage.setItem("user-info", JSON.stringify(data))
-                info('تم تسجيل الدخول بنجاح', 'success')
+                info(t("popmsg success login"), 'success')
 
                 setTimeout(() => {
                     navigate(-1)
@@ -68,15 +73,16 @@ function SigninForm() {
             } else {
                 console.error('Sign in failed:', data.error);
                 setIsLoading(false)
-                info(data.error, 'error')
+                //info(data.error, 'error') // is this right?
+                info(t("login popmsg invalid login"), 'error')
             }
         } catch (error) {
             console.error('Error during sign in:', error);
             setIsLoading(false)
-            info('لقد حدث خطأ ما, قم بالمحاولة لاحقًا', 'error')
+            info(t("login popmsg error login"), 'error')
         }
     }
-  
+
 
     return (
         <>
@@ -84,66 +90,71 @@ function SigninForm() {
                 <Navbar />
                 {contextHolder}
                 <div className={s.content}>
-                    <Form onFinish={onFinish}>
-                        <ConfigProvider //change color theme
+                    <Form 
+                        name='login'
+                        form={form}
+                        onFinish={onFinish}
+                        layout='vertical'
+                        requiredMark='optional'
+                    >
+                        <ConfigProvider
+                            // direction = {i18n.dir()}
+                            componentSize='large'
                             theme={{
-                                token: {
-                                    colorPrimary: '#8993ED',
-                                }
-                            }} >
-                            <Spin className={s.spin} spinning={isLoading} tip="يتم تسجيل الدخول..." size="large">
+                                token: { colorPrimary: '#8993ED' },
+                                components: {
+                                    Form: {
+                                        // marginLG: 10,
+                                        itemMarginBottom: 15,
+                                        labelFontSize: 16,
+                                        verticalLabelPadding: 0
+                                    },
+                                }}}
+                            >
+                            <Spin className={s.spin} spinning={isLoading} tip={t("login loading tip")} size="large">
 
-                                <div className={s.wrapper}>
-                                    <Link
-                                        className={s.cancel_btn}
-                                        to={'/'}
-                                    >إلغاء
-                                    </Link>
+                                <div className={s.wrapper} style={{direction: i18n.dir()}}>
+                                    <Link className={s.cancel_btn} to={'/'}>{t("login cancel btn")} </Link>
 
-                                    <h1 style={{ direction: 'rtl', textAlign: 'left' }}>أهلاً بعودتك!</h1>
+                                    <h1>{t("login title")}</h1>
 
                                     <div className={s.form_part}>
-
-                                        <div className={s.input_box}>
-                                            <Label
-                                                inputTitle="البريد الالكتروني"
-                                                popTitle="Email Address"
-                                                popMsg="Please enter your email address."
-                                            />
-
-                                            <Form.Item name={'email'} rules={[{
-                                                required: true, type: 'email', message: "البريد الإلكتروني مطلوب"
+                                            <Form.Item
+                                            name= {'email'}
+                                            label= {t("login email label")}
+                                            tooltip= {t("login email tooltip")}
+                                            required
+                                            rules = {[{
+                                                required: true,
+                                                type: 'email', 
+                                                message: t("login email msg"),
                                             }]}>
                                                 <Input
-                                                    size="large"
                                                     placeholder="Name@Domain.com"
-                                                    prefix={<MailOutlined className="site-form-item-icon" style={{ color: '#A2A9B0' }} />}
+                                                    prefix={<MailOutlined 
+                                                            className="site-form-item-icon" 
+                                                            style={{ color: '#A2A9B0' }} 
+                                                            />}
                                                 />
                                             </Form.Item>
-                                        </div>
 
-                                        <div className={s.input_box}>
-                                            <Label
-                                                inputTitle="كلمة المرور"
-                                                popTitle="Password"
-                                                popMsg="Please enter your password"
-                                            />
-
-                                            <Form.Item name={'password'} rules={[{
+                                            <Form.Item
+                                            name={'password'}
+                                            label= {t("login pass label")}
+                                            tooltip= {t("login pass tooltip")}
+                                            required
+                                            rules={[{
                                                 required: true,
-                                                message: "يجب إدخال كلمة المرور"
+                                                message: t("login pass msg")
                                             }]}>
                                                 <Input.Password
-                                                    size="large"
-                                                    placeholder="Password"
+                                                    placeholder= {t("login pass placeholder")}
                                                 />
                                             </Form.Item>
 
                                             <div className={s.forgot_pass}>
-                                                <Link className={s.text_highlight} to='/'>هل نسيت كلمة المرور؟</Link>
+                                                <Link className={s.text_highlight} to='/'>{t("login forgot pass")}</Link>
                                             </div>
-
-                                        </div>
 
                                     </div>
 
@@ -157,10 +168,10 @@ function SigninForm() {
 
                                         <div className={s.bottom_part}>
                                             <Button htmlType="submit" type="primary" size="large" >
-                                                تسجيل الدخول
+                                                {t("login login btn")}
                                             </Button>
 
-                                            <p>لا تمتلك حسابًا؟ <Link className={s.text_highlight} to='/Signup'>سجل الآن</Link></p>
+                                            <p>{t("login no acc")}<Link className={s.text_highlight} to='/Signup'>{t("login signup btn")}</Link></p>
                                         </div>
                                     </ConfigProvider>
                                 </div>
