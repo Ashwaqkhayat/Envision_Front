@@ -8,7 +8,6 @@ import { ConfigProvider, Input, Form, Button, message, Spin } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
 // translation hook
 import { useTranslation } from 'react-i18next';
-import Cookies from 'js-cookie';
 
 function SigninForm() {
     const navigate = useNavigate()
@@ -79,7 +78,7 @@ function SigninForm() {
         } catch (error) {
             console.error('Error during sign in:', error);
             setIsLoading(false)
-            info(t("login popmsg error login"), 'error')
+            info(t("server req error"), 'error')
         }
     }
 
@@ -98,7 +97,6 @@ function SigninForm() {
                         requiredMark='optional'
                     >
                         <ConfigProvider
-                            // direction = {i18n.dir()}
                             componentSize='large'
                             theme={{
                                 token: { colorPrimary: '#8993ED' },

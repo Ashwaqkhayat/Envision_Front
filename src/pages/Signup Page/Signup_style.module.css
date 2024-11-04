@@ -43,6 +43,10 @@
         color: #8EC3B7;
     }
 
+    .form_part {
+        margin: 1.2rem 0rem;
+    }
+
     .input_box{
         margin-top: 1rem;
     }
@@ -52,7 +56,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top: 0.5rem;
 
         p{
             margin-top: 10px;
@@ -83,10 +86,6 @@
 
     .input_age, .input_bdate, .input_pnumber{
         width: 100%;
-    }
-
-    .input_color{
-        margin-bottom: 80px;
     }
 
     .input_bday{

@@ -2,21 +2,21 @@ import React, { useState, useEffect } from "react";
 import s from './Signup_style.module.css'
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from "../../components/Footer/Footer"
-
 //Navigations using buttons
 import { Link, useNavigate } from "react-router-dom";
-
 //import Ant Components
 import { ConfigProvider, Spin, Progress, message } from 'antd';
 import SignupMain from "./SignupMain";
 import SignupChild1 from "./SignupChild1"
 import SignupChild2 from "./SignupChild2"
 import SignupGuard from "./SignupGuard"
+// translation hook
+import { useTranslation } from 'react-i18next';
 
 function SignupForm() {
-
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
+    const { t, i18n } = useTranslation()
 
     // if user is logged in/ signed up and tried to enter the signin page, he'll be redirected to the home page!
     useEffect(() => {
@@ -40,8 +40,8 @@ function SignupForm() {
     }
 
     //Changing titles and buttons through steps..
-    const formTitles = ["مرحبـًـا!", "تبقت خطوة واحدة", "الخطوة الأخيرة"]
-    const backBtn = ["إلغاء", "السابق", "السابق"]
+    const formTitles = [t("reg form title step1"), t("reg form title step2"), t("reg form title step3")]
+    const backBtn = [t("reg form backbtn1"), t("reg form backbtn2"), t("reg form backbtn2")]
     const progressPerc = [30, 60, 100]
 
     //Change between Pages
@@ -83,7 +83,7 @@ function SignupForm() {
         }
 
         // Display loading message while fetching data
-        info('جاري التسجيل..', 'loading')
+        info(t("reg form loading pop"), 'loading')
 
         // Use fetch to send the POST request to the API
         const fetchData = async () => {
@@ -101,16 +101,15 @@ function SignupForm() {
                 if (response.ok) {
                     localStorage.setItem("user-info", JSON.stringify(data))
                     localStorage.setItem("isNewUser", true)
-                    console.log('Sign up successful')
                     setIsLoading(false) // Hide loading message
                     setTimeout(() => { navigate('/') }, 1500);
                 } else {
-                    info(data.error, 'error')
+                    info(t("reg form incorrect res"), 'error')
                     setIsLoading(false)
                 }
             } catch (error) {
                 console.error('Error during sign up:', error)
-                info('An error occurred. Please try again later.', 'error')
+                info(t("server req error"), 'error')
                 setIsLoading(false)
             }
         }
@@ -130,7 +129,7 @@ function SignupForm() {
         };
 
         // Display loading message while fetching data
-        info('جاري التسجيل..', 'loading')
+        info(t("reg form loading pop"), 'loading')
 
         // Use fetch to send the POST request to the API
         const fetchData = async () => {
@@ -147,19 +146,17 @@ function SignupForm() {
                 const data = await response.json()
 
                 if (response.ok) {
-                    console.log('Sign up successful:', data)
                     setIsLoading(false) // Hide loading message
                     localStorage.setItem("user-info", JSON.stringify(data))
                     localStorage.setItem("isNewUser", true)
                     setTimeout(() => { navigate('/') }, 2000);
-
                 } else {
-                    info(data.error, 'error')
+                    info(t("reg form incorrect res"), 'error')
                     setIsLoading(false)
                 }
             } catch (error) {
                 console.error('Error during sign up:', error)
-                info('An error occurred. Please try again later.', 'error')
+                info(t("server req error"), 'error')
                 setIsLoading(false)
             }
         }
@@ -185,14 +182,11 @@ function SignupForm() {
             <div className={s.body}>
                 {contextHolder}
                 <Navbar />
-                <div className={s.content}>
-                    <ConfigProvider //change color theme
-                        theme={{
-                            token: {
-                                colorPrimary: '#8993ED',
-                            }
-                        }} >
-                        <Spin className={s.spin} spinning={isLoading} tip="يتم التسجيل.." size="large">
+                <div className={s.content} style={{direction: i18n.dir()}}>
+                    <ConfigProvider
+                        theme={{ token: { colorPrimary: '#8993ED', }
+                    }} >
+                        <Spin className={s.spin} spinning={isLoading} tip={t("reg form loading pop")} size="large">
                             <div className={s.wrapper}>
                                 <Progress className={s.prog_bar} percent={progressPerc[page]} showInfo={false} strokeColor='#8993ED' />
 

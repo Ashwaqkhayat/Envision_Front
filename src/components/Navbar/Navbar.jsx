@@ -3,7 +3,7 @@ import s from './Navbar_style.module.css'
 import { useNavigate, Link } from "react-router-dom";
 //Antd buttons
 import { ConfigProvider, Button, Select, Flex } from 'antd';
-import Icon, { UserOutlined, SnippetsOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 // translation hook
 import { useTranslation } from 'react-i18next';
 
@@ -30,12 +30,13 @@ export default function Navbar() {
                                 sizeStep: 7,
                                 colorPrimary: '#8993ED',
                                 colorBgContainer: 'rgba(73, 76, 76, 0)',
-                            }
+                            },
                         }} >
 
                         <Select
                             variant="borderless"
                             size="large"
+                            style={{color:"#8993ED"}}
                             defaultValue={i18n.dir() == "ltr" 
                                 ? "English"
                                 : "عربـــي"}
