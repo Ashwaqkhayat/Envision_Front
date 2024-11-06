@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
 import s from "./CreateStory_style.module.css"
 import { useNavigate, Link } from "react-router-dom";
+import ReactDOM from 'react-dom';
 import { ConfigProvider, Spin, Form, Button, Select, Input, Radio, message } from 'antd'
 import { RocketOutlined } from '@ant-design/icons'
+// translation hook
+import { useTranslation } from 'react-i18next';
 
 function Description() {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     // Form
     const [form] = Form.useForm()
+    // Translation
+    const { t, i18n } = useTranslation()
     // Text Area
     const { TextArea } = Input
     // Language Selection Options
@@ -38,7 +43,6 @@ function Description() {
         }
 
         try {
-            console.log("Creating story...")
             setIsLoading(true)
             const response = await fetch(`${process.env.REACT_APP_url}/children/stories/`, {
                 method: 'POST',
@@ -50,12 +54,11 @@ function Description() {
                 credentials: 'include'
             })
             if (response.status==422){
-                popMsg("لقد استخدمت كلمة سيئة, حاول مرة أخرى","warning")
-                console.log("Unethical Prompt Detected.")
+                popMsg(t("create story unethic"),"warning")
                 setIsLoading(false)
             } else if (response.ok) {
                 const data = await response.json()
-                console.warn("Created data: " , data)
+                console.warn("Created data: " , data) // <-- DELETE LATER
                 let story = {
                     prompt: data.story.prompt,
                     language: data.story.requested_lamguage,
@@ -71,20 +74,19 @@ function Description() {
                     end_time: data.story.end_time,
                 }
                 if(data.story.story_images.length<3){
-                    popMsg("حدث خطأ ما, حاول مرة أخرى","error")
+                    popMsg(t("create story shortStory error"),"error")
                     setIsLoading(false)
                 } else {
                     localStorage.setItem('story', JSON.stringify(story))
                     navigate('/Story')
                     setIsLoading(false)
-                    console.log("Story is created successfully")
                 }
             } else {
                 throw new Error(`Response is not ok: ${response.status}`)
             }
         } catch (e) {
             console.error("An error occured: ", e)
-            popMsg("حدث خطأ ما, قم بالمحاولة لاحقًا", "error")
+            popMsg(t("server req error"), "error")
             setIsLoading(false)
         }
     }
@@ -106,7 +108,15 @@ function Description() {
                 }}
                 componentSize='large'
             >
-                <Spin spinning={isLoading} size='large' style={{maxHeight: 'unset'}} tip="قصتك قيد الإنشاء">
+                {ReactDOM.createPortal(
+                    <Spin 
+                    className={s.spinner} 
+                    spinning={isLoading} 
+                    style={{maxHeight: 'unset'}}
+                    fullscreen
+                    tip={t("create story spintip")} />
+                    , document.body
+                )}
                     <div className={`${s.wrapper} ${s.top_margin}`} >
                         <Form
                             name='description'
@@ -116,21 +126,24 @@ function Description() {
                             requiredMark='optional'
                         >
                             <div className={s.header}>
-                                <h1>قصة جديـدة</h1>
+                                <h1>{t("create story title")}</h1>
                                 <Form.Item
                                     name='language'
                                     required
                                     style={{ marginBottom: 0 }}>
                                     <Select
+                                        defaultActiveFirstOption
                                         options={options}
-                                        defaultValue={'ar'}
+                                        defaultValue={{
+                                            value: i18n.dir()=="rtl" ? "ar" : "en",
+                                            label: i18n.dir()=="rtl" ? "العربية" : "English",
+                                        }}
                                         variant="filled"
                                         style={{ width: 120 }}
                                     />
                                 </Form.Item>
                             </div>
                             <div className={s.form_body}>
-
                                 {/* <Form.Item
                                 label='Main Character Gender'
                                 name='gender'
@@ -144,14 +157,14 @@ function Description() {
                             </Form.Item> */}
 
                                 <Form.Item
-                                    label='وصــف القـصة'
+                                    label= {t("create story desc title")}
                                     name='description'
                                     required
-                                    tooltip={'اكتب وصفًا عن قصتك, ما اسم البطل؟ أين ذهب وما الأحداث التي ستحصل؟'}
+                                    tooltip= {t("create story desc tooltip")}
                                 >
                                     <TextArea
                                         rows={6}
-                                        placeholder="مثال: ريما فتاة صغيرة جميلة لديها عيون بنية وشعر أسود, وترتدي قميصًا أزرق وبنطلونًا أسود. في يوم ما، أرادت زيارة منزل مصنوع من الحلويات"
+                                        placeholder= {t("create story desc placeholder")}
                                         maxLength={750}
                                         showCount
                                         allowClear
@@ -164,13 +177,12 @@ function Description() {
 
                                 <Form.Item style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }} >
                                     <Button style={{ width: 150 }} type="primary" htmlType="submit" disabled={isLoading}>
-                                        إنشاء القصة
+                                        {t("create story submit btn")}
                                     </Button>
                                 </Form.Item>
                             </div>
                         </Form>
                     </div>
-                </Spin>
             </ConfigProvider>
         </>
     )

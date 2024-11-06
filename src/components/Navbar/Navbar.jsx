@@ -36,11 +36,9 @@ export default function Navbar() {
                         <Select
                             variant="borderless"
                             size="large"
-                            style={{color:"#8993ED"}}
                             defaultValue={i18n.dir() == "ltr" 
                                 ? "English"
                                 : "عربـــي"}
-                            // style={{ width: 116, }}
                             onChange={handleChange}
                             options={[
                                 { value: 'en', label: 'English', },

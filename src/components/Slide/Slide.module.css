@@ -8,6 +8,7 @@
 
 .constant{
     position: relative;
+    z-index: 1;
     margin-right: 0px;
     opacity: 1;
     transition-property: margin-right, opacity;
@@ -18,7 +19,7 @@
 .slide_out{
     margin-left: 500%;
     position: absolute;
-    z-index: 1;
+    /* z-index: 1; */
     opacity: 0;
     transition-property: margin-left, opacity;
     transition-duration: 1s;

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import s from './Signin_style.module.css'
 import { Link, useNavigate } from "react-router-dom";
-import Label from "../../components/Label/Label"
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import { ConfigProvider, Input, Form, Button, message, Spin } from 'antd';
