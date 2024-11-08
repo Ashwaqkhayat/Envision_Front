@@ -24,7 +24,7 @@
 /* Left Part =============================== */
 
 .left_part{
-    align-self: start;
+    /* align-self: start; */
     width: 37%;
     height: 100%;
     margin-right: 90px;
@@ -49,6 +49,7 @@
 .box1{
     color: #494C4C;
     padding-left: 0px;
+    padding-right: 0px;
     font-size: 18px;
 }
 
@@ -71,11 +72,17 @@
 }
 
 .service_btn{
-    margin-left: auto;
     margin-top: auto;
     color: #76A795;
     font-weight: 600;
     width: 150px;
+}
+
+.btns{
+    flex-grow: 1;
+    display: flex;
+    justify-content: end;
+    align-items: end;
 }
 
 /* Right Part =============================== */

@@ -149,5 +149,19 @@
     "cont email msg": "Please enter your email address",
     "cont message label": " Message ",
     "cont message msg": "Please write your message",
-    "cont send btn": " Send "
+    "cont send btn": " Send ",
+
+    "lib hello": "Hello ",
+    "lib message": "Build your own world using your imagination!",
+    "lib new story btn": "Create New Story",
+    "lib help msg": "Need help using Envision?",
+    "lib help btn": "Show Guidelines",
+    "lib segm label1": "My Library",
+    "lib segm label2": "Favorites",
+    "lib search placeholder": "Search for story title",
+    "lib sort placeholder": "Sort",
+    "lib sort createDate": "Creation Date",
+    "lib sort alph": "A → Z",
+    "lib loading": "Loading stories...",
+    "lib empty msg": "Library is empty"
 }

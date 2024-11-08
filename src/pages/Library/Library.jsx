@@ -7,9 +7,12 @@ import Story from './Story'
 import { Button, ConfigProvider, Segmented, Flex, Input, Select, Empty, Spin } from 'antd';
 import { BarsOutlined, HeartOutlined } from '@ant-design/icons'
 import InfiniteScroll from "react-infinite-scroll-component"
+// translation hook
+import { useTranslation } from 'react-i18next';
 
 function Library() {
     const navigate = useNavigate()
+    const { t, i18n } = useTranslation();
     const [isLoading, setIsLoading] = useState(false)
 
     const [user, setUser] = useState(JSON.parse(window.localStorage.getItem("user-info")))
@@ -32,13 +35,12 @@ function Library() {
                 if (!response.ok) {
                     throw new Error(`Network response was not ok: ${response.status}`)
                 }
-                console.log("Library fetched successfully")
                 const data = await response.json();
                 // setLibrary(JSON.parse(JSON.stringify(data)).stories)
-                console.log("Data are: ", data)
                 const arrayOfObjects = Object.entries(data).map(([key, value]) => {
                     return { key, ...value }
                 })
+                console.log("Data are: ", arrayOfObjects)
                 setLibrary(arrayOfObjects)
                 setIsLoading(false)
             } catch (err) {
@@ -48,7 +50,6 @@ function Library() {
                 // navigate('/')
             }
         }
-
         fetchData()
     }, [])
 
@@ -62,32 +63,34 @@ function Library() {
                 <div className={s.body}>
                     <ConfigProvider
                         theme={{
-                            components: {
-                                Spin: {
-                                    colorPrimary: '#8993ED',
-                                },
-                            },
-                            token: {
-                                colorPrimary: '#76A795',
-                            }
+                            components: { Spin: { colorPrimary: '#8993ED' } },
+                            token: { colorPrimary: '#76A795' }
                         }} >
 
                         <Navbar />
                         <div className={`${s.content} ${s.center_flex}`}>
-                            <div className={s.left_part}>
-                                <div className={`${s.container} ${s.box1}`}>
-                                    <h1>مرحبـًــا {user && capitalize(user.first_name)}</h1>
+                            <div className={s.left_part} >
+                                <div className={`${s.container} ${s.box1}`} style={{direction: i18n.dir()}}>
+                                    <h1>{t("lib hello")}{user && capitalize(user.first_name)}</h1>
                                 </div>
-                                <div className={`${s.container} ${s.box2}`}>
-                                    <h3 style={{ direction: 'rtl', textAlign: 'left' }}>ابن عالمك الخاص باستخدام خيالك!</h3>
-                                    <Button
-                                        className={s.service_btn}
-                                        onClick={() => { navigate('/CreateStory') }}
-                                    >اصنع قصة جديدة</Button>
+                                <div className={`${s.container} ${s.box2}`} style={{direction: i18n.dir()}}>
+                                    <h3>{t("lib message")}</h3>
+                                    <div className={s.btns}>
+                                        <Button
+                                            className={s.service_btn}
+                                            onClick={() => { navigate('/CreateStory') }}
+                                        >{t("lib new story btn")}</Button>
+                                    </div>
                                 </div>
-                                <div className={`${s.container} ${s.box3}`}>
-                                    <h3>هل تحتاج مساعدة في استخدام الموقع؟</h3>
-                                    <Button disabled className={s.service_btn}> ارشادات الاستخدام</Button>
+                                <div className={`${s.container} ${s.box3}`} style={{direction: i18n.dir()}}>
+                                    <h3>{t("lib help msg")}</h3>
+                                    <div className={s.btns}>
+                                        <Button
+                                            disabled
+                                            style={{ borderColor: 'transparent' }} //remove when this service is developed
+                                            className={s.service_btn}
+                                        > {t("lib help btn")}</Button>
+                                    </div>
                                 </div>
 
                             </div>
@@ -100,12 +103,12 @@ function Library() {
                                         onChange={(value) => { setSegmented(value) }}
                                         options={[
                                             {
-                                                label: 'مكتبتــي',
+                                                label: t("lib segm label1"),
                                                 value: 'Library',
                                                 icon: <BarsOutlined />,
                                             },
                                             {
-                                                label: 'المفضلــة',
+                                                label: t("lib segm label2"),
                                                 value: 'Favorites',
                                                 icon: <HeartOutlined />,
                                             },
@@ -114,7 +117,7 @@ function Library() {
                                     <Flex className={s.lib_box} gap="middle" horizontal>
                                         <Search
                                             size="large"
-                                            placeholder="ابحث عن عنوان القصة"
+                                            placeholder={t("lib search placeholder")}
                                             onChange={(e) => setSearch(e.target.value)}
                                         />
                                         <Select
@@ -122,54 +125,54 @@ function Library() {
                                             className={s.sort}
                                             defaultValue='creation_date'
                                             onChange={(e) => { setSort(e) }}
-                                            placeholder="ترتيب"
+                                            placeholder={t("lib sort placeholder")}
                                             options={[
-                                                { value: 'creation_date', label: <span>تاريخ الإنشاء</span> },
-                                                { value: 'alphabetically', label: <span>A → Z</span> }
+                                                { value: 'creation_date', label: <span>{t("lib sort createDate")}</span> },
+                                                { value: 'alphabetically', label: <span>{t("lib sort alph")}</span> }
                                             ]}
                                         />
                                     </Flex>
                                 </div>
                                 {isLoading ?
                                     <div className={`${s.center_flex} ${s.fullHeight}`}>
-                                        <Spin tip="تحميل القصص..." size="large" />
+                                        <Spin tip={t("lib loading")} size="large" />
                                     </div>
                                     :
                                     <div className={`${s.stories_container} ${s.fullHeight}`}>
                                         {((library === undefined) || (library === null) || (library.length === 0)) ?
-                                            <Empty className={s.empty} image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                            <Empty className={s.empty} image={Empty.PRESENTED_IMAGE_SIMPLE} description={t("lib empty msg")} />
                                             :
                                             <InfiniteScroll
                                                 className={s.scrollable}
                                                 dataLength={library.length}
                                                 // next={fetchMoreData} give the function that fetches next data
                                                 hasMore={hasMore}
-                                                loader={<h4>Loading...</h4>}
+                                                loader={<h4>{t("lib loading")}</h4>}
                                                 scrollableTarget="scrollableDiv"
                                             >
                                                 {
                                                     segmentedValue === 'Favorites' ?
                                                         sort === 'alphabetically' ?
                                                             library // Faved & Sorted A -> Z
-                                                                .filter((image, index) => { return search.toLowerCase() === '' ? image : image.title.toLowerCase().includes(search) })
+                                                                .filter((image, index) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
                                                                 .filter((item, index) => item.is_favorite === true)
                                                                 .sort((a, b) => a.title.localeCompare(b.title))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                             :
                                                             library // Faved & Sorted by Creation Date
-                                                                .filter((image, index) => { return search.toLowerCase() === '' ? image : image.title.toLowerCase().includes(search) })
+                                                                .filter((image, index) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
                                                                 .filter((item, index) => item.is_favorite === true)
                                                                 .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                         :
                                                         sort === 'alphabetically' ?
                                                             library // not Faved & Sorted A -> Z
-                                                                .filter((image, index) => { return search.toLowerCase() === '' ? image : image.title.toLowerCase().includes(search) })
+                                                                .filter((image, index) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
                                                                 .sort((a, b) => a.title.localeCompare(b.title))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                             :
                                                             library // not Faved & Sorted by Creation Date
-                                                                .filter((image, index) => { return search.toLowerCase() === '' ? image : image.title.toLowerCase().includes(search) })
+                                                                .filter((image, index) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
                                                                 .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                 }

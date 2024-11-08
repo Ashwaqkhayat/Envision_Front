@@ -149,5 +149,20 @@
     "cont email msg": "رجاءً قم بإدخال بريدك الإلكتروني",
     "cont message label": " الرسالة ",
     "cont message msg": "رجاءً قم بكتابة رسالتك",
-    "cont send btn": " إرسال "
+    "cont send btn": " إرسال ",
+
+    "lib hello": "مرحبـًــا ",
+    "lib message": "ابن عالمك الخاص باستخدام خيالك!",
+    "lib new story btn": "اصنع قصة جديدة",
+    "lib help msg": "هل تحتاج مساعدة في استخدام الموقع؟",
+    "lib help btn": "ارشادات الاستخدام",
+    "lib segm label1": "مكتبتــي",
+    "lib segm label2": "المفضلــة",
+    "lib search placeholder": "ابحث عن عنوان القصة",
+    "lib sort placeholder": "ترتيب",
+    "lib sort createDate": "تاريخ الإنشاء",
+    "lib sort alph": "الألف ← الياء",
+    "lib loading": "تحميل القصص...",
+    "lib empty msg": "المكتبة فارغة"
+
 }
