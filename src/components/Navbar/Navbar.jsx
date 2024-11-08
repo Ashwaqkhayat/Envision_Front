@@ -36,7 +36,7 @@ export default function Navbar() {
                         <Select
                             variant="borderless"
                             size="large"
-                            defaultValue={i18n.dir() == "ltr" 
+                            defaultValue={i18n.dir() == "ltr"
                                 ? "English"
                                 : "عربـــي"}
                             onChange={handleChange}
@@ -49,12 +49,11 @@ export default function Navbar() {
                         {auth ?
                             <>
                                 <Button
-                                    type="primary"
-                                    onClick={() => { navigate('/profile') }}
+                                    type="text"
                                     shape="round"
                                     size="large"
-                                    icon={<UserOutlined style={{ fontSize: '20px' }} />}
-                                >{t("nav profile button")}</Button>
+                                    onClick={() => { navigate('/') }}
+                                >{t("nav home button")}</Button>
 
                                 {auth.userType === "child" &&
                                     <Button
@@ -64,13 +63,14 @@ export default function Navbar() {
                                         onClick={() => { navigate('/library') }}
                                     >{t("nav library button")}</Button>
                                 }
-
                                 <Button
-                                    type="text"
+                                    type="primary"
+                                    onClick={() => { navigate('/profile') }}
                                     shape="round"
                                     size="large"
-                                    onClick={() => { navigate('/') }}
-                                >{t("nav home button")}</Button>
+                                    icon={<UserOutlined style={{ fontSize: '20px' }} />}
+                                >{t("nav profile button")}</Button>
+
 
                             </>
                             :

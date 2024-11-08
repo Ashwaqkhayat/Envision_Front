@@ -134,6 +134,20 @@
     "create story desc title": "وصــف القـصة",
     "create story desc tooltip": "اكتب وصفًا عن قصتك, ما اسم البطل؟ أين ذهب وما الأحداث التي ستحصل؟",
     "create story desc placeholder": "اكتب وصف القصة هنا, مثال: ريما فتاة صغيرة ترتدي قميصًا أزرق وسروالًا أسود. في يوم ما، أرادت زيارة منزل مصنوع من الحلويات",
-    "create story submit btn": "إنشاء القصـة"
+    "create story submit btn": "إنشاء القصـة",
 
+    "cont notif recieved title": "شكـرًا لتواصلك معنا",
+    "cont notif recieved msg": "تلقينا رسالتك بنجاح, شكرًا لاهتمامك.",
+    "cont res error": "نعتذر لقد حدث خطأ ما, حاول مرة أخرى",
+    "cont title": "تواصـل معنا",
+    "cont desc": "ما الذي تود إخبارنا به؟",
+    "cont spintip" : "يتم الإرسال...",
+    "cont name label": " الاسم ",
+    "cont name msg": "رجاءً قم بإدخال اسمك",
+    "cont name placeholder": "اكتب الاسم هنا",
+    "cont email label": " البريد الالكتروني ",
+    "cont email msg": "رجاءً قم بإدخال بريدك الإلكتروني",
+    "cont message label": " الرسالة ",
+    "cont message msg": "رجاءً قم بكتابة رسالتك",
+    "cont send btn": " إرسال "
 }

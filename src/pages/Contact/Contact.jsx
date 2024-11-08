@@ -4,12 +4,15 @@ import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import { XOutlined, MailFilled } from '@ant-design/icons'
 import { ConfigProvider, Button, Form, Input, Spin, message, notification } from 'antd';
+// translation hook
+import { useTranslation } from 'react-i18next';
 
 
 function Contact() {
     const [form] = Form.useForm();
     const [clientReady, setClientReady] = useState(false);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+    const { t, i18n } = useTranslation();
 
     // Antd items -messages-
     const [messageApi, contextHolder] = message.useMessage()
@@ -53,18 +56,16 @@ function Contact() {
                 credentials: 'include'
             });
             if (response.ok) {
-                setIsLoading(false) // Hide loading message
+                setIsLoading(false)
                 form.resetFields()
-                console.log('Message is sent')
-                openNotification('success', 'Message Received', 'Thanks for contacting us, your message have been successfully delivered to us!')
-                // pop('We recieved your message!', 'success')
+                openNotification('success', t("cont notif recieved title"), t("cont notif recieved msg"))
             } else {
                 console.error('Something is wrong, try again.');
-                pop('Something is wrong, try again.', 'error')
+                pop(t("cont res error"), 'error')
             }
         } catch (e) {
             console.error("Error sending message: ", e)
-            pop('Error sending message: ', 'error')
+            pop(t("server req error"), 'error')
         }
 
     }
@@ -78,8 +79,8 @@ function Contact() {
                     <div className={s.outerWrapper}>
                         <div className={s.text_area}>
                             <div className={s.title}>
-                                <h1>تواصـل معنا</h1>
-                                <h3>ما الذي تود إخبارنا به؟</h3>
+                                <h1>{t("cont title")}</h1>
+                                <h3>{t("cont desc")}</h3>
                             </div>
                             <div className={s.accounts}>
                                 <p><XOutlined className={s.icon} />@EnvisionASD </p>
@@ -91,42 +92,75 @@ function Contact() {
                             <Form
                                 className={s.form_wrapper}
                                 form={form}
+                                layout='vertical'
+                                requiredMark='optional'
                                 onFinish={submitMsg}
                                 name="contact_form"
                                 initialValues={{
                                     remember: true,
                                 }}
                             >
-                                <ConfigProvider //change color theme
+                                <ConfigProvider
                                     theme={{
-                                        token: {
-                                            colorPrimary: '#8993ED',
+                                        token: { colorPrimary: '#8993ED' },
+                                        components: {
+                                            Form: {
+                                                itemMarginBottom: 10,
+                                                labelFontSize: 16,
+                                            },
                                         }
-                                    }} >
-                                    <Spin spinning={isLoading} tip="يتم الإرسال..." size="large">
-
-                                        <div className={s.column}>
+                                    }}
+                                >
+                                    <Spin spinning={isLoading} tip={t("cont spintip")} size="large">
+                                        <div className={s.column} style={{ direction: i18n.dir() }}>
                                             <div className={s.column_part}>
                                                 <div className={s.input_box}>
-                                                    <p className={s.label}> الاسم </p>
-                                                    <Form.Item className={s.input} name="name" rules={[{ required: true, message: 'رجاءً قم بإدخال اسمك' }]} >
-                                                        <Input allowClear size="large" placeholder='مثال: سارة سامي' />
+                                                    <Form.Item
+                                                        label={t("cont name label")}
+                                                        className={s.input}
+                                                        name="name"
+                                                        rules={[{
+                                                            required: true,
+                                                            message: t("cont name msg")
+                                                        }]}>
+                                                        <Input
+                                                            allowClear
+                                                            size="large"
+                                                            placeholder={t("cont name placeholder")}
+                                                        />
                                                     </Form.Item>
                                                 </div>
                                             </div>
                                             <div className={s.column_part}>
                                                 <div className={s.input_box}>
-                                                    <p className={s.label}> البريد الالكتروني </p>
-                                                    <Form.Item name="email" rules={[{ required: true, message: 'رجاءً قم بإدخال بريدك الالكتروني', type: 'email' }]} >
-                                                        <Input allowClear size="large" placeholder='Name@Domain.com' />
+                                                    <Form.Item
+                                                        name="email"
+                                                        label={t("cont email label")}
+                                                        rules={[{
+                                                            required: true,
+                                                            message: t("cont email msg"),
+                                                            type: 'email'
+                                                        }]}
+                                                    >
+                                                        <Input
+                                                            allowClear
+                                                            size="large"
+                                                            placeholder='name@domain.com'
+                                                        />
                                                     </Form.Item>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className={s.input_box}>
-                                            <p className={s.label}> الرسالة </p>
-                                            <Form.Item name="message" rules={[{ required: true, message: "What is your message?", }]} >
+                                        <div className={s.input_box} style={{direction: i18n.dir()}}>
+                                            <Form.Item
+                                                name="message"
+                                                label= {t("cont message label")}
+                                                rules={[{
+                                                    required: true,
+                                                    message: t("cont message msg"),
+                                                }]}
+                                            >
                                                 <Input.TextArea
                                                     size='large'
                                                     allowClear
@@ -149,17 +183,13 @@ function Contact() {
                                                             !form.isFieldsTouched(true) ||
                                                             !!form.getFieldsError().filter(({ errors }) => errors.length).length
                                                         }
-                                                    >
-                                                        إرسال
-                                                    </Button>
+                                                    >{t("cont send btn")}</Button>
                                                 )}
                                             </Form.Item>
                                         </div>
                                     </Spin>
                                 </ConfigProvider>
                             </Form>
-
-
                         </div>
                     </div>
                 </div>

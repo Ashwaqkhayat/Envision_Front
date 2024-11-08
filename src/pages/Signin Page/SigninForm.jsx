@@ -62,7 +62,7 @@ function SigninForm() {
             if (response.ok) {
                 setIsLoading(false)
                 localStorage.setItem("user-info", JSON.stringify(data))
-                info(t("popmsg success login"), 'success')
+                info(t("login popmsg success login"), 'success')
 
                 setTimeout(() => {
                     navigate(-1)
