@@ -82,7 +82,7 @@
 .guardList_box h2{
     font-weight: 600px;
     color: #8993ED;
-    margin-right: auto;
+    justify-self: start;
     margin-bottom: 10px;
     overflow: hidden;
 }
@@ -97,31 +97,30 @@
     padding: 1.5rem 1.5rem;
     display: flex;
     flex-direction: column;
-    
 }
 
 .info_header{
     display: flex;
+    justify-content: space-between;
 }
 
 .info_header h2{
     font-weight: 600px;
     color: #8993ED;
-    margin-right: auto;
     margin-bottom: 10px;
 }
 
 .info_footer {
     display: flex;
     gap: 10px;
-    margin-left: auto;
+    margin-inline-start: auto;
     margin-top: auto;
 }
 
 .info_main {
     display: flex;
     align-items: flex-start;
-    column-gap: 5%;
+    column-gap: 7%;
     height: 70%;
     p{
         margin-top: 0px;
@@ -154,6 +153,12 @@
     } 
 }
 
+.info {
+    display: flex;
+    /* justify-content: space-between; */
+    column-gap: 12px;
+}
+
 /* ========== GuardianInfo styles ========== */
 
 .guardian_cont {
@@ -161,16 +166,15 @@
     border-radius: 6px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 7px;
     overflow: hidden;
-    margin-right: 20px;
 }
 
 .guardian_cont h4{
     color: #8993ED;
     font-size: 14px;
     font-weight: 500;
-    margin-right: auto;
 }
 .occupation {
     background-color: #8993ED;

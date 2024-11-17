@@ -6,18 +6,20 @@ import { Button, Tooltip, Spin, Empty, message, Modal } from 'antd'
 import { SettingOutlined } from '@ant-design/icons'
 import InfiniteScroll from "react-infinite-scroll-component"
 import userIcon from '../../../assets/images/pfp.png'
+// translation hook
+import { useTranslation } from 'react-i18next';
 
 function ChildProfile(props) {
+    const { t, i18n } = useTranslation();
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
 
-    // Check new user
+    // Check new user to open welcome modal
     const [modal2Open, setModal2Open] = useState(false);
     const isNewUser = JSON.parse(localStorage.getItem("isNewUser"))
     console.log("Check ", isNewUser)       // <-- Delete Later
     useEffect(() => {
         if (isNewUser == true) {
-            console.log("Welcome!!")
             setModal2Open(true)
             localStorage.setItem("isNewUser", JSON.stringify(false))
         }
@@ -72,7 +74,7 @@ function ChildProfile(props) {
             })
             .catch((err) => {
                 console.error("Error signing out: ", err)
-                popMsg('Something went wrong. Please try again. ', 'error')
+                popMsg(t("server req error"), 'error')
             })
     }
 
@@ -94,6 +96,7 @@ function ChildProfile(props) {
                 setIsLoading(false)
             } catch (err) {
                 console.error("Failed getting guardians information: ", err)
+                popMsg(t("load guards error"), 'error')
             }
         }
         getGuards()
@@ -104,29 +107,30 @@ function ChildProfile(props) {
             <>
                 {contextHolder}
                 <Modal
-                    title="مرحبًا"
+                    title= {t("cprof modal title")}
                     centered
                     open={modal2Open}
                     onOk={() => navigate('/createstory')}
-                    okText='إنشاء قصة'
-                    cancelText='لاحقًا'
+                    okText= {t("cprof modal ok")}
+                    cancelText= {t("cprof modal cancel")}
                     onCancel={() => setModal2Open(false)}
                 >
-                    <p>لنقم الآن بإنشاء أول قصة</p>
+                    <p>{t("cprof modal msg")}</p>
                 </Modal>
+
                 <div className={`${s.profile_header} ${s.center_flex}`}>
                     <div className={s.profile_img}>
                         <img src={userIcon} alt="Profile Picture" />
                     </div>
                     <h2>{Fname}</h2>
-                    <p>@{fullName}</p>
+                    <p>{email}</p>
                 </div>
                 {isLoading ?
                     <Spin size="Large" />
                     :
                     <div className={s.profile_windows}>
-                        <div className={s.guardList_box}>
-                            <h2>أوصيائــــي</h2>
+                        <div className={s.guardList_box} style={{direction: i18n.dir()}}>
+                            <h2>{t("cprof guards title")}</h2>
                             <div className={s.list_container}>
                                 {guards.length === 0 ?
                                     <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
@@ -136,7 +140,7 @@ function ChildProfile(props) {
                                         dataLength={guards.length}
                                         // next={fetchMoreData} give the function that fetches next data
                                         hasMore={hasMore}
-                                        loader={<h4>Loading...</h4>}
+                                        loader={<h4>{t("cprof loader title")}</h4>}
                                         scrollableTarget="scrollableDiv"
                                     >
                                         {guards.map(guard => {
@@ -149,32 +153,49 @@ function ChildProfile(props) {
                                 }
                             </div>
                         </div>
-                        <div className={s.profileInfo_box}>
+                        <div className={s.profileInfo_box} style={{direction: i18n.dir()}}>
                             <div className={s.info_header}>
-                                <h2>معلوماتي الشخصية</h2>
-                                <Tooltip title="الإعدادات">
+                                <h2>{t("prof persInfo title")}</h2>
+                                <Tooltip title={t("settings")}>
                                     <Button
                                         style={{ borderColor: "#8993ED" }}
-                                        icon={<SettingOutlined
-                                            style={{ color: "#8993ED" }} />}
+                                        icon={<SettingOutlined style={{ color: "#8993ED" }} />}
                                         onClick={() => { navigate('/EditProfile') }} />
                                 </Tooltip>
                             </div>
                             <div className={s.info_main}>
                                 <div className={s.info_left}>
-                                    <p>الاسم: {fullName}</p>
-                                    <p>العمر: {age}</p>
-                                    <p>الجنس: {gender}</p>
+                                    <div className={s.info}>
+                                        <p style={{fontWeight: 'bold'}}>{t("cprof name")}</p>
+                                        <p>{fullName}</p>
+                                    </div>
+                                    <div className={s.info}>
+                                        <p style={{fontWeight: 'bold'}}>{t("cprof age")}</p>
+                                        <p>{age}</p>
+                                    </div>
+                                    <div className={s.info}>
+                                        <p style={{fontWeight: 'bold'}}>{t("cprof gender")}</p>
+                                        <p>{gender}</p>
+                                    </div>
                                 </div>
                                 <div className={s.info_right}>
-                                    <p>البريد الإلكتروني: {email}</p>
-                                    <p>اللون المفضل: {fcolor}</p>
-                                    <p>الميلاد: {bdate}</p>
+                                    <div className={s.info}>
+                                        <p style={{fontWeight: 'bold'}}>{t("cprof email")}</p>
+                                        <p>{email}</p>
+                                    </div>
+                                    <div className={s.info}>
+                                        <p style={{fontWeight: 'bold'}}>{t("cprof fcolor")}</p>
+                                        <p>{fcolor}</p>
+                                    </div>
+                                    <div className={s.info}>
+                                        <p style={{fontWeight: 'bold'}}>{t("cprof bdate")}</p>
+                                        <p>{bdate}</p>
+                                    </div>
                                 </div>
                             </div>
                             <div className={s.info_footer}>
-                                <Button type="primary" href="/contact">إرسال شكوى</Button>
-                                <Button type="primary" danger onClick={logOut}>تسجيل الخروج</Button>
+                                <Button type="primary" href="/contact">{t("prof report")}</Button>
+                                <Button type="primary" danger onClick={logOut}>{t("prof logout")}</Button>
                             </div>
                         </div>
                     </div>

@@ -163,6 +163,25 @@
     "lib sort createDate": "تاريخ الإنشاء",
     "lib sort alph": "الألف ← الياء",
     "lib loading": "تحميل القصص...",
-    "lib empty msg": "المكتبة فارغة"
+    "lib empty msg": "المكتبة فارغة",
+
+    "load guards error": "حدث خطأ أثناء تحميل مقدمي الرعاية, حاول مرة أخرى",
+    "prof persInfo title": "معلوماتي الشخصية",
+    "prof report": "إرسال شكوى",
+    "prof logout": "تسجيل الخروج",
+    "settings": "الإعدادات",
+
+    "cprof modal title": "مرحبًا",
+    "cprof modal msg": "لنقم الآن بإنشاء أول قصة!",
+    "cprof modal ok": "إنشاء قصة",
+    "cprof modal cancel": "لاحقًا",
+    "cprof guards title": "أوصيائــــي",
+    "cprof loader title": "قيد التحميل...",
+    "cprof name": "الاسم: ",
+    "cprof age": "العمر: ",
+    "cprof gender": "الجنس: ",
+    "cprof email": "البريد الإلكتروني: ",
+    "cprof fcolor": "اللون المفضل: ",
+    "cprof bdate": "الميلاد: "
 
 }

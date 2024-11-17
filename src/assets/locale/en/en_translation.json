@@ -163,5 +163,24 @@
     "lib sort createDate": "Creation Date",
     "lib sort alph": "A → Z",
     "lib loading": "Loading stories...",
-    "lib empty msg": "Library is empty"
+    "lib empty msg": "Library is empty",
+
+    "load guards error": "Error while loading the caregivers, please try again",
+    "prof persInfo title": "Personal Information",
+    "prof report": "Report Problem",
+    "prof logout": "Log Out",
+    "settings": "Settings",
+
+    "cprof modal title": "Welcome",
+    "cprof modal msg": "Let's create your first story!",
+    "cprof modal ok": "Create Story",
+    "cprof modal cancel": "Later",
+    "cprof guards title": "My Caregivers",
+    "cprof loader title": "Loading...",
+    "cprof name": "Name: ",
+    "cprof age": "Age: ",
+    "cprof gender": "Gender: ",
+    "cprof email": "Email: ",
+    "cprof fcolor": "Favorite Color: ",
+    "cprof bdate": "Birthdate: "
 }
