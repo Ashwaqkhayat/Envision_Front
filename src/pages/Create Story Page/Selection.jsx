@@ -6,6 +6,9 @@ import { ConfigProvider, Spin, Form, Button, Select, Input, Radio, message } fro
 // translation hook
 import { useTranslation } from 'react-i18next';
 
+/// TEEMMMMMMMMMMMMMMPPPPPPPPPPPPPPP
+import tempSt from './storyResponseFull.json'
+
 function Selection() {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
@@ -48,54 +51,75 @@ function Selection() {
             // language: values.language === undefined ? 'en' : values.language,
         };
 
-        try {
-            setIsLoading(true)
-            const response = await fetch(`${process.env.REACT_APP_url}/children/stories/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify(requestBody),
-                credentials: 'include',
-            });
 
-            if (response.status==422){
-                popMsg(t("create story unethic"),"warning")
-                setIsLoading(false)
-            } else if (response.ok) {
-                const data = await response.json()
-                console.log("Created story: ", data)   // <-- DELETE LATER
-                let story = {
-                    prompt: data.story.prompt,
-                    language: data.story.requested_lamguage,
-                    id: null,
-                    is_favorite: false,
-                    is_saved: false,
-                    title: data.story.title,
-                    story_ar: data.story.story_ar,
-                    story_en: data.story.story_en,
-                    story_images: data.story.story_images,
-                    story_questions: [],
-                    start_time: data.story.start_time,
-                    end_time: data.story.end_time,
-                }
-                if (data.story.story_images.length<3) {
-                    popMsg(t("create story shortStory error"),"error")
-                    setIsLoading(false)
-                } else {
-                    localStorage.setItem('story', JSON.stringify(story))
-                    navigate('/Story')
-                    setIsLoading(false)
-                }
-            } else {
-                throw new Error(`Response is not ok: ${response.status}`);
-            }
-        } catch (e) {
-            console.error("An error occurred: ", e)
-            popMsg(t("server req error"), "error")
-            setIsLoading(false)
+        // TEMPORARY ==================================================
+        let story = {
+            prompt: tempSt.prompt,
+            language: "en",
+            id: null,
+            is_favorite: false,
+            is_saved: false,
+            title: tempSt.title,
+            story_ar: tempSt.story_text,
+            story_en: tempSt.story_text,
+            story_images: tempSt.story_images,
+            story_questions: [],
+            start_time: tempSt.start_time,
+            end_time: tempSt.end_time,
         }
+        localStorage.setItem('story', JSON.stringify(story))
+        navigate('/Story')
+        // ============================================================
+
+
+        // try {
+        //     setIsLoading(true)
+        //     const response = await fetch(`${process.env.REACT_APP_url}/children/stories/`, {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Accept': 'application/json',
+        //         },
+        //         body: JSON.stringify(requestBody),
+        //         credentials: 'include',
+        //     });
+
+        //     if (response.status==422){
+        //         popMsg(t("create story unethic"),"warning")
+        //         setIsLoading(false)
+        //     } else if (response.ok) {
+        //         const data = await response.json()
+        //         console.log("Created story: ", data)   // <-- DELETE LATER
+        //         let story = {
+        //             prompt: data.story.prompt,
+        //             language: data.story.requested_lamguage, // <--- laMguage ???
+        //             id: null,
+        //             is_favorite: false,
+        //             is_saved: false,
+        //             title: data.story.title,
+        //             story_ar: data.story.story_ar,
+        //             story_en: data.story.story_en,
+        //             story_images: data.story.story_images,
+        //             story_questions: [],
+        //             start_time: data.story.start_time,
+        //             end_time: data.story.end_time,
+        //         }
+        //         if (data.story.story_images.length<3) {
+        //             popMsg(t("create story shortStory error"),"error")
+        //             setIsLoading(false)
+        //         } else {
+        //             localStorage.setItem('story', JSON.stringify(story))
+        //             navigate('/Story')
+        //             setIsLoading(false)
+        //         }
+        //     } else {
+        //         throw new Error(`Response is not ok: ${response.status}`);
+        //     }
+        // } catch (e) {
+        //     console.error("An error occurred: ", e)
+        //     popMsg(t("server req error"), "error")
+        //     setIsLoading(false)
+        // }
     }
 
     return (

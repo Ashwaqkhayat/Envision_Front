@@ -65,8 +65,6 @@
     margin-bottom: 10px;
 }
 
-
-
 /* ========== Info box styles ========== */
 .profileInfo_box{
     background-color: white;
@@ -81,12 +79,12 @@
 
 .info_header, .list_header{
     display: flex;
+    justify-content: space-between;
 }
 
 .info_header h2, .list_header h2{
     font-weight: 600px;
     color: #8993ED;
-    margin-right: auto;
     margin-bottom: 10px;
 }
 
@@ -97,7 +95,7 @@
 .info_footer {
     display: flex;
     gap: 10px;
-    margin-left: auto;
+    margin-inline-start: auto;
     margin-top: auto;
 }
 
@@ -131,6 +129,12 @@
     row-gap: 15px;
 }
 
+.personal_info{
+    display: flex;
+    /* justify-content: space-between; */
+    column-gap: 12px;
+}
+
 /* ========== ChildInfo styles ========== */
 
 .child_cont {
@@ -140,7 +144,7 @@
     align-items: center;
     padding: 7px;
     overflow: hidden;
-    margin-right: 20px;
+    /* margin-right: 20px; */
     justify-content: space-between;
 }
 
@@ -159,7 +163,7 @@
     color: #8993ED;
     font-size: 14px;
     font-weight: 500;
-    margin-right: auto;
+    margin-inline-end: auto;
 }
 
 .age{

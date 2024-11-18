@@ -42,13 +42,7 @@ function Profile() {
         return (
             <>
                 <div className={s.body}>
-                    <ConfigProvider
-                        theme={{
-                            token: {
-                                colorPrimary: '#8EC3B7',
-                            }
-                        }}
-                    >
+                    <ConfigProvider theme={{ token: { colorPrimary: '#8EC3B7' } }} >
                         <Navbar />
                         <div className={`${s.content} ${s.center_flex}`}>
                             {info && accType === "child" ?

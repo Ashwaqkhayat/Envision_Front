@@ -2,8 +2,11 @@ import React, { useState } from "react"
 import s from './ViewChild_style.module.css'
 import { ConfigProvider, Button, Spin } from 'antd'
 import { useNavigate } from 'react-router-dom'
+// translation hook
+import { useTranslation } from 'react-i18next'
 
 function LibraryStory(props) {
+    const { t } = useTranslation()
     const navigate = useNavigate()
     let content = { ...props.content, is_saved: true }
     const [isLoading, setIsLoading] = useState(false)
@@ -66,7 +69,7 @@ function LibraryStory(props) {
                                 // navigate('/Story')
 
                             }
-                        >قراءة</Button>
+                        >{t("read story btn")}</Button>
                     </div>
                 </div>
             </Spin>

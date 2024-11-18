@@ -2,6 +2,7 @@
     "server req error": "Something went wrong, try again later",
     "next btn": "Next",
     "register btn": "Register",
+    "loader title": "Loading...",
 
     "nav title": "Envision",
     "nav profile button": "My Profile",
@@ -165,22 +166,54 @@
     "lib loading": "Loading stories...",
     "lib empty msg": "Library is empty",
 
-    "load guards error": "Error while loading the caregivers, please try again",
     "prof persInfo title": "Personal Information",
     "prof report": "Report Problem",
     "prof logout": "Log Out",
     "settings": "Settings",
-
+    
+    "load guards error": "Error while loading the caregivers, please try again",
     "cprof modal title": "Welcome",
     "cprof modal msg": "Let's create your first story!",
     "cprof modal ok": "Create Story",
     "cprof modal cancel": "Later",
     "cprof guards title": "My Caregivers",
-    "cprof loader title": "Loading...",
+    "empty guards list": "No added caregivers",
     "cprof name": "Name: ",
     "cprof age": "Age: ",
     "cprof gender": "Gender: ",
     "cprof email": "Email: ",
     "cprof fcolor": "Favorite Color: ",
-    "cprof bdate": "Birthdate: "
+    "cprof bdate": "Birthdate: ",
+
+    "load childs error": "Error while loading children, please try again",
+    "gprof modal title": "Welcome",
+    "gprof modal ok": "Add Child",
+    "gprof modal cancel": "Later",
+    "gprof modal msg": "Let's add the first child to your list of children!",
+
+    "gprof hello": "Hello",
+    "gprof childs title": "My Children",
+    "add child btn": "Add Child",
+    "empty child list": "No added children",
+    "gprof name": "Name:",
+    "gprof age": "Age:",
+    "gprof email": "Email:",
+    "gprof phone": "Phone Number:",
+    "gprof nchilds": "Number of children:",
+    "gprof child age": "years",
+    "gprof child prof btn": "Visit Profile",
+
+    "visChild error title": "Something went wrong!",
+    "confirm del title": "Are you sure you want to delete",
+    "confirm del ok": "Yes",
+    "confirm del cancel": "No",
+    "error fetch child": "Sorry we couldn't get the child profile, try again later",
+    "error del child": "Sorry we couldn't remove the child, try again later",
+    "error fetch lib": "Sorry we couldn't get the child's library, try again later",
+    "visChild backbtn": "Back",
+    "visChild lib title": "Library",
+    "visChild perinfo title": "Personal Information",
+    "del child btn": "Delete Child",
+    "read story btn": "Read"
+
 }

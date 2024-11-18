@@ -133,14 +133,14 @@ function ChildProfile(props) {
                             <h2>{t("cprof guards title")}</h2>
                             <div className={s.list_container}>
                                 {guards.length === 0 ?
-                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t("empty guards list")}/>
                                     :
                                     <InfiniteScroll
                                         className={s.scrollable}
                                         dataLength={guards.length}
                                         // next={fetchMoreData} give the function that fetches next data
                                         hasMore={hasMore}
-                                        loader={<h4>{t("cprof loader title")}</h4>}
+                                        loader={<h4>{t("loader title")}</h4>}
                                         scrollableTarget="scrollableDiv"
                                     >
                                         {guards.map(guard => {
@@ -166,29 +166,25 @@ function ChildProfile(props) {
                             <div className={s.info_main}>
                                 <div className={s.info_left}>
                                     <div className={s.info}>
-                                        <p style={{fontWeight: 'bold'}}>{t("cprof name")}</p>
+                                        <p style={{fontWeight: 'bold'}}>{t("cprof name")} </p>
                                         <p>{fullName}</p>
                                     </div>
                                     <div className={s.info}>
-                                        <p style={{fontWeight: 'bold'}}>{t("cprof age")}</p>
+                                        <p style={{fontWeight: 'bold'}}>{t("cprof age")} </p>
                                         <p>{age}</p>
                                     </div>
                                     <div className={s.info}>
-                                        <p style={{fontWeight: 'bold'}}>{t("cprof gender")}</p>
+                                        <p style={{fontWeight: 'bold'}}>{t("cprof gender")} </p>
                                         <p>{gender}</p>
                                     </div>
                                 </div>
                                 <div className={s.info_right}>
                                     <div className={s.info}>
-                                        <p style={{fontWeight: 'bold'}}>{t("cprof email")}</p>
-                                        <p>{email}</p>
-                                    </div>
-                                    <div className={s.info}>
-                                        <p style={{fontWeight: 'bold'}}>{t("cprof fcolor")}</p>
+                                        <p style={{fontWeight: 'bold'}}>{t("cprof fcolor")} </p>
                                         <p>{fcolor}</p>
                                     </div>
                                     <div className={s.info}>
-                                        <p style={{fontWeight: 'bold'}}>{t("cprof bdate")}</p>
+                                        <p style={{fontWeight: 'bold'}}>{t("cprof bdate")} </p>
                                         <p>{bdate}</p>
                                     </div>
                                 </div>

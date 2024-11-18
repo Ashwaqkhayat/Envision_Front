@@ -5,8 +5,11 @@ import { Button, Tooltip, message, Empty, Modal, Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom'
 import { SettingOutlined, PlusOutlined } from '@ant-design/icons'
 import InfiniteScroll from "react-infinite-scroll-component"
+// translation hook
+import { useTranslation } from 'react-i18next'
 
 function GuardianProfile(props) {
+    const { t, i18n } = useTranslation()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
 
@@ -16,7 +19,6 @@ function GuardianProfile(props) {
     console.log("Check ", isNewUser)       // <-- Delete Later
     useEffect(() => {
         if (isNewUser == true) {
-            console.log("Welcome!!")
             setModal2Open(true)
             localStorage.setItem("isNewUser", JSON.stringify(false))
         }
@@ -55,7 +57,7 @@ function GuardianProfile(props) {
         const getChilds = async () => {
             try {
                 setIsLoading(true)
-                console.warn("Getting Children...")
+                // console.warn("Getting Children...")
                 const response = await fetch(`${process.env.REACT_APP_url}/guardians/children`, {
                     method: 'GET',
                     credentials: 'include',
@@ -69,6 +71,7 @@ function GuardianProfile(props) {
                 setIsLoading(false)
             } catch (err) {
                 console.error("Failed getting guardians information: ", err)
+                popMsg(t("load childs error"), 'error')
             }
         }
         getChilds()
@@ -85,13 +88,13 @@ function GuardianProfile(props) {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log("Logged Out Successfully", data)
+                // console.log("Logged Out Successfully", data)
                 localStorage.clear()
                 window.location.reload(false)
             })
             .catch((err) => {
                 console.error("Error signing out..")
-                popMsg('حدث خطأ ما, قم بالمحاولة لاحقا', 'error')
+                popMsg(t("server req error"), 'error')
             })
     }
 
@@ -100,33 +103,74 @@ function GuardianProfile(props) {
             <>
                 {contextHolder}
                 <Modal
-                    title="مرحبـًا"
+                    title={t("gprof modal title")}
                     centered
                     open={modal2Open}
                     onOk={() => navigate('/addchild')}
-                    okText='إضافة طفل'
-                    cancelText='لاحقًا'
+                    okText={t("gprof modal ok")}
+                    cancelText={t("gprof modal cancel")}
                     onCancel={() => setModal2Open(false)}
                 >
-                    <p>لنقم بإضافة أول طفل لقائمة أطفالك</p>
+                    <p>{t("gprof modal msg")}</p>
                 </Modal>
+
                 <div className={`${s.profile_header} ${s.center_flex}`}>
-                    <h2>مرحبــًا {Fname} !</h2>
+                    <h2 style={{ direction: i18n.dir() }}>{t("gprof hello")} {Fname}!</h2>
                 </div>
-                <div className={s.profile_windows}>
+                <div className={s.profile_windows} style={{direction: i18n.dir()}}>
+                <div className={s.profileInfo_box}>
+                        <div className={s.info_header}>
+                            <h2>{t("prof persInfo title")}</h2>
+                            <Tooltip title={t("settings")}>
+                                <Button
+                                    style={{ borderColor: "#8993ED" }}
+                                    icon={<SettingOutlined style={{ color: "#8993ED" }} />}
+                                    onClick={() => { navigate('/EditProfile') }}
+                                />
+                            </Tooltip>
+                        </div>
+                        <div className={s.info_main}>
+                            <div className={s.info_left}>
+                                <div className={s.personal_info}>
+                                    <p style={{fontWeight: '600'}}>{t("gprof name")}</p>
+                                    <p>{fullName}</p>
+                                </div>
+                                <div className={s.personal_info}>
+                                    <p style={{fontWeight: '600'}}>{t("gprof age")}</p>
+                                    <p>{age}</p>
+                                </div>
+                                <div className={s.personal_info}>
+                                    <p style={{fontWeight: '600'}}>{t("gprof email")}</p>
+                                    <p>{email}</p>
+                                </div>
+                                <div className={s.personal_info}>
+                                    <p style={{fontWeight: '600'}}>{t("gprof phone")}</p>
+                                    <p>{pnum}</p>
+                                </div>
+                                <div className={s.personal_info}>
+                                    <p style={{fontWeight: '600'}}>{t("gprof nchilds")}</p>
+                                    <p>{children.length}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={s.info_footer}>
+                            <Button type="primary" href="/contact">{t("prof report")}</Button>
+                            <Button type="primary" danger onClick={logOut}>{t("prof logout")}</Button>
+                        </div>
+                    </div>
                     <div className={s.childList_box}>
                         <div className={s.list_header}>
-                            <h2>أطفالـــي</h2>
+                            <h2>{t("gprof childs title")}</h2>
                             <Button
                                 type="primary"
                                 icon={<PlusOutlined />}
                                 onClick={() => { navigate('/addchild') }}
-                            >إضافة طفل</Button>
+                            >{t("add child btn")}</Button>
                         </div>
                         <div className={s.list_container}>
                             {children.length === 0 ?
                                 <div className={`${s.center_flex} ${s.fullHeight}`}>
-                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t("empty child list")} />
                                 </div>
                                 :
                                 <InfiniteScroll
@@ -134,7 +178,7 @@ function GuardianProfile(props) {
                                     dataLength={children.length} //Edit later
                                     // next={fetchMoreData} give the function that fetches next data
                                     hasMore={hasMore}
-                                    loader={<h4>Loading...</h4>}
+                                    loader={<h4>{t("loader title")}</h4>}
                                     scrollableTarget="scrollableDiv"
                                 >
                                     {children.map(child => {
@@ -145,31 +189,6 @@ function GuardianProfile(props) {
                                     })}
                                 </InfiniteScroll>
                             }
-                        </div>
-                    </div>
-                    <div className={s.profileInfo_box}>
-                        <div className={s.info_header}>
-                            <h2>معلومـاتي الشخصية</h2>
-                            <Tooltip title="الإعدادات">
-                                <Button
-                                    style={{ borderColor: "#8993ED" }}
-                                    icon={<SettingOutlined style={{ color: "#8993ED" }} />}
-                                    onClick={() => { navigate('/EditProfile') }}
-                                />
-                            </Tooltip>
-                        </div>
-                        <div className={s.info_main}>
-                            <div className={s.info_left}>
-                                <p style={{direction: 'ltr'}}>الاسم: {fullName}</p>
-                                <p style={{direction: 'ltr'}}>العمر: {age}</p>
-                                <p style={{direction: 'ltr'}}>البريد الإلكتروني: {email}</p>
-                                <p style={{direction: 'ltr'}}>رقم الجوال: {pnum}</p>
-                                <p style={{direction: 'ltr'}}>عدد الأطفال: {children.length}</p>
-                            </div>
-                        </div>
-                        <div className={s.info_footer}>
-                            <Button type="primary" href="/contact">إرسال شكوى</Button>
-                            <Button type="primary" danger onClick={logOut}>تسجيل الخروج</Button>
                         </div>
                     </div>
                 </div>

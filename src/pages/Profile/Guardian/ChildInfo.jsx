@@ -3,17 +3,20 @@ import s from './GuardianProfile_style.module.css'
 import { useNavigate } from "react-router-dom";
 import { ConfigProvider, Button } from 'antd'
 import { SmileTwoTone } from '@ant-design/icons'
+// translation hook
+import { useTranslation } from 'react-i18next'
 
 function Child(props) {
+    const { t } = useTranslation()
     const navigate = useNavigate()
 
     const info = props.content //Full child info
     const name = info.first_name + " " + info.last_name
     const age = info.age
     const gender = info.gender
-    const email = info.email
-    const faveColor = info.favorite_color
-    const bdate = info.birth_date
+    // const email = info.email
+    // const faveColor = info.favorite_color
+    // const bdate = info.birth_date
 
     const [faceColor, setFaceColor] = React.useState("#494C4C")
     React.useEffect(() => {
@@ -25,13 +28,7 @@ function Child(props) {
     }, [])
 
     return (
-        <ConfigProvider
-            theme={{
-                token: {
-                    colorPrimary: '#8993ED',
-                }
-            }}
-        >
+        <ConfigProvider theme={{ token: { colorPrimary: '#8993ED' } }} >
             <div className={s.child_cont}>
                 <div className={s.info}>
                     <h4>{name}</h4>
@@ -39,7 +36,7 @@ function Child(props) {
                         <SmileTwoTone twoToneColor={faceColor} />
                     </div>
                 </div>
-                <p style={{direction: 'rtl'}} className={s.age}>{age} سنة</p>
+                <p className={s.age}>{age} {t("gprof child age")}</p>
                 <Button
                     type="primary"
                     size="small"
@@ -47,8 +44,7 @@ function Child(props) {
                         localStorage.setItem("visited-Child", JSON.stringify(info.id))
                         navigate('/viewChild')
                     }}
-                    >الملف الشخصي
-                </Button>
+                >{t("gprof child prof btn")}</Button>
             </div>
         </ConfigProvider>
     )

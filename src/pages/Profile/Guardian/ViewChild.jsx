@@ -8,8 +8,11 @@ import Navbar from '../../../components/Navbar/Navbar'
 import Footer from '../../../components/Footer/Footer'
 import InfiniteScroll from "react-infinite-scroll-component"
 import LibraryStory from './LibraryStory'
+// translation hook
+import { useTranslation } from 'react-i18next'
 
 function ViewChild() {
+    const { t, i18n } = useTranslation()
     const navigate = useNavigate()
     const [isProfileLoading, setProfileLoading] = useState(false)
     const [isLibraryLoading, setLibraryLoading] = useState(false)
@@ -22,7 +25,8 @@ function ViewChild() {
     // Modal to inform errors
     const openErrorModal = (msg) => {
         Modal.error({
-            title: 'حدث خطأ ما!',
+            direction: i18n.dir(),
+            title: t("visChild error title"),
             content: msg,
             centered: true,
             okButtonProps: { style: { backgroundColor: '#8993ED' } },
@@ -37,12 +41,13 @@ function ViewChild() {
     // Delete Confirm Modal
     const showDeleteConfirm = () => {
         confirm({
-            title: `هل أنت متأكد من حذف ${profile.first_name}?`,
+            direction: i18n.dir(),
+            title: `${t("confirm del title")} ${profile.first_name}?`,
             icon: <ExclamationCircleFilled />,
             centered: true,
-            okText: 'نعم',
+            okText: t("confirm del ok"),
             okType: 'danger',
-            cancelText: 'لا',
+            cancelText: t("confirm del cancel"),
             cancelButtonProps: { style: { borderColor: '#7a7a7a', color: '#7a7a7a' } },
             onOk() {
                 console.log('Confirm delete request');
@@ -75,7 +80,7 @@ function ViewChild() {
                 setProfileLoading(false)
             } catch (err) {
                 console.error("Failed getting child information: ", err)
-                openErrorModal('Sorry we couldn\'t get the child profile, try again later.')
+                openErrorModal(t("error fetch child"))
                 setProfileLoading(false)
             }
         }
@@ -97,7 +102,7 @@ function ViewChild() {
             }, 1200);
         } catch (err) {
             console.error("Failed removing the child: ", err)
-            openErrorModal('Sorry we couldn\'t remove the child, try again later.')
+            openErrorModal(t("error del child"))
         }
     }
     // fetch child's library
@@ -118,7 +123,7 @@ function ViewChild() {
                 setLibraryLoading(false)
             } catch (err) {
                 console.error("Failed: ", err)
-                openErrorModal('Sorry we couldn\'t get the child\'s library, try again later.')
+                openErrorModal(t("error fetch lib"))
                 setLibraryLoading(false)
             }
         }
@@ -130,7 +135,7 @@ function ViewChild() {
         let bdate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
         return (
             <>
-                <ConfigProvider theme={{ token: { colorPrimary: '#8EC3B7', } }} >
+                <ConfigProvider theme={{ token: { colorPrimary: '#8EC3B7' } }} >
                     <div className={s.body}>
                         <Navbar />
                         <div className={`${s.content} ${s.center_flex}`}>
@@ -139,15 +144,15 @@ function ViewChild() {
                                     <img src={userIcon} alt="Profile Picture" />
                                 </div>
                                 <h2>{profile.first_name}</h2>
-                                <p>@{profile.first_name + " " + profile.last_name}</p>
+                                <p>{profile.email}</p>
                             </div>
                             <div className={s.profile_windows}>
-                                <div className={s.libraryList_box}>
-                                    <div className={s.backArrow_btn} onClick={() => { navigate('/profile') }}>
+                                <div className={s.libraryList_box} style={{direction: i18n.dir()}}>
+                                    <div className={s.backArrow_btn} style={{direction: 'ltr'}} onClick={() => { navigate('/profile') }}>
                                         <box-icon name='left-arrow-alt' size='md' color='#494C4C'></box-icon>
-                                        <h2>تراجع</h2>
+                                        <h2>{t("visChild backbtn")}</h2>
                                     </div>
-                                    <h2>المكتبـة</h2>
+                                    <h2>{t("visChild lib title")}</h2>
                                     <div className={s.list_container}>
                                         {isLibraryLoading ?
                                             <div className={`${s.center_flex} ${s.fullDiv}`}>
@@ -156,7 +161,7 @@ function ViewChild() {
                                             :
                                             childLibrary.length === 0 ?
                                                 <div className={`${s.center_flex} ${s.fullDiv}`}>
-                                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t("lib empty msg")}/>
                                                 </div>
                                                 :
                                                 <InfiniteScroll
@@ -164,7 +169,7 @@ function ViewChild() {
                                                     dataLength={childLibrary.length}
                                                     // next={fetchMoreData} give the function that fetches next data
                                                     hasMore={hasMore}
-                                                    loader={<h4>Loading...</h4>}
+                                                    loader={<h4>{t("loader title")}</h4>}
                                                     scrollableTarget="scrollableDiv"
                                                 >
                                                     {childLibrary.map((story) => { return <LibraryStory content={story} /> })}
@@ -172,24 +177,38 @@ function ViewChild() {
                                         }
                                     </div>
                                 </div>
-                                <div className={s.profileInfo_box}>
+                                <div className={s.profileInfo_box} style={{direction: i18n.dir()}}>
                                     <div className={s.info_header}>
-                                        <h2>المعلومـات الشخصية</h2>
+                                        <h2>{t("visChild perinfo title")}</h2>
                                     </div>
                                     <div className={s.info_main}>
                                         <div className={s.info_left}>
-                                            <p>الاسم: {profile.first_name + " " + profile.last_name}</p>
-                                            <p>العمر: {profile.age}</p>
-                                            <p>الجنس: {profile.gender}</p>
+                                            <div className={s.info}>
+                                                <p style={{fontWeight:'600'}}>{t("cprof name")} </p>
+                                                <p>{profile.first_name + " " + profile.last_name}</p>
+                                            </div>
+                                            <div className={s.info}>
+                                                <p style={{fontWeight:'600'}}>{t("cprof age")} </p>
+                                                <p>{profile.age}</p>
+                                            </div>
+                                            <div className={s.info}>
+                                                <p style={{fontWeight:'600'}}>{t("cprof gender")} </p>
+                                                <p>{profile.gender}</p>
+                                            </div>
                                         </div>
                                         <div className={s.info_right}>
-                                            <p>البريد الإلكتروني: {profile.email}</p>
-                                            <p>اللون المفضل: {profile.favorite_color}</p>
-                                            <p>تاريخ الميلاد: {bdate}</p>
+                                            <div className={s.info}>
+                                                <p style={{fontWeight:'600'}}>{t("cprof fcolor")} </p>
+                                                <p>{profile.favorite_color}</p>
+                                            </div>
+                                            <div className={s.info}>
+                                                <p style={{fontWeight:'600'}}>{t("cprof bdate")} </p>
+                                                <p>{bdate}</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className={s.info_footer}>
-                                        <Button type="primary" danger onClick={showDeleteConfirm}>حذف الطفل</Button>
+                                        <Button type="primary" danger onClick={showDeleteConfirm}>{t("del child btn")}</Button>
                                     </div>
                                 </div>
                             </div>
