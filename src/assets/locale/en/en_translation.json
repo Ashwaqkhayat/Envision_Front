@@ -214,6 +214,29 @@
     "visChild lib title": "Library",
     "visChild perinfo title": "Personal Information",
     "del child btn": "Delete Child",
-    "read story btn": "Read"
+    "read story btn": "Read",
+
+    "addc success msg": "Child added successfully",
+    "addc child notfound": "No child found with this information, please try again",
+    "addc res error": "There was an issue adding the child, please try again",
+    "addc spin": "Adding child...",
+    "addc cancel btn": "Cancel",
+    "addc title": "Add Child",
+    "addc email": "Child Email",
+    "addc email msg": "Please enter the child's email",
+    "addc bdate": "Child Birthdate",
+    "addc bdate msg": "Please select the child's birthdate",
+    "addc fcolor": "Child Favorite Color",
+    "addc fcolor tooltip": "Is it purple? Blue, Green, Yellow, or Pink?",
+    "addc fcolor msg": "Please enter the child's favorite color",
+    "addc occ": "Caregiver Occupation",
+    "addc occ tooltip": "Please specify your role based on your relationship to the child",
+    "addc occ msg": "Please specify your occupation",
+    "addc occ relative": "Relative",
+    "addc occ teacher": "Teacher",
+    "addc occ doctor": "Doctor",
+    "addc occ specialist": "Specialist",
+    "addc occ other": "Other",
+    "addc submit btn": "Add Child"
 
 }

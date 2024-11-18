@@ -6,8 +6,12 @@ import Footer from '../../components/Footer/Footer'
 import { Link, useNavigate } from "react-router-dom";
 import { ConfigProvider, Input, Form, Button, message, Spin, DatePicker, Radio } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
+// translation hook
+import { useTranslation } from 'react-i18next';
 
 function AddChild() {
+    const { t, i18n } = useTranslation()
+    const [form] = Form.useForm()
     const [isLoading, setIsLoading] = useState(false) //Loading indicator
     const navigate = useNavigate() //Navigate to prev window after adding
     const [messageApi, contextHolder] = message.useMessage() //Popup messages
@@ -17,6 +21,7 @@ function AddChild() {
             content: text,
             duration: 5,
             style: {
+                direction: i18n.dir(),
                 fontSize: '18px',
                 justifyContent: 'center',
             },
@@ -26,15 +31,15 @@ function AddChild() {
     const addChild = async (values) => { // When form is submitted
 
         let fcolor = values.favorite_color
-        if (fcolor == 'ازرق' || fcolor == 'أزرق' || fcolor == 'الازرق' || fcolor == 'الأزرق'){
+        if (fcolor == 'ازرق' || fcolor == 'أزرق' || fcolor == 'الازرق' || fcolor == 'الأزرق' || fcolor == 'blue' || fcolor == 'Blue') {
             fcolor = 'blue'
-        } else if (fcolor == 'وردي' || fcolor == 'الوردي' || fcolor == 'زهري' || fcolor == 'الزهري'){
+        } else if (fcolor == 'وردي' || fcolor == 'الوردي' || fcolor == 'زهري' || fcolor == 'الزهري' || fcolor == 'pink' || fcolor == 'Pink') {
             fcolor = 'pink'
-        } else if (fcolor == 'بنفسجي' || fcolor == 'البنفسجي' || fcolor == 'موفي' || fcolor == 'الموفي'){
+        } else if (fcolor == 'بنفسجي' || fcolor == 'البنفسجي' || fcolor == 'موفي' || fcolor == 'الموفي' || fcolor == 'purple' || fcolor == 'Purple') {
             fcolor = 'purple'
-        } else if (fcolor == 'اخضر' || fcolor == 'الأخضر' || fcolor == 'أخضر' || fcolor == 'الاخضر'){
+        } else if (fcolor == 'اخضر' || fcolor == 'الأخضر' || fcolor == 'أخضر' || fcolor == 'الاخضر' || fcolor == 'green' || fcolor == 'Green') {
             fcolor = 'green'
-        } else if (fcolor == 'اصفر' || fcolor == 'أصفر' || fcolor == 'الأصفر' || fcolor == 'الاصفر'){
+        } else if (fcolor == 'اصفر' || fcolor == 'أصفر' || fcolor == 'الأصفر' || fcolor == 'الاصفر' || fcolor == 'yellow' || fcolor == 'Yellow') {
             fcolor = 'yellow'
         } else {
             fcolor = 'black'
@@ -47,8 +52,7 @@ function AddChild() {
                 birth_date: values.birthdate.$d,
                 relation: values.occupation,
             }
-            console.log(requestBody)
-            console.warn("> Adding Child...")
+            console.warn("Adding Child...")
             const response = await fetch(`${process.env.REACT_APP_url}/guardians/children`, {
                 method: 'POST',
                 headers: {
@@ -61,27 +65,24 @@ function AddChild() {
             const data = await response.json()
 
             if (response.ok) {
-                console.log("> Child added successfully")
                 setIsLoading(false)
-                popMsg('تمت إضافة الطفل بنجاح', 'success')
-                setTimeout(() => {
-                    navigate('/profile')
-                }, 1300)
+                popMsg(t("addc success msg"), 'success')
+                setTimeout(() => { navigate('/profile') }, 1300)
             } else if (response.status == 404) {
                 console.error(response.status, data.error)
                 setIsLoading(false)
-                popMsg(data.error, 'error')
+                popMsg(t("addc child notfound"), 'error')
             } else if (response.status == 401) {
                 // 401 means token isn't there
                 localStorage.clear()
             } else {
-                popMsg(data.error, 'error')
+                popMsg(t("addc res error"), 'error')
                 console.error(`Error in sending HTTP request: ${data.error}`)
                 setIsLoading(false)
             }
         } catch (err) {
             console.error("Failed adding child, ", err)
-            popMsg('حدث خطأ ما, أعد المحاولة مرة أخرى')
+            popMsg(t("server req error"), 'error')
             setIsLoading(false)
         }
     }
@@ -91,102 +92,96 @@ function AddChild() {
                 <Navbar />
                 {contextHolder}
                 <div className={s.content}>
-                    <Form onFinish={addChild}>
-                        <ConfigProvider //change color theme
-                            theme={{
-                                token: {
-                                    colorPrimary: '#8993ED',
-                                }
-                            }} >
-                            <Spin className={s.spin} spinning={isLoading} tip="يتم إضافة الطفل..." size="large">
-                                <div className={s.wrapper}>
+                    <ConfigProvider //change color theme
+                        theme={{
+                            token: { colorPrimary: '#8993ED' },
+                            components: { Form: { labelFontSize: 16 }, }
+                        }} >
+                        <Form
+                            name="add_child"
+                            form={form}
+                            layout="vertical"
+                            requiredMark="optional"
+                            onFinish={addChild}>
+                            <Spin className={s.spin} spinning={isLoading} tip={t("addc spin")} size="large">
+                                <div className={s.wrapper} style={{direction: i18n.dir()}}>
                                     <Link
                                         className={s.cancel_btn}
                                         onClick={() => { navigate(-1) }}
-                                    >Cancel
-                                    </Link>
+                                    >{t("addc cancel btn")} </Link>
 
-                                    <h1>إضافة طفــل</h1>
+                                    <h1>{t("addc title")}</h1>
 
                                     <div className={s.form_part}>
-                                        <div className={s.input_box}>
-                                            <Label
-                                                inputTitle="البريد الإلكتروني للطفل"
-                                                popTitle="البريد الإلكتروني للطفل"
-                                                popMsg="رجاءً قم بإدخال البريد الإلكتروني الخاص بالطفل المراد إضافته"
-                                            />
-
-                                            <Form.Item name={'email'} rules={[{
-                                                required: true, type: 'email', message: 'رجاءً قم بإدخال البريد الإلكتروني'
-                                            }]}>
-                                                <Input
-                                                    size="large"
-                                                    placeholder="Name@Domain.com"
-                                                    prefix={<MailOutlined className="site-form-item-icon" style={{ color: '#A2A9B0' }} />}
-                                                />
-                                            </Form.Item>
-                                        </div>
-                                        <div className={s.input_box}>
-                                            <Label
-                                                inputTitle="تاريخ ميلاد الطفل"
-                                                popTitle="متى ولد الطفل؟"
-                                                popMsg="رجاءً قم تاريخ ميلاد الطفل المراد إضافته"
-                                            />
-
-                                            {/* <Space className={s.input_bdate} direction="vertical"> */}
-                                            <Form.Item className={s.input_bdate} name={'birthdate'} rules={[{
+                                        <Form.Item
+                                            name={'email'}
+                                            label={t("addc email")}
+                                            required
+                                            rules={[{
                                                 required: true,
-                                                message: 'رجاءً قم بإدخال تاريخ الميلاد'
+                                                type: 'email',
+                                                message: t("addc email msg")
                                             }]}>
-                                                <DatePicker className={s.input_bdate} size="large" />
-                                            </Form.Item>
-                                            {/* </Space> */}
-                                        </div>
-                                        <div className={s.input_box}>
-                                            <Label
-                                                inputTitle="اللون المفضل للطفل"
-                                                popTitle="ما هو اللون المفضل للطفل؟"
-                                                popMsg="هل هو البنفسجي؟ الأزرق, الأخضر, الأصفر, أم الوردي"
+                                            <Input
+                                                size="large"
+                                                placeholder="Name@Domain.com"
+                                                prefix={<MailOutlined className="site-form-item-icon" style={{ color: '#A2A9B0' }} />}
                                             />
+                                        </Form.Item>
 
-                                            <Form.Item name={'favorite_color'} rules={[{
+                                        {/* <Space className={s.input_bdate} direction="vertical"> */}
+                                        <Form.Item
+                                            className={s.input_bdate}
+                                            label={t("addc bdate")}
+                                            name={'birthdate'}
+                                            required
+                                            rules={[{
                                                 required: true,
-                                                message: 'رجاءُ قم بإدخال اللون المفضل'
+                                                message: t("addc bdate msg")
                                             }]}>
-                                                <Input size="large" placeholder="Blue" />
-                                            </Form.Item>
-                                        </div>
-                                        <div className={s.input_box}>
-                                            <Label
-                                                inputTitle="مهنة الوصي"
-                                                popTitle="ما هي مهنتك؟"
-                                                popMsg="رجاءً قم بتحديد دورك بناءً على علاقتك بالطفل"
-                                            />
+                                            <DatePicker className={s.input_bdate} size="large" />
+                                        </Form.Item>
+                                        {/* </Space> */}
 
-                                            <Form.Item name={'occupation'} rules={[{
+                                        <Form.Item
+                                            name={'favorite_color'}
+                                            label={t("addc fcolor")}
+                                            tooltip={t("addc fcolor tooltip")}
+                                            required
+                                            rules={[{
                                                 required: true,
-                                                message: 'رجاء قم بتحديد مهنتك'
+                                                message: t("addc fcolor msg")
                                             }]}>
-                                                <Radio.Group size="large">
-                                                    <Radio.Button value="relative">قريب</Radio.Button>
-                                                    <Radio.Button value="teacher">معلم</Radio.Button>
-                                                    <Radio.Button value="doctor">طبيب</Radio.Button>
-                                                    <Radio.Button value="specialist">أخصائي</Radio.Button>
-                                                    <Radio.Button value="other">آخر</Radio.Button>
-                                                </Radio.Group>
-                                            </Form.Item>
-                                        </div>
+                                            <Input size="large" placeholder="Blue" />
+                                        </Form.Item>
+
+                                        <Form.Item
+                                            name={'occupation'}
+                                            label={t("addc occ")}
+                                            tooltip={t("addc occ tooltip")}
+                                            rules={[{
+                                                required: true,
+                                                message: t("addc occ msg")
+                                            }]}>
+                                            <Radio.Group size="large" style={{width: '100%'}} >
+                                                <Radio.Button value="relative" style={{width: '20%'}}>{t("addc occ relative")}</Radio.Button>
+                                                <Radio.Button value="teacher" style={{width: '20%'}}>{t("addc occ teacher")}</Radio.Button>
+                                                <Radio.Button value="doctor" style={{width: '19%'}}>{t("addc occ doctor")}</Radio.Button>
+                                                <Radio.Button value="specialist" style={{width: '23%'}}>{t("addc occ specialist")}</Radio.Button>
+                                                <Radio.Button value="other" style={{width: '18%'}}>{t("addc occ other")}</Radio.Button>
+                                            </Radio.Group>
+                                        </Form.Item>
                                     </div>
 
                                     <div className={s.bottom_part}>
                                         <Button className={s.submitBtn} htmlType="submit" type="primary" size="large" >
-                                            إضافة الطفل
+                                            {t("addc submit btn")}
                                         </Button>
                                     </div>
                                 </div>
                             </Spin>
-                        </ConfigProvider>
-                    </Form>
+                        </Form>
+                    </ConfigProvider>
                 </div>
             </div>
             <Footer />

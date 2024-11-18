@@ -19,7 +19,8 @@
 }
 
 .wrapper {
-    width: auto; 
+    width: auto;
+    min-width: 510px;
     height: auto;
     background: white;
     border-radius: 10px;
@@ -35,6 +36,7 @@
     h1 {
         font-size: 2.6rem;
         font-weight: bolder;
+        margin-bottom: 12px;
         color: #8EC3B7;
     }
 
