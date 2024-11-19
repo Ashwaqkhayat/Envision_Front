@@ -3,9 +3,11 @@ import s from './EditProfile_style.module.css'
 import { ConfigProvider, Button, Form, Input, Radio, DatePicker, Spin, message } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
+// translation hook
+import { useTranslation } from 'react-i18next';
 
-function MainInfoChild(props) {
-    let menuSelection = props.menuSelection
+function MainInfoChild() {
+    const { t, i18n } = useTranslation()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [info, setInfo] = useState(null)
@@ -36,7 +38,6 @@ function MainInfoChild(props) {
                 })
                 const data = await response.json()
                 if (response.ok) {
-                    console.log("Profile fetched successfully")
                     const profileData = JSON.parse(JSON.stringify(data)).profile
                     setInfo(profileData)
                 } else {
@@ -73,8 +74,7 @@ function MainInfoChild(props) {
                 })
                 if (response.ok) {
                     const data = await response.json()
-                    console.log('Profile Edited Successfully:', data.message)
-                    popMsg('Profile updated successfully!', 'success')
+                    popMsg(t("editprof success msg"), 'success')
                     setIsLoading(false)
                 } else {
                     throw new Error("Response is ok but ", data)
@@ -82,7 +82,7 @@ function MainInfoChild(props) {
 
             } catch (error) {
                 console.error('Error during update profile: ', error)
-                popMsg('Something went wrong, try again later', 'error')
+                popMsg(t("server req error"), 'error')
                 setIsLoading(false)
             }
         }
@@ -91,11 +91,7 @@ function MainInfoChild(props) {
 
     return (
         <>
-            <ConfigProvider theme={{
-                token: {
-                    colorPrimary: '#8993ED'
-                },
-            }}>
+            <ConfigProvider theme={{ token: { colorPrimary: '#8993ED' } }}>
                 {contextHolder}
                 {info == null ?
                     <div className={`${s.center_flex} ${s.fullheight}`}>
@@ -118,45 +114,45 @@ function MainInfoChild(props) {
                         }}
                     >
                         <div className={s.header}>
-                            <h2>{menuSelection}</h2>
-                            <Button htmlType="submit" size='large' type='primary'>حفظ</Button>
+                            <h2>{t("editprof edit info")}</h2>
+                            <Button htmlType="submit" size='large' type='primary'>{t("save btn")}</Button>
                         </div>
 
                         <div className={s.bodyInputs}>
                             <div className={s.columnInputs}>
-                                <Form.Item label="الاسم الأول" name={'first_name'}>
-                                    <Input size='large' placeholder="First name" />
+                                <Form.Item label={t("editprof fname")} name={'first_name'}>
+                                    <Input size='large' />
                                 </Form.Item>
-                                <Form.Item label="الاسم الأخير" name={'last_name'}>
-                                    <Input size='large' placeholder="Last name" />
+                                <Form.Item label={t("editprof lname")} name={'last_name'}>
+                                    <Input size='large' />
                                 </Form.Item>
                             </div>
 
-                            <Form.Item label="البريد الإلكترني" name={'email'} rules={[{ required: false, type: 'email' }]}>
-                                <Input size='large' placeholder="قم بإدخال البريد الجديد" />
+                            <Form.Item label={t("editprof email")} name={'email'} rules={[{ required: false, type: 'email' }]}>
+                                <Input size='large' placeholder={t("editprof email placeholder")} />
                             </Form.Item>
 
 
 
                             <div className={s.columnInputs}>
-                                <Form.Item label="الجنس" name={'gender'}>
+                                <Form.Item label={t("editprof gender")} name={'gender'}>
                                     <Radio.Group size="large">
-                                        <Radio.Button value="female">فتاة</Radio.Button>
-                                        <Radio.Button value="male">صبـي</Radio.Button>
+                                        <Radio.Button value="female">{t("editprof gender girl")}</Radio.Button>
+                                        <Radio.Button value="male">{t("editprof gender boy")}</Radio.Button>
                                     </Radio.Group>
                                 </Form.Item>
-                                <Form.Item name={'birth_date'} label="تاريخ الميلاد" style={{ flex: 1 }}>
+                                <Form.Item name={'birth_date'} label={t("editprof bdate")} style={{ flex: 1 }}>
                                     <DatePicker className={s.input_bdate} size="large" style={{ width: '100%' }} />
                                 </Form.Item>
                             </div>
 
-                            <Form.Item label="اللون المفضل" name={'favorite_color'} style={{ width: '100%' }}>
-                                <Radio.Group size="large">
-                                    <Radio.Button className={s.radioBtn} value="blue">أزرق</Radio.Button>
-                                    <Radio.Button className={s.radioBtn} value="pink">وردي</Radio.Button>
-                                    <Radio.Button className={s.radioBtn} value="purple">بنفسجي</Radio.Button>
-                                    <Radio.Button className={s.radioBtn} value="green">أخضر</Radio.Button>
-                                    <Radio.Button className={s.radioBtn} value="yellow">أصفر</Radio.Button>
+                            <Form.Item label={t("editprof fcolor")} name={'favorite_color'} style={{ width: '100%' }}>
+                                <Radio.Group size="large" style={{width: '100%'}}>
+                                    <Radio.Button className={s.radioBtn} style={{width: '19%'}} value="blue">{t("editprof fcolor1")}</Radio.Button>
+                                    <Radio.Button className={s.radioBtn} style={{width: '17%'}} value="pink">{t("editprof fcolor2")}</Radio.Button>
+                                    <Radio.Button className={s.radioBtn} style={{width: '23%'}} value="purple">{t("editprof fcolor3")}</Radio.Button>
+                                    <Radio.Button className={s.radioBtn} style={{width: '20%'}} value="green">{t("editprof fcolor4")}</Radio.Button>
+                                    <Radio.Button className={s.radioBtn} style={{width: '21%'}} value="yellow">{t("editprof fcolor5")}</Radio.Button>
                                 </Radio.Group>
                             </Form.Item>
                         </div>

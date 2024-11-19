@@ -8,7 +8,7 @@ import { ConfigProvider, Flex, Radio, Input, InputNumber, Form, Button } from 'a
 
 function SignupChild1({ onFinish, initialValues }) {
     const [form] = Form.useForm()
-    const { t } = useTranslation();
+    const { t } = useTranslation()
 
     return (
         <>

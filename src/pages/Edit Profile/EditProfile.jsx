@@ -8,10 +8,13 @@ import ChangePass from './ChangePass'
 import Settings from './Settings'
 import { ConfigProvider, Menu } from 'antd'
 import userIcon from '../../assets/images/pfp.png'
+// translation hook
+import { useTranslation } from 'react-i18next';
 
 function EditProfile() {
+    const { t, i18n } = useTranslation()
     // Menu
-    const [menuSelection, setMenuSelection] = useState('تعديل البيانات')
+    const [menuSelection, setMenuSelection] = useState("mainInfo")
     // Check user type
     const auth = JSON.parse(window.localStorage.getItem("user-info"))
     const accType = auth.userType
@@ -23,11 +26,9 @@ function EditProfile() {
             <div className={s.body}>
                 <Navbar />
                 <div className={`${s.content} ${s.center_flex}`}>
-                    <div className={s.wrapper}>
+                    <div className={s.wrapper} style={{ direction: i18n.dir() }}>
                         <ConfigProvider theme={{
-                            token: {
-                                colorPrimary: '#8993ED'
-                            },
+                            token: { colorPrimary: '#8993ED' },
                             components: {
                                 Menu: {
                                     colorPrimary: '#494C4C',
@@ -35,34 +36,34 @@ function EditProfile() {
                                     itemActiveBg: '#E3E3E3',
                                 },
                                 Button: {
-                                    colorPrimary: '#8993ED',
+                                    colorPrimary: '#8993ED'
                                 },
                             },
                         }}>
                             <div className={s.leftMenu}>
                                 <div className={`${s.avatar} ${s.center_flex}`}>
-                                    {accType == "child" && <img src={userIcon} alt="Profile Picture" /> }
+                                    {accType == "child" && <img src={userIcon} alt="Profile Picture" />}
                                     <h2>{Fname}</h2>
-                                    <p>{`@${Fname}${Lname}`}</p>
+                                    <p>{`@${Fname}_${Lname}`}</p>
                                 </div>
                                 <div className={s.menues}>
                                     <Menu
                                         onClick={(e) => { setMenuSelection(e.key) }}
-                                        defaultSelectedKeys={['تعديل البيانات']}
+                                        defaultSelectedKeys={["mainInfo"]}
                                         items={[
-                                            { label: "تعديل البيانات", key: "تعديل البيانات" },
-                                            { label: "تغيير كلمة المرور", key: "تغيير كلمة المرور" },
-                                            { label: "إعدادات", key: "الإعدادات" },
+                                            { label: t("editprof edit info"), key: "mainInfo" },
+                                            { label: t("editprof changePass"), key: "passChange" },
+                                            { label: t("editprof settings"), key: "settings" },
                                         ]}
                                     >
                                     </Menu>
                                 </div>
                             </div>
                             <div className={s.rightContent}>
-                                {menuSelection == "تعديل البيانات" ?
-                                    accType == "child" ? <MainInfoChild menuSelection={menuSelection} /> : <MainInfoGuard menuSelection={menuSelection} />
-                                : menuSelection == "تغيير كلمة المرور" ? <ChangePass menuSelection={menuSelection} accType={accType} />
-                                : <Settings menuSelection={menuSelection} accType={accType} />
+                                {menuSelection == "mainInfo" ?
+                                    accType == "child" ? <MainInfoChild /> : <MainInfoGuard />
+                                    : menuSelection == "passChange" ? <ChangePass accType={accType} />
+                                        : <Settings accType={accType} />
                                 }
                             </div>
                         </ConfigProvider>
@@ -70,7 +71,6 @@ function EditProfile() {
                 </div>
             </div>
             <Footer />
-
         </>
     )
 }

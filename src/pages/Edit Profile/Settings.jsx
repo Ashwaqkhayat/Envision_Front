@@ -3,9 +3,12 @@ import s from './EditProfile_style.module.css'
 import { useNavigate } from 'react-router-dom'
 import { ConfigProvider, Button, Input, Modal, Select, message, Spin, Form } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
+// translation hook
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next'
 
 function Settings(props) {
-    let menuSelection = props.menuSelection
+    const { t } = useTranslation()
     let accountType = props.accType
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
@@ -33,7 +36,7 @@ function Settings(props) {
     // Modal to inform errors
     const openErrorModal = (msg) => {
         Modal.error({
-            title: 'Something went wrong!',
+            title: t("settings errormodal title"),
             content: msg,
             centered: true,
             okButtonProps: { style: { backgroundColor: '#8993ED' } },
@@ -43,15 +46,15 @@ function Settings(props) {
     // Delete Confirm Modal
     const showDeleteConfirm = (values) => {
         confirm({
-            title: `هل أنت متأكد من أنك تريد حذف هذا الحساب؟`,
+            direction: i18n.dir(),
+            title: t("settings del confirm title"),
             icon: <ExclamationCircleFilled />,
             centered: true,
-            okText: 'نعم',
+            okText: t("settings del confirm ok"),
             okType: 'danger',
-            cancelText: 'لا',
+            cancelText: t("settings del confirm cancel"),
             cancelButtonProps: { style: { borderColor: '#7a7a7a', color: '#7a7a7a' } },
             onOk() {
-                console.log('Confirm delete request')
                 deleteAccount(values)
             },
             onCancel() {
@@ -64,7 +67,6 @@ function Settings(props) {
         let url = accountType == "child" ? "/children " : "/guardians/"
         console.warn("pass is: ", values.password)
         const fetchData = async () => {
-            console.log("Deleting Account")
             setIsLoading(true)
             const requestBody = { password: values.password }
             try {
@@ -79,8 +81,7 @@ function Settings(props) {
                 })
                 const data = await response.json()
                 if (response.ok) {
-                    console.log(data.message)
-                    popMsg('تم حذف الحساب بنجاح, سنفتقدك', 'success')
+                    popMsg(t("settings del success"), 'success')
                     localStorage.clear()
                     setIsLoading(false)
                     setTimeout(() => {
@@ -89,11 +90,11 @@ function Settings(props) {
                 } else {
                     console.error(`Network response was not ok: ${response.status}, ${data.error}`)
                     setIsLoading(false)
-                    popMsg(data.error, 'error')
+                    popMsg(t("settings del failure"), 'error')
                 }
             } catch (err) {
                 console.error("Failed: ", err)
-                popMsg('Something went wrong, try again later', 'error')
+                popMsg(t("server req error"), 'error')
                 setIsLoading(false)
                 window.location.reload(false)
             }
@@ -109,13 +110,13 @@ function Settings(props) {
                 {contextHolder}
                 <Spin size='large' spinning={isLoading}>
                     <div className={s.header}>
-                        <h2>{menuSelection}</h2>
+                        <h2>{t("editprof settings")}</h2>
                     </div>
 
                     <div className={s.bodyInputs}>
-                        <div className={s.appearance}>
-                            <h3>المظهـــر</h3>
-                            <p>اللغــة</p>
+                        {/* <div className={s.appearance}>
+                            <h3>{t("settings appearance")}</h3>
+                            <p>{t("settings lang")}</p>
                             <Select
                                 disabled='true'
                                 size='large'
@@ -126,28 +127,28 @@ function Settings(props) {
                                 }}
                                 options={[
                                     {
-                                        value: 'english',
-                                        label: 'الإنجليزية',
+                                        value: 'en',
+                                        label: 'English',
                                     },
                                     {
-                                        value: 'arabic',
+                                        value: 'ar',
                                         label: 'العربية',
                                     },
                                 ]}
                             />
-                        </div>
+                        </div> */}
                         <div className={s.accDelete}>
-                            <h3>حذف الحســاب</h3>
-                            <p className={s.warning}><span>تنبيه:</span> حذف الحساب عملية لا يمكن التراجع عنها, سيتم حذف جميع القصص الخاصة بك والأوصياء</p>
+                            <h3>{t("settings delAcc")}</h3>
+                            <p className={s.warning}><span>{t("settings delAcc caut1")}:</span> {t("settings delAcc caut2")}</p>
 
                             <Form onFinish={showDeleteConfirm} >
                                 <div className={s.passInput}>
-                                    <p>كلمة المرور الحالية</p>
-                                    <Form.Item name={'password'} rules={[{ required: true, message: 'Please input your password' },]}>
-                                        <Input.Password size='large' placeholder="Enter password" />
+                                    <p>{t("delAcc pass label")}</p>
+                                    <Form.Item name={'password'} rules={[{ required: true, message: t("delAcc pass msg") },]}>
+                                        <Input.Password size='large' placeholder={t("delAcc pass placeholder")} />
                                     </Form.Item>
                                 </div>
-                                <Button danger htmlType="submit" type='primary' size='large' >حذف الحساب</Button>
+                                <Button danger htmlType="submit" type='primary' size='large'>{t("delAcc btn")}</Button>
                             </Form>
                         </div>
                     </div>

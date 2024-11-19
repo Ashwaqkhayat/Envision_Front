@@ -237,5 +237,59 @@
     "addc occ doctor": "طبيب",
     "addc occ specialist": "أخصائي",
     "addc occ other": "آخر",
-    "addc submit btn": "إضافة الطفل"
+    "addc submit btn": "إضافة الطفل",
+
+    "editprof edit info": "تعديل البيانات",
+    "editprof changePass": "تغيير كلمة المرور",
+    "editprof settings": "إعدادات",
+    "save btn": "حفظ",
+
+    "editprof success msg": "تم تحديث بيانات الحساب بنجاح",
+    "editprof fname": "الاسم الأول",
+    "editprof lname": "الاسم الأخير",
+    "editprof email": "البريد الإلكترني",
+    "editprof email placeholder": "قم بإدخال البريد الجديد",
+
+    "editprof gender": "الجنس",
+    "editprof gender girl": "فتاة",
+    "editprof gender boy": "صبـي",
+    "editprof bdate": "تاريخ الميلاد",
+    "editprof fcolor": "اللون المفضل",
+    "editprof fcolor1": "أزرق",
+    "editprof fcolor2": "وردي",
+    "editprof fcolor3": "بنفسجي",
+    "editprof fcolor4": "أخضر",
+    "editprof fcolor5": "أصفر",
+
+    "editprof phone": "رقم الجوال",
+    "editprof phone msg": "ادخل 9 أرقام فقط, دون رمز الدولة",
+    "editprof age": "العمر",
+
+
+    "changePass sendOTP req error": "حدثت مشكلة أثناء إرسال رمز التأكيد, حاول مرة أخرى",
+    "changePass verOTP req error": "لم يتم تأكيد الرمز بنجاح, حاول مرة أخرى",
+    "changePass success": "تم تغيير كلمة المرور بنجاح",
+    "changePass failure": "لم يتم تغيير كلمة المرور بنجاح, حاول مرة أخرى",
+    "changePass newpass label": "كلمة المرور الجديدة",
+    "changePass newpass placeholder": "ادخل كلمة المرور الجديدة",
+    "changePass confirm label": "تأكيد كلمة المرور الجديدة",
+    "changePass confirm placeholder": "ادخل كلمة المرور الجديدة مرة أخرى",
+    "changePass confirm fail": "كلمة المرور الجديدة غير مطابقة",
+
+    "settings errormodal title": "حدث خطأ ما",
+    "settings del confirm title": "هل أنت متأكد من أنك تريد حذف هذا الحساب؟",
+    "settings del confirm ok": "نعم",
+    "settings del confirm cancel": "لا",
+    "settings del success": "تم حذف الحساب بنجاح, سنفتقدك",
+    "settings del failure": "حدث خطأ أثناء حذف الحساب, حاول مرة أخرى",
+    "settings appearance": "المظهـــر",
+    "settings lang": "اللغــة",
+    "settings delAcc": "حذف الحســاب",
+    "settings delAcc caut1": "تنبيه",
+    "settings delAcc caut2": "حذف الحساب عملية لا يمكن التراجع عنها, سيتم حذف جميع القصص الخاصة بك ومقدمي الرعاية",
+    "delAcc pass label": "كلمة المرور الحالية",
+    "delAcc pass msg": "رجاءً ادخل كلمة المرور",
+    "delAcc pass placeholder": "ادخل كلمة المرور",
+    "delAcc btn": "حذف الحساب"
+
 }

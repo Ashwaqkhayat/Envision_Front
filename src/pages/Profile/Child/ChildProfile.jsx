@@ -17,7 +17,7 @@ function ChildProfile(props) {
     // Check new user to open welcome modal
     const [modal2Open, setModal2Open] = useState(false);
     const isNewUser = JSON.parse(localStorage.getItem("isNewUser"))
-    console.log("Check ", isNewUser)       // <-- Delete Later
+    // console.log("Check ", isNewUser)       // <-- Delete Later
     useEffect(() => {
         if (isNewUser == true) {
             setModal2Open(true)

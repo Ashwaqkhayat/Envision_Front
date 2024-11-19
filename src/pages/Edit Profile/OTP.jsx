@@ -3,7 +3,7 @@ import s from './EditProfile_style.module.css'
 import { Link } from 'react-router-dom'
 import { ConfigProvider, Button, Input, message, Spin, Form } from 'antd'
 
-function OTP({onFinish, isLoading, menuSelection}) {
+function OTP({onFinish, isLoading}) {
 
     // Messages 
     const [messageApi, contextHolder] = message.useMessage()
@@ -59,7 +59,7 @@ function OTP({onFinish, isLoading, menuSelection}) {
             <ConfigProvider theme={{ token: { colorPrimary: '#8993ED' } }}>
                 {contextHolder}
                 <div className={s.header}>
-                    <h2>{menuSelection}</h2>
+                    <h2>Verify OTP</h2>
                 </div>
                 <div className={s.bodyInputs}>
                     <Form onFinish={onFinish} >
