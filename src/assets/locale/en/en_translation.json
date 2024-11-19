@@ -289,6 +289,30 @@
     "delAcc pass label": "Current Password",
     "delAcc pass msg": "Please input your password",
     "delAcc pass placeholder": "Enter your password",
-    "delAcc btn": "Delete Account"
+    "delAcc btn": "Delete Account",
+
+    "story fave step title": "You must save the story first",
+    "story fave step desc": "Please save the story by clicking the save button so you can add it to your favorites",
+    "story title change success": "Story title changed successfully!",
+    "story title change failure": "Error occurred while changing the title, please try again",
+    "story title edit label": "Edit Story Title",
+    "story title edit placeholder": "Enter the new story title",
+    "story title edit ok": "Confirm",
+    "story title edit cancel": "Cancel",
+
+    "load story spin tip": "Just a few seconds and your story will be ready!...",
+    "story title": "Story Title",
+
+    "story load voice": "Loading narration...",
+    "story ready voice": "You can now listen to the story!",
+    "openQ end": "The End",
+    "openQ desc": "Answer the following questions to test your understanding of the story",
+    "openQ start btn": "Start!",
+    "openQ1": "What was the hero's name?",
+    "openQ2": "What was the hero wearing?",
+    "openQ3": "What colors did you see in the story?",
+    "openQ4": "Where did the hero go?",
+    "openQ5": "What happened to the hero?",
+    "openQ6": "What did you learn from the story?"
     
 }

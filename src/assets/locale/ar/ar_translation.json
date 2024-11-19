@@ -290,6 +290,31 @@
     "delAcc pass label": "كلمة المرور الحالية",
     "delAcc pass msg": "رجاءً ادخل كلمة المرور",
     "delAcc pass placeholder": "ادخل كلمة المرور",
-    "delAcc btn": "حذف الحساب"
+    "delAcc btn": "حذف الحساب",
+
+    "story fave step title": "يجب عليك حفظ القصة أولاً",
+    "story fave step desc": "رجاءً قم بحفظ القصة عن طريق الضغط على زر الحفظ حتى تتمكن من إضافتها للمفضلة",
+    "story title change success": "تم تغيير عنوان القصة",
+    "story title change failure": "حدث خطأ أثناء تغيير العنوان, حاول مرة أخرى",
+    "story title edit label": "تغيير عنوان القصة",
+    "story title edit placeholder": "ادخل عنوان القصة الجديد",
+    "story title edit ok": "تأكيد",
+    "story title edit cancel": "إلغاء",
+
+    "load story spin tip": "بضع ثوانٍ فقط وستكون قصتك جاهزة!",
+    "story title": "عنوان القصة",
+    
+    "story load voice": " جاري تحميل الصوت ",
+    "story ready voice": " !يمكنك الآن الاستماع للقصة",
+    "openQ end": "النهايــة",
+    "openQ desc": "أجب على الأسئلة التالية لاختبار استيعابك للقصة",
+    "openQ start btn": "ابـــدأ!",
+    
+    "openQ1": "ما كان اسم البطل؟",
+    "openQ2": "ماذا كان يرتدي البطل؟",
+    "openQ3": "ما الألوان التي رأيتها في القصة؟",
+    "openQ4": "إلى أين ذهب البطل؟",
+    "openQ5": "ماذا حدث للبطل؟",
+    "openQ6": "ما الذي تعلمته من القصة؟"
 
 }

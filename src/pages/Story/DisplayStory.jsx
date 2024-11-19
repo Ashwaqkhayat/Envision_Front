@@ -4,8 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ConfigProvider, Button, Spin, Tour, Modal, Input, message } from 'antd'
 import {
     CloseOutlined, HeartOutlined,
-    HeartFilled, LoadingOutlined, EditOutlined, 
-    SoundOutlined, FolderOutlined, FolderFilled, 
+    HeartFilled, LoadingOutlined, EditOutlined,
+    SoundOutlined, FolderOutlined, FolderFilled,
     SaveOutlined,
     SaveFilled,
 } from '@ant-design/icons'
@@ -13,10 +13,11 @@ import {
 import Navbar from '../../components/Navbar/Navbar'
 import Footer from '../../components/Footer/Footer'
 import ContentSlider from './ContentSlider'
-
+// translation hook
+import { useTranslation } from 'react-i18next';
 
 function DisplayStory() {
-
+    const { t, i18n } = useTranslation()
     const navigate = useNavigate()
     const auth = JSON.parse(localStorage.getItem('user-info'))
 
@@ -39,8 +40,8 @@ function DisplayStory() {
     const [open, setOpen] = useState(false)
     const steps = [
         {
-            title: 'يجب عليك حفظ القصة أولاً',
-            description: 'رجاءً قم بحفظ القصة عن طريق الضغط على زر الحفظ حتى تتمكن من إضافتها للمفضلة',
+            title: t("story fave step title"),
+            description: t("story fave step desc"),
             placement: 'bottom',
             target: () => saveRef.current,
         },
@@ -89,15 +90,15 @@ function DisplayStory() {
                 const response = await fetch(`${process.env.REACT_APP_url}/children/stories`, requestOptions)
                 if (response.ok) {
                     console.warn("Story title changed successfully.")
-                    popMsg('Title changed!', 'success')
+                    popMsg(t("story title change success"), 'success')
                 } else {
                     console.error('Response recieved but is not ok: ', response.status)
-                    popMsg('Something went wrong :( Try again.', 'error')
+                    popMsg(t("story title change failure"), 'error')
                 }
             }
         } catch (error) {
             console.error("Error in changing title: ", error)
-            popMsg('Sorry we cannot change the title now, try again later.', 'error')
+            popMsg(t("server req error"), 'error')
         } finally {
             setIsModalOpen(false);
             document.querySelector('.changeTitle').value = ''
@@ -109,12 +110,12 @@ function DisplayStory() {
     useEffect(() => {
         setIsLoading(true)
         // If story isn't exist in localStorage, redirect back
-        if (!story) {  navigate(-1) }
+        if (!story) { navigate(-1) }
         setIsSaved(story.is_saved)
-        setSaveIcon(story.is_saved ? <FolderFilled style={{fontSize:'24pt'}}/> : <FolderOutlined style={{fontSize:'24pt'}}/>)
+        setSaveIcon(story.is_saved ? <FolderFilled style={{ fontSize: '24pt' }} /> : <FolderOutlined style={{ fontSize: '24pt' }} />)
 
         setIsFaved(story.is_favorite)
-        setFaveIcon(story.is_favorite ? <HeartFilled style={{fontSize:'24pt'}}/> : <HeartOutlined style={{fontSize:'24pt'}}/>)
+        setFaveIcon(story.is_favorite ? <HeartFilled style={{ fontSize: '24pt' }} /> : <HeartOutlined style={{ fontSize: '24pt' }} />)
         setFaveColor(story.is_favorite ? '#d94848' : '#494C4C')
 
         setTitle(story.title)
@@ -142,7 +143,7 @@ function DisplayStory() {
             try {
                 setSaveLoading(true)
                 console.warn("Saving Story..")
-                setSaveIcon(<LoadingOutlined style={{fontSize:'24pt'}}/>)
+                setSaveIcon(<LoadingOutlined style={{ fontSize: '24pt' }} />)
                 const response = await fetch(`${process.env.REACT_APP_url}/children/stories/save`, {
                     method: 'POST',
                     headers: {
@@ -154,14 +155,13 @@ function DisplayStory() {
                 })
                 const data = await response.json()
                 if (response.ok) {
-                    console.log("data of story saved: ", data)
                     setStory({ ...story, id: data.story[0].id })
                     setIsSaved(true)
-                    setSaveIcon(<FolderFilled style={{fontSize:'24pt'}}/>)
+                    setSaveIcon(<FolderFilled style={{ fontSize: '24pt' }} />)
                     console.log("Successfully Saved!!")
                 } else {
                     console.warn("Save Response recieved but not OK: ", response.status)
-                    setSaveIcon(<FolderOutlined style={{fontSize:'24pt'}}/>)
+                    setSaveIcon(<FolderOutlined style={{ fontSize: '24pt' }} />)
                     setIsSaved(false)
                 }
             } catch (e) {
@@ -170,7 +170,7 @@ function DisplayStory() {
         } else { //if story is saved => Delete
             try {
                 console.warn("Deleting Story..")
-                setSaveIcon(<LoadingOutlined style={{fontSize:'24pt'}}/>)
+                setSaveIcon(<LoadingOutlined style={{ fontSize: '24pt' }} />)
                 const response = await fetch(`${process.env.REACT_APP_url}/children/stories?id=${story.id}`, {
                     method: 'DELETE',
                     headers: {
@@ -180,16 +180,16 @@ function DisplayStory() {
                 })
                 if (response.ok) {
                     setIsSaved(false)
-                    setSaveIcon(<FolderOutlined style={{fontSize:'24pt'}}/>)
+                    setSaveIcon(<FolderOutlined style={{ fontSize: '24pt' }} />)
                     console.log("Successfully Deleted!")
 
                     // if Story was faved, remove favorite..
                     setIsFaved(false)
-                    setFaveIcon(<HeartOutlined style={{fontSize:'24pt'}}/>)
+                    setFaveIcon(<HeartOutlined style={{ fontSize: '24pt' }} />)
                     setFaveColor('#494C4C')
                 } else {
                     console.warn("Delete Response recieved but not OK: ", response.status)
-                    setSaveIcon(<FolderFilled style={{fontSize:'24pt'}}/>)
+                    setSaveIcon(<FolderFilled style={{ fontSize: '24pt' }} />)
                     setIsSaved(true)
                 }
             } catch (e) {
@@ -205,7 +205,7 @@ function DisplayStory() {
             if (!isFaved) { //if not faved, add to favorite
                 try {
                     console.warn("Adding Story to Favorites...")
-                    setFaveIcon(<LoadingOutlined style={{fontSize:'24pt'}}/>)
+                    setFaveIcon(<LoadingOutlined style={{ fontSize: '24pt' }} />)
                     const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.id}`, {
                         method: 'PUT',
                         headers: {
@@ -217,12 +217,12 @@ function DisplayStory() {
                     if (response.ok) {
                         console.log("Successfully Added Story to Favorites!")
                         setIsFaved(true)
-                        setFaveIcon(<HeartFilled style={{fontSize:'24pt'}}/>)
+                        setFaveIcon(<HeartFilled style={{ fontSize: '24pt' }} />)
                         setFaveColor('#d94848')
                     } else {
                         console.warn("Response recieved but not OK: ", response.status)
                         setIsFaved(false)
-                        setFaveIcon(<HeartOutlined style={{fontSize:'24pt'}}/>)
+                        setFaveIcon(<HeartOutlined style={{ fontSize: '24pt' }} />)
                         setFaveColor('#494C4C')
                     }
                 } catch (e) {
@@ -231,7 +231,7 @@ function DisplayStory() {
             } else { // if faved, remove
                 console.warn("Removing Story from Favorites...")
                 try {
-                    setFaveIcon(<LoadingOutlined style={{fontSize:'24pt'}}/>)
+                    setFaveIcon(<LoadingOutlined style={{ fontSize: '24pt' }} />)
                     const response = await fetch(`${process.env.REACT_APP_url}/children/stories/favorite?id=${story.id}`, {
                         method: 'PUT',
                         headers: {
@@ -243,11 +243,11 @@ function DisplayStory() {
                     if (response.ok) {
                         console.log("Successfully Removed Story from Favorites!")
                         setIsFaved(false)
-                        setFaveIcon(<HeartOutlined style={{fontSize:'24pt'}}/>)
+                        setFaveIcon(<HeartOutlined style={{ fontSize: '24pt' }} />)
                         setFaveColor('#494C4C')
                     } else {
                         console.warn("Response recieved but not OK: ", response.status)
-                        setFaveIcon(<HeartFilled style={{fontSize:'24pt'}}/>)
+                        setFaveIcon(<HeartFilled style={{ fontSize: '24pt' }} />)
                         setIsFaved(true)
                         setFaveColor('#d94848')
                     }
@@ -260,12 +260,18 @@ function DisplayStory() {
 
     return (
         <>
-            <ConfigProvider
-                theme={{ token: { colorPrimary: '#8993ed', } }}>
+            <ConfigProvider theme={{ token: { colorPrimary: '#8993ed', } }}>
                 {contextHolder}
-                <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
-                <Modal title="Edit Title" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                    <Input size='large' className="changeTitle" placeholder="Enter new title here" />
+                <Tour open={open} onClose={() => setOpen(false)} steps={steps}/>
+                <Modal
+                    title={t("story title edit label")}
+                    open={isModalOpen} onOk={handleOk}
+                    onCancel={handleCancel}
+                    okText={t("story title edit ok")}
+                    cancelText={t("story title edit cancel")}
+                    style={{direction: i18n.dir()}}
+                >
+                    <Input size='large' className="changeTitle" placeholder={t("story title edit placeholder")} />
                 </Modal>
             </ConfigProvider>
 
@@ -275,15 +281,15 @@ function DisplayStory() {
                     <ConfigProvider theme={{ token: { colorPrimary: '#96CCC0', fontSize: 16, sizeStep: 2, } }} >
 
                         {isLoading ?
-                            <Spin spinning={isLoading} size="large" tip="Just a few seconds more! Your story is loading..." />
+                            <Spin spinning={isLoading} size="large" tip={t("load story spin tip")} />
                             :
                             <>
-                                <div className={s.header}>
-                                    <div className={s.titles}>
+                                <div className={s.header} >
+                                    <div className={s.titles} >
                                         <Link style={{ marginRight: '10px' }} to={-1}>
                                             <CloseOutlined style={{ fontSize: '30px', color: '#494C4C' }} />
                                         </Link>
-                                        <h1 style={{ color: '#8993ED' }}>{`عنوان القصة: ${title}`}</h1>
+                                        <h1 style={{ color: '#8993ED', direction: i18n.dir() }}>{`${t("story title")}: ${title}`}</h1>
                                         {auth && auth.userType === "child" &&
                                             <Link style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }} onClick={showModal}>
                                                 <box-icon color='#b3b3b3' size='30px' name='edit-alt' />
@@ -293,8 +299,8 @@ function DisplayStory() {
 
                                     {auth && auth.userType === "child" &&
                                         <div className={s.buttons}>
-                                            <Button icon={saveIcon} ref={saveRef} size='large' type='link' style={{color: '#494C4C', width:'50px', height:'50px'}} onClick={handleSave}/>
-                                            <Button icon={faveIcon} size='large' type='link' style={{color: `${faveColor}`, width:'50px', height:'50px'}} onClick={handleFave}/>
+                                            <Button icon={saveIcon} ref={saveRef} size='large' type='link' style={{ color: '#494C4C', width: '50px', height: '50px' }} onClick={handleSave} />
+                                            <Button icon={faveIcon} size='large' type='link' style={{ color: `${faveColor}`, width: '50px', height: '50px' }} onClick={handleFave} />
                                             {/* <Link ref={saveRef} style={{ display: 'flex', alignItems: 'center' }} onClick={handleSave}>
                                                 <box-icon name='bookmark' type={saveIcon} size='40px' />
                                             </Link>
