@@ -1,4 +1,4 @@
-import i18n from "i18next";
+import i18n, { reloadResources } from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
 // import translation files
@@ -30,5 +30,10 @@ i18n
             caches: ['cookie'],
         }
     });
+
+// Add an event listener for language change
+i18n.on('languageChanged', () => {
+    window.location.reload(); // Reload the page on language change
+});
 
 export default i18n;
