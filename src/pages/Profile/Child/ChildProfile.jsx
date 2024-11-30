@@ -49,7 +49,7 @@ function ChildProfile(props) {
     let email = info.email
     let fcolor = info.favorite_color
     let date = new Date(info.birth_date)
-    let bdate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+    let bdate = `${date.getDate() + 1}/${date.getMonth() + 1}/${date.getFullYear()}`
 
     //Infinite Scrolling
     const [hasMore, setHasMore] = useState(false)
@@ -107,33 +107,64 @@ function ChildProfile(props) {
             <>
                 {contextHolder}
                 <Modal
-                    title= {t("cprof modal title")}
+                    title={t("cprof modal title")}
                     centered
                     open={modal2Open}
                     onOk={() => navigate('/createstory')}
-                    okText= {t("cprof modal ok")}
-                    cancelText= {t("cprof modal cancel")}
+                    okText={t("cprof modal ok")}
+                    cancelText={t("cprof modal cancel")}
                     onCancel={() => setModal2Open(false)}
                 >
                     <p>{t("cprof modal msg")}</p>
                 </Modal>
 
-                <div className={`${s.profile_header} ${s.center_flex}`}>
-                    <div className={s.profile_img}>
-                        <img src={userIcon} alt="Profile Picture" />
-                    </div>
-                    <h2>{Fname}</h2>
-                    <p>{email}</p>
-                </div>
                 {isLoading ?
                     <Spin size="Large" />
                     :
-                    <div className={s.profile_windows}>
-                        <div className={s.guardList_box} style={{direction: i18n.dir()}}>
-                            <h2>{t("cprof guards title")}</h2>
+                    <div className={s.main_container} style={{ direction: i18n.dir() }}>
+                        <div className={s.info_container}>
+                            <div className={s.namepic}>
+                                <img src={userIcon} alt="Profile Picture" />
+                                <div className={s.user_namemail}>
+                                    <h2>{fullName}</h2>
+                                    <p>{email}</p>
+                                </div>
+                            </div>
+                            <div className={s.info_box}>
+                                <div style={{ fontWeight: 600, color: '#494C4C' }} >{t("cprof age")}</div>
+                                <div style={{ fontWeight: 500, color: '#A2A9B0' }}>{age}</div>
+                            </div>
+                            <div className={s.info_box}>
+                                <div style={{ fontWeight: 600, color: '#494C4C' }} >{t("cprof gender")}</div>
+                                <div style={{ fontWeight: 500, color: '#A2A9B0' }}>{gender}</div>
+                            </div>
+                            <div className={s.info_box}>
+                                <div style={{ fontWeight: 600, color: '#494C4C' }} >{t("cprof fcolor")}</div>
+                                <div style={{ fontWeight: 500, color: '#A2A9B0' }}>{fcolor}</div>
+                            </div>
+                            <div className={s.info_box}>
+                                <div style={{ fontWeight: 600, color: '#494C4C' }} >{t("cprof bdate")}</div>
+                                <div style={{ fontWeight: 500, color: '#A2A9B0' }}>{bdate}</div>
+                            </div>
+                            <div className={s.buttons_box}>
+                                <Tooltip title={t("settings")}>
+                                    <Button
+                                        style={{ borderColor: "#A2A9B0" }}
+                                        icon={<SettingOutlined style={{ color: "#A2A9B0" }} />}
+                                        onClick={() => { navigate('/EditProfile') }}
+                                    />
+                                </Tooltip>
+                                <div style={{ display: 'flex', columnGap: '10px' }}>
+                                    <Button type="primary" href="/contact">{t("prof report")}</Button>
+                                    <Button type="primary" danger onClick={logOut}>{t("prof logout")}</Button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={s.guards_container}>
+                            <h2 style={{ color: '#8993ED' }}>{t("cprof guards title")}</h2>
                             <div className={s.list_container}>
                                 {guards.length === 0 ?
-                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t("empty guards list")}/>
+                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t("empty guards list")} />
                                     :
                                     <InfiniteScroll
                                         className={s.scrollable}
@@ -151,47 +182,6 @@ function ChildProfile(props) {
                                         })}
                                     </InfiniteScroll>
                                 }
-                            </div>
-                        </div>
-                        <div className={s.profileInfo_box} style={{direction: i18n.dir()}}>
-                            <div className={s.info_header}>
-                                <h2>{t("prof persInfo title")}</h2>
-                                <Tooltip title={t("settings")}>
-                                    <Button
-                                        style={{ borderColor: "#8993ED" }}
-                                        icon={<SettingOutlined style={{ color: "#8993ED" }} />}
-                                        onClick={() => { navigate('/EditProfile') }} />
-                                </Tooltip>
-                            </div>
-                            <div className={s.info_main}>
-                                <div className={s.info_left}>
-                                    <div className={s.info}>
-                                        <p style={{fontWeight: 'bold'}}>{t("cprof name")} </p>
-                                        <p>{fullName}</p>
-                                    </div>
-                                    <div className={s.info}>
-                                        <p style={{fontWeight: 'bold'}}>{t("cprof age")} </p>
-                                        <p>{age}</p>
-                                    </div>
-                                    <div className={s.info}>
-                                        <p style={{fontWeight: 'bold'}}>{t("cprof gender")} </p>
-                                        <p>{gender}</p>
-                                    </div>
-                                </div>
-                                <div className={s.info_right}>
-                                    <div className={s.info}>
-                                        <p style={{fontWeight: 'bold'}}>{t("cprof fcolor")} </p>
-                                        <p>{fcolor}</p>
-                                    </div>
-                                    <div className={s.info}>
-                                        <p style={{fontWeight: 'bold'}}>{t("cprof bdate")} </p>
-                                        <p>{bdate}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={s.info_footer}>
-                                <Button type="primary" href="/contact">{t("prof report")}</Button>
-                                <Button type="primary" danger onClick={logOut}>{t("prof logout")}</Button>
                             </div>
                         </div>
                     </div>

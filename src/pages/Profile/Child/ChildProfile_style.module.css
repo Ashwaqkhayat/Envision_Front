@@ -4,69 +4,70 @@
     align-items: center;
 }
 
-.profile_header{
+.main_container {
+    display: flex;
+    column-gap: 25px;
+}
+
+/* Left side =========================== */
+
+.info_container {
+    min-height: 350px;
+    height: auto;
+    width: 25rem;
+    /* background-color: #FFFFFF; */
+    border-radius: 8px;
+
+    display: flex;
     flex-direction: column;
+    row-gap: 17px;
+    text-align: start;
 }
 
-.profile_img {
-    max-width: 8rem;
-    max-height: 8rem;
-    overflow: hidden;
-    border-radius: 100px;
-    margin-bottom: 1rem;
+.namepic {
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
+    margin-bottom: 3px;
 }
 
-.profile_img img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.namepic img {
+    border-radius: 50%;
+    width: 110px;
+    height: 110px;
 }
 
-.profile_header h2, p{
+.user_namemail {
     color: #494C4C;
 }
 
-.profile_header p{
-   margin-top: 0;
-}
-
-.profile_windows{
-    flex: 1;
+.info_box {
     display: flex;
-    gap: 50px;
-    width: 100%;
-    height: 100%;
-    max-height: 240px;
-    /* Container Sizing */
-    max-width: 1000px;
-    margin: 1rem auto;
-    padding: 0 1rem;
-
-    @media (min-height: 900px) and (max-width: 1020px){
-        max-height: 300px;
-    }
-
-    @media (max-width: 1360px) {
-        padding: 0 3rem;
-    }
-}
-
-.spin{
-    position: absolute;
-    z-index: 10;
-}
-
-/* ========== List box styles ========== */
-.guardList_box{
-    background-color: white;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    padding: 0.7rem 1rem;
     border-radius: 6px;
-    width: 100%;
-    max-width: 40%;
-    min-height: 100%;
-    padding: 1.5rem 1.5rem;
+}
+
+.buttons_box {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Right side =========================== */
+
+.guards_container {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    background-color: #FFFFFF;
+    min-height: 350px;
+    width: 18rem;
+    border-radius: 8px;
+    padding: 1rem 1rem;
+    row-gap: 13px;
 }
+
 .list_container{
     flex: 1;
     height: 100%;
@@ -78,85 +79,6 @@
     flex-direction: column;
     gap: 8px;
     margin-bottom: 10px;
-}
-.guardList_box h2{
-    font-weight: 600px;
-    color: #8993ED;
-    justify-self: start;
-    margin-bottom: 10px;
-    overflow: hidden;
-}
-
-/* ========== Info box styles ========== */
-.profileInfo_box{
-    background-color: white;
-    border-radius: 6px;
-    width: 100%;
-    max-width: 60%;
-    min-height: 100%;
-    padding: 1.5rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.info_header{
-    display: flex;
-    justify-content: space-between;
-}
-
-.info_header h2{
-    font-weight: 600px;
-    color: #8993ED;
-    margin-bottom: 10px;
-}
-
-.info_footer {
-    display: flex;
-    gap: 10px;
-    margin-inline-start: auto;
-    margin-top: auto;
-}
-
-.info_main {
-    display: flex;
-    align-items: flex-start;
-    column-gap: 7%;
-    height: 70%;
-    p{
-        margin-top: 0px;
-        font-size: 11pt;
-    }
-
-    @media (min-width: 960px){
-        margin-top: 3%;
-    }
-
-    @media (max-height: 640px){
-        margin-bottom: 20px;
-        row-gap: 1px;
-    }
-    @media (min-height: 900px) and (max-width: 1020px){
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-}
-
-.info_left, .info_right {
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-
-    @media (max-height: 640px){
-        row-gap: 1px;
-    } 
-}
-
-.info {
-    display: flex;
-    /* justify-content: space-between; */
-    column-gap: 12px;
 }
 
 /* ========== GuardianInfo styles ========== */

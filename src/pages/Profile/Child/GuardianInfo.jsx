@@ -1,6 +1,5 @@
 import React from "react"
 import s from './ChildProfile_style.module.css'
-import { Button } from 'antd'
 
 function Guardian(props) {
     return (

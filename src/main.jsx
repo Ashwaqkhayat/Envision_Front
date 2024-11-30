@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-import './index.css'
+import React, {useEffect} from 'react';
+import ReactDOM from 'react-dom/client';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import './index.css';
 
 //Languages file
 import './i18n'
 
 // import pages
+import Landing from './pages/Landing Page/Landing.jsx'
 import SignupForm from './pages/Signup Page/SignupForm.jsx'
 import SigninForm from './pages/Signin Page/SigninForm.jsx'
 import CreateStory  from './pages/Create Story Page/CreateStory.jsx'
@@ -24,7 +24,7 @@ import Protected from './components/Protected Routes/Protected.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Landing />,
     errorElement: <NotFoundPage />
   },
   {
