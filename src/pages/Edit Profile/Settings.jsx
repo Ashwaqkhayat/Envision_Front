@@ -5,10 +5,9 @@ import { ConfigProvider, Button, Input, Modal, Select, message, Spin, Form } fro
 import { ExclamationCircleFilled } from '@ant-design/icons'
 // translation hook
 import { useTranslation } from 'react-i18next';
-import i18next from 'i18next'
 
 function Settings(props) {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
     let accountType = props.accType
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)

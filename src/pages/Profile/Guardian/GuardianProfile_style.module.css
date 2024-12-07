@@ -1,138 +1,84 @@
-.center_flex{
+.center_flex {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.fullHeight{
-    height: 100%;
-}
-
-.profile_header{
+.profile_header {
     flex-direction: column;
 }
 
-.profile_header h2{
+.profile_header h2 {
     font-size: 25pt;
     color: #494C4C;
     margin-bottom: 20px;
 }
 
-.profile_windows{
-    flex: 1;
-    /* background-color: blueviolet; */
+.main_container {
     display: flex;
-    gap: 50px;
-    width: 100%;
-    height: 100%;
-    max-height: 370px;
-    /* Container Sizing */
-    max-width: 1000px;
-    margin: 1rem auto;
-    padding: 0 1rem;
-
-    @media (min-height: 900px) and (max-width: 1020px){
-        max-height: 300px;
-    }
-
-    @media (max-width: 1360px) {
-        padding: 0 3rem;
-    }
+    column-gap: 25px;
 }
 
-/* ========== List box styles ========== */
-.childList_box{
-    background-color: white;
-    border-radius: 6px;
-    width: 100%;
-    max-width: 60%;
-    min-height: 100%;
-    padding: 1.5rem 1.5rem;
+/* ======== Personal Info styles ======== */
+.info_container {
+    min-height: 350px;
+    height: auto;
+    width: 21rem;
+    /* background-color: #FFFFFF; */
+    border-radius: 8px;
+
     display: flex;
     flex-direction: column;
+    row-gap: 17px;
+    text-align: start;
 }
 
-.list_container{
+.info_box {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+}
+
+.buttons_box,
+.list_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ======== ChildrenList styles ======== */
+
+.children_container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    background-color: #FFFFFF;
+    min-height: 350px;
+    /* width: 24rem; */
+    min-width: 26rem;
+    border-radius: 8px;
+    padding: 1rem 1rem;
+    row-gap: 13px;
+}
+
+.list_header {
+    align-items: center;
+}
+
+.list_container {
     flex: 1;
     height: 100%;
     overflow: auto;
 }
-.scrollable{
+
+.scrollable {
     width: auto;
     display: flex;
     flex-direction: column;
     gap: 8px;
     margin-bottom: 10px;
-}
-
-/* ========== Info box styles ========== */
-.profileInfo_box{
-    background-color: white;
-    border-radius: 6px;
-    width: 100%;
-    max-width: 40%;
-    min-height: 100%;
-    padding: 1.5rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.info_header, .list_header{
-    display: flex;
-    justify-content: space-between;
-}
-
-.info_header h2, .list_header h2{
-    font-weight: 600px;
-    color: #8993ED;
-    margin-bottom: 10px;
-}
-
-.list_header h2{
-    margin-bottom: 28px;
-}
-
-.info_footer {
-    display: flex;
-    gap: 10px;
-    margin-inline-start: auto;
-    margin-top: auto;
-}
-
-.info_main {
-    padding-left: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    row-gap: 15px;
-    height: 70%;
-
-    p{
-        margin-top: 0px;
-        font-size: 13pt;
-    }
-
-    @media (max-height: 640px){
-        margin-bottom: 20px;
-        row-gap: 1px;
-    }
-    @media (min-height: 900px) and (max-width: 1020px){
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-}
-
-.info_left{
-    display: flex;
-    flex-direction: column;
-    row-gap: 15px;
-}
-
-.personal_info{
-    display: flex;
-    /* justify-content: space-between; */
-    column-gap: 12px;
 }
 
 /* ========== ChildInfo styles ========== */
@@ -148,7 +94,7 @@
     justify-content: space-between;
 }
 
-.info{
+.info {
     display: flex;
     width: 150px;
 }
@@ -159,14 +105,14 @@
     align-items: center;
 }
 
-.info h4{
+.info h4 {
     color: #8993ED;
     font-size: 14px;
     font-weight: 500;
     margin-inline-end: auto;
 }
 
-.age{
+.age {
     color: #8993ED;
     margin: 0px 20px 0px 10px;
 }

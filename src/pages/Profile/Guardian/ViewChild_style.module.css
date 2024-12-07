@@ -2,17 +2,13 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-}
-
-.center_flex{
-    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.fullDiv{
-    height: 100%;
-    margin-top: -15px;
+.center_flex{
+    display: flex;
+    
 }
 
 .content {
@@ -21,7 +17,11 @@
     margin-bottom: 50px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Gap between header and windows*/
+    
+    width: auto;
 
     @media (min-height: 810px) {
         gap: 50px;
@@ -31,19 +31,22 @@
 /* ========== Header ========== */
 
 .profile_header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    /* Container Sizing */
-    max-width: 1000px;
+    
+    /* max-width: 1000px; ======================== DEL
     margin: 1rem auto;
     padding: 0 1rem;
-    width: 100%;
+    width: 100%; */
 }
 
 .profile_img {
     max-width: 8rem;
     max-height: 8rem;
     overflow: hidden;
-    border-radius: 100px;
+    border-radius: 100%;
     margin-bottom: 1rem;
 }
 
@@ -61,188 +64,120 @@
    margin-top: 0;
 }
 
-/* ========== Windows ========== */
+/* ========== Main content ========== */
 
-.profile_windows{
-    flex: 1;
+.control_btns {
     display: flex;
-    gap: 50px;
     width: 100%;
-    height: 100%;
-    max-height: 220px;
-    /* Container Sizing */
-    max-width: 1000px;
-    margin: 1rem auto;
-    padding: 0 1rem;
-
-    @media (min-height: 900px) and (max-width: 1020px){
-        max-height: 300px;
-    }
-
-    @media (max-width: 1360px) {
-        padding: 0 3rem;
-    }
+    justify-content: space-between;
 }
 
-.spin{
-    position: absolute;
-    z-index: 10;
+.back_btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #494C4C;
+    transition: all 0.4s ease;
 }
 
-/* ========== List box styles ========== */
-.libraryList_box{
-    background-color: white;
-    border-radius: 6px;
-    width: 100%;
-    max-width: 40%;
-    min-height: 100%;
-    padding: 1rem 1.5rem;
+.back_btn:hover {
+    color: #929494;
+}
+
+.main_container {
+    display: flex;
+    column-gap: 25px;
+
+    /* Shift the div a little up */
+    margin-top: -10px;
+}
+
+/* ========= Info Container ========= */
+
+.info_container {
+    height: auto;
+    width: 17rem;
+    /* background-color: #FFFFFF; */
+    border-radius: 8px;
+
     display: flex;
     flex-direction: column;
-    position: relative;
+    row-gap: 17px;
+    text-align: start;
 }
-.libraryList_box h2{
-    font-weight: 600px;
-    color: #8993ED;
-    margin-inline-end: auto;
-    margin-bottom: 10px;
+
+.info_box {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+}
+
+/* ========= Library Container ========= */
+
+.library_container {
+    /* min-height: 350px; */
+    height: 233.4px;
+    width: 25rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 13px;
+}
+
+.stories_grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6em 0.7em;
     overflow: hidden;
 }
 
-.backArrow_btn{
-    position: absolute;
-    top: -50px;
-    left: 0px;
-    display: flex;
-    align-items: center;
-
-    h2{
-        color: #494C4C;
-        margin: 0px;
-        transition: .2s ease;
-    }
-}
-
-.backArrow_btn:hover{
-    cursor: pointer;
-    h2{
-        color: #7b7f7f;
-    }
-}
-
-.list_container{
-    flex: 1;
-    height: 100%;
-    overflow: auto;
-}
-.scrollable{
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-
-
-/* ========== Info box styles ========== */
-.profileInfo_box{
-    background-color: white;
-    border-radius: 6px;
-    width: 100%;
-    max-width: 60%;
-    min-height: 100%;
-    padding: 1rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    
-}
-
-.info_header{
-    display: flex;
-}
-
-.info_header h2{
-    font-weight: 600px;
-    color: #8993ED;
-    margin-inline-end: auto;
-    margin-bottom: 10px;
-}
-
-.info_footer {
-    display: flex;
-    gap: 10px;
-    margin-inline-start: auto;
-    margin-top: auto;
-}
-
-.info_main {
-    display: flex;
-    align-items: flex-start;
-    column-gap: 5%;
-    height: 70%;
-    p{
-        margin-top: 0px;
-        font-size: 11pt;
-    }
-
-    @media (min-width: 960px){
-        margin-top: 3%;
-    }
-
-    @media (max-height: 640px){
-        margin-bottom: 20px;
-        row-gap: 1px;
-    }
-    @media (min-height: 900px) and (max-width: 1020px){
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-}
-
-.info_left, .info_right {
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-
-    @media (max-height: 640px){
-        row-gap: 1px;
-    } 
-}
-
-.info {
-    display: flex;
-    column-gap: 12px;
-}
-
-/* ========== LibraryStory styles ========== */
+/* ======== Single Story Styles ======== */
 
 .story_cont {
-    border: 1px solid #8993ED;
+    width: 100px;
+    height: 120px;
     border-radius: 6px;
+    background-color: bisque;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s ease-in-out;
+}
+
+.story_cont h4 {
+    color: white;
+    position: absolute;
+    z-index: 1;
+    font-size: 16px;
+    padding: 0px 15px;
+    bottom: 10px;
+}
+
+/* The black fade effect */
+.story_cont:after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    /* Adjust height for fade length */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+.story_cont:hover {
+    transform: scale(0.97);
+    cursor: pointer;
+}
+
+.center {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
-    padding: 7px;
-    overflow: hidden;
-}
-
-.story_cont h4{
-    color: #8993ED;
-    font-size: 14px;
-    font-weight: 500;
-    margin-inline-end: auto;
-}
-.btn_cont {
-    display: flex;
     justify-content: center;
-    padding: 3px 5px;
-    max-width: 100px;
-    min-width: 70px;
-    font-size: 12px;
-    color: white;
-}
-
-.btn{
-    width: 100%;
 }

@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import s from './ViewChild_style.module.css'
-import { ConfigProvider, Button, Spin } from 'antd'
+import { ConfigProvider, Spin } from 'antd'
 import { useNavigate } from 'react-router-dom'
 // translation hook
 import { useTranslation } from 'react-i18next'
@@ -9,6 +9,7 @@ function LibraryStory(props) {
     const { t } = useTranslation()
     const navigate = useNavigate()
     let content = { ...props.content, is_saved: true }
+    const [cover, setCover] = useState('');
     const [isLoading, setIsLoading] = useState(false)
 
     const extractContent = (str) => {
@@ -16,7 +17,11 @@ function LibraryStory(props) {
         return JSON.parse("[" + str.slice(1, -1) + "]")
     }
 
-    console.log(props.content.id)
+    useEffect(() => {
+        //Extract cover page
+        let img = extractContent(props.content.story_images)[1];
+        setCover(`data:image/jpeg;base64,${img}`);
+    },[])
 
     async function openChildStory() {
         try {
@@ -53,24 +58,15 @@ function LibraryStory(props) {
     return (
         <ConfigProvider theme={{ token: { colorPrimary: '#8993ED' }, components: { Spin: { colorPrimary: '#8993ED' } } }}  >
             <Spin spinning={isLoading}>
-                <div className={s.story_cont}>
+                <div
+                    className={s.story_cont}
+                    onClick={openChildStory}
+                    style={{
+                        backgroundImage: `url(${cover})`,
+                        backgroundSize: 'cover'
+                    }}
+                >
                     <h4>{content.title}</h4>
-                    <div className={s.btn_cont}>
-                        <Button
-                            className={s.btn}
-                            type="primary"
-                            size="small"
-                            onClick={openChildStory
-                                // content = {...content, 
-                                //     story_text: extractContent(content.story_text), 
-                                //     story_images: extractContent(content.story_images)
-                                // }
-                                // localStorage.setItem('story', JSON.stringify(content))
-                                // navigate('/Story')
-
-                            }
-                        >{t("read story btn")}</Button>
-                    </div>
                 </div>
             </Spin>
         </ConfigProvider>

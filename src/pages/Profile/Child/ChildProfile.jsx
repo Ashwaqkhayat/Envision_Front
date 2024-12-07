@@ -114,6 +114,7 @@ function ChildProfile(props) {
                     okText={t("cprof modal ok")}
                     cancelText={t("cprof modal cancel")}
                     onCancel={() => setModal2Open(false)}
+                    style={{direction: i18n.dir()}}
                 >
                     <p>{t("cprof modal msg")}</p>
                 </Modal>

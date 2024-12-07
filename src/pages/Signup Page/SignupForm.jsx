@@ -101,15 +101,16 @@ function SignupForm() {
                 if (response.ok) {
                     localStorage.setItem("user-info", JSON.stringify(data))
                     localStorage.setItem("isNewUser", true)
-                    setIsLoading(false) // Hide loading message
                     setTimeout(() => { navigate('/') }, 1500);
+                } else if (response.status == 409) {
+                    info(t("reg cg conflict"), 'error')
                 } else {
                     info(t("reg form incorrect res"), 'error')
-                    setIsLoading(false)
                 }
             } catch (error) {
                 console.error('Error during sign up:', error)
                 info(t("server req error"), 'error')
+            } finally {
                 setIsLoading(false)
             }
         }
@@ -145,18 +146,19 @@ function SignupForm() {
                 })
                 const data = await response.json()
 
-                if (response.ok) {
-                    setIsLoading(false) // Hide loading message
+                if (response.ok || response.status == 200) {
                     localStorage.setItem("user-info", JSON.stringify(data))
                     localStorage.setItem("isNewUser", true)
                     setTimeout(() => { navigate('/') }, 2000);
+                } else if (response.status == 409) {
+                    info(t("reg child conflict"), 'error')
                 } else {
                     info(t("reg form incorrect res"), 'error')
-                    setIsLoading(false)
                 }
             } catch (error) {
                 console.error('Error during sign up:', error)
                 info(t("server req error"), 'error')
+            } finally {
                 setIsLoading(false)
             }
         }
@@ -182,10 +184,11 @@ function SignupForm() {
             <div className={s.body}>
                 {contextHolder}
                 <Navbar />
-                <div className={s.content} style={{direction: i18n.dir()}}>
+                <div className={s.content} style={{ direction: i18n.dir() }}>
                     <ConfigProvider
-                        theme={{ token: { colorPrimary: '#8993ED', }
-                    }} >
+                        theme={{
+                            token: { colorPrimary: '#8993ED', }
+                        }} >
                         <Spin className={s.spin} spinning={isLoading} tip={t("reg form loading pop")} size="large">
                             <div className={s.wrapper}>
                                 <Progress className={s.prog_bar} percent={progressPerc[page]} showInfo={false} strokeColor='#8993ED' />

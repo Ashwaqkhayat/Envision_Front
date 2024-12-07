@@ -93,6 +93,7 @@
     "reg child color3": "Purple",
     "reg child color4": "Green",
     "reg child color5": "Yellow",
+    "reg child conflict": "An account is already registered with this email",
 
     "reg cg phone label": "Phone Number",
     "reg cg phone tooltip": "Enter your phone number without the country code",
@@ -101,6 +102,7 @@
     "reg cg age label": "Age",
     "reg cg age tooltip": "Your age must not exceed 70 years",
     "reg cg age msg": "Please enter your age",
+    "reg cg conflict": "An account is already registered with this email or phone number",
 
     "create story desc": "Describe",
     "create story selec": "Select",
@@ -195,11 +197,11 @@
     "gprof childs title": "My Children",
     "add child btn": "Add Child",
     "empty child list": "No added children",
-    "gprof name": "Name:",
-    "gprof age": "Age:",
-    "gprof email": "Email:",
-    "gprof phone": "Phone Number:",
-    "gprof nchilds": "Number of children:",
+    "gprof name": "Name",
+    "gprof age": "Age",
+    "gprof email": "Email",
+    "gprof phone": "Phone Number",
+    "gprof nchilds": "Number of children",
     "gprof child age": "years",
     "gprof child prof btn": "Visit Profile",
 

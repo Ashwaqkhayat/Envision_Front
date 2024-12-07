@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import s from './GuardianProfile_style.module.css'
 import Child from './ChildInfo'
-import { Button, Tooltip, message, Empty, Modal, Form, Input } from 'antd';
+import { Button, Tooltip, message, Empty, Modal, Form, Input, Spin } from 'antd';
 import { useNavigate } from 'react-router-dom'
 import { SettingOutlined, PlusOutlined } from '@ant-design/icons'
 import InfiniteScroll from "react-infinite-scroll-component"
@@ -16,7 +16,7 @@ function GuardianProfile(props) {
     // Check new user
     const [modal2Open, setModal2Open] = useState(false);
     const isNewUser = JSON.parse(localStorage.getItem("isNewUser"))
-    console.log("Check ", isNewUser)       // <-- Delete Later
+    // console.log("Check ", isNewUser)       // <-- Delete Later
     useEffect(() => {
         if (isNewUser == true) {
             setModal2Open(true)
@@ -110,87 +110,87 @@ function GuardianProfile(props) {
                     okText={t("gprof modal ok")}
                     cancelText={t("gprof modal cancel")}
                     onCancel={() => setModal2Open(false)}
+                    style={{ direction: i18n.dir() }}
                 >
                     <p>{t("gprof modal msg")}</p>
                 </Modal>
 
                 <div className={`${s.profile_header} ${s.center_flex}`}>
-                    <h2 style={{ direction: i18n.dir() }}>{t("gprof hello")} {Fname}!</h2>
+                    <h2 style={{ direction: i18n.dir() }}>{t("gprof hello")}, {Fname}</h2>
                 </div>
-                <div className={s.profile_windows} style={{direction: i18n.dir()}}>
-                <div className={s.profileInfo_box}>
-                        <div className={s.info_header}>
-                            <h2>{t("prof persInfo title")}</h2>
+
+                <div className={s.main_container} style={{ direction: i18n.dir() }}>
+                    <div className={s.info_container}>
+                        <div className={s.info_box}>
+                            <div style={{ fontWeight: 600, color: '#494C4C' }} >{t("gprof name")}</div>
+                            <div style={{ fontWeight: 500, color: '#A2A9B0' }}>{fullName}</div>
+                        </div>
+                        <div className={s.info_box}>
+                            <div style={{ fontWeight: 600, color: '#494C4C' }} >{t("gprof email")}</div>
+                            <div style={{ fontWeight: 500, color: '#A2A9B0' }}>{email}</div>
+                        </div>
+                        <div className={s.info_box}>
+                            <div style={{ fontWeight: 600, color: '#494C4C' }} >{t("gprof phone")}</div>
+                            <div style={{ fontWeight: 500, color: '#A2A9B0' }}>{pnum}</div>
+                        </div>
+                        <div className={s.info_box}>
+                            <div style={{ fontWeight: 600, color: '#494C4C' }} >{t("gprof age")}</div>
+                            <div style={{ fontWeight: 500, color: '#A2A9B0' }}>{age}</div>
+                        </div>
+                        <div className={s.info_box}>
+                            <div style={{ fontWeight: 600, color: '#494C4C' }} >{t("gprof nchilds")}</div>
+                            <div style={{ fontWeight: 500, color: '#A2A9B0' }}>{children.length}</div>
+                        </div>
+                        <div className={s.buttons_box}>
                             <Tooltip title={t("settings")}>
                                 <Button
-                                    style={{ borderColor: "#8993ED" }}
-                                    icon={<SettingOutlined style={{ color: "#8993ED" }} />}
+                                    style={{ borderColor: "#A2A9B0" }}
+                                    icon={<SettingOutlined style={{ color: "#A2A9B0" }} />}
                                     onClick={() => { navigate('/EditProfile') }}
                                 />
                             </Tooltip>
-                        </div>
-                        <div className={s.info_main}>
-                            <div className={s.info_left}>
-                                <div className={s.personal_info}>
-                                    <p style={{fontWeight: '600'}}>{t("gprof name")}</p>
-                                    <p>{fullName}</p>
-                                </div>
-                                <div className={s.personal_info}>
-                                    <p style={{fontWeight: '600'}}>{t("gprof age")}</p>
-                                    <p>{age}</p>
-                                </div>
-                                <div className={s.personal_info}>
-                                    <p style={{fontWeight: '600'}}>{t("gprof email")}</p>
-                                    <p>{email}</p>
-                                </div>
-                                <div className={s.personal_info}>
-                                    <p style={{fontWeight: '600'}}>{t("gprof phone")}</p>
-                                    <p>{pnum}</p>
-                                </div>
-                                <div className={s.personal_info}>
-                                    <p style={{fontWeight: '600'}}>{t("gprof nchilds")}</p>
-                                    <p>{children.length}</p>
-                                </div>
+                            <div style={{ display: 'flex', columnGap: '10px' }}>
+                                <Button type="primary" href="/contact">{t("prof report")}</Button>
+                                <Button type="primary" danger onClick={logOut}>{t("prof logout")}</Button>
                             </div>
                         </div>
-                        <div className={s.info_footer}>
-                            <Button type="primary" href="/contact">{t("prof report")}</Button>
-                            <Button type="primary" danger onClick={logOut}>{t("prof logout")}</Button>
-                        </div>
                     </div>
-                    <div className={s.childList_box}>
-                        <div className={s.list_header}>
-                            <h2>{t("gprof childs title")}</h2>
-                            <Button
-                                type="primary"
-                                icon={<PlusOutlined />}
-                                onClick={() => { navigate('/addchild') }}
-                            >{t("add child btn")}</Button>
+                    <Spin spinning={isLoading} size="large">
+                        <div className={s.children_container}>
+                            <div className={s.list_header} >
+                                <h2 style={{ color: '#8993ED' }}>{t("gprof childs title")}</h2>
+                                <Button
+                                    type="primary"
+                                    icon={<PlusOutlined />}
+                                    size="middle"
+                                    onClick={() => { navigate('/addchild') }}
+                                />
+                            </div>
+                            <div className={s.list_container}>
+                                {children.length === 0 ?
+                                    <div className={`${s.center_flex} ${s.fullHeight}`}>
+                                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t("empty child list")} />
+                                    </div>
+                                    :
+                                    <InfiniteScroll
+                                        className={s.scrollable}
+                                        dataLength={children.length} //Edit later
+                                        // next={fetchMoreData} give the function that fetches next data
+                                        hasMore={hasMore}
+                                        loader={<h4>{t("loader title")}</h4>}
+                                        scrollableTarget="scrollableDiv"
+                                    >
+                                        {children.map(child => {
+                                            return <Child
+                                                key={child.id}
+                                                content={child}
+                                            />
+                                        })}
+                                    </InfiniteScroll>
+                                }
+                            </div>
                         </div>
-                        <div className={s.list_container}>
-                            {children.length === 0 ?
-                                <div className={`${s.center_flex} ${s.fullHeight}`}>
-                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t("empty child list")} />
-                                </div>
-                                :
-                                <InfiniteScroll
-                                    className={s.scrollable}
-                                    dataLength={children.length} //Edit later
-                                    // next={fetchMoreData} give the function that fetches next data
-                                    hasMore={hasMore}
-                                    loader={<h4>{t("loader title")}</h4>}
-                                    scrollableTarget="scrollableDiv"
-                                >
-                                    {children.map(child => {
-                                        return <Child
-                                            key={child.id}
-                                            content={child}
-                                        />
-                                    })}
-                                </InfiniteScroll>
-                            }
-                        </div>
-                    </div>
+                    </Spin>
                 </div>
             </>
         )

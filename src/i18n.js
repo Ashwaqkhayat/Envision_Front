@@ -26,7 +26,7 @@ i18n
         fallbackLng: "ar", //Default language
         detection: {
             // order and from where user language should be detected
-            order: ['cookie', 'htmlTag', 'localStorage', 'sessionStorage', 'navigator', 'path', 'subdomain'],
+            order: ['cookie', 'localStorage', 'htmlTag', 'sessionStorage', 'navigator', 'path', 'subdomain'],
             caches: ['cookie'],
         }
     });

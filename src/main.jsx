@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 
 //Languages file
@@ -10,9 +10,9 @@ import './i18n'
 import Landing from './pages/Landing Page/Landing.jsx'
 import SignupForm from './pages/Signup Page/SignupForm.jsx'
 import SigninForm from './pages/Signin Page/SigninForm.jsx'
-import CreateStory  from './pages/Create Story Page/CreateStory.jsx'
-import DisplayStory  from './pages/Story/DisplayStory.jsx'
-import Contact  from './pages/Contact/Contact.jsx'
+import CreateStory from './pages/Create Story Page/CreateStory.jsx'
+import DisplayStory from './pages/Story/DisplayStory.jsx'
+import Contact from './pages/Contact/Contact.jsx'
 import Library from './pages/Library/Library.jsx'
 import Profile from './pages/Profile/Profile.jsx'
 import AddChildForm from './pages/Add Child/AddChildForm.jsx'
@@ -49,18 +49,18 @@ const router = createBrowserRouter([
   },
   {
     path: '/Library',
-    element: 
-    <Protected Comp={Library} />
+    element:
+      <Protected Comp={Library} />
   },
   {
     path: '/Profile',
-    element: 
-    <Protected Comp={Profile} />
+    element:
+      <Protected Comp={Profile} />
   },
   {
     path: '/AddChild',
-    element: 
-    <Protected Comp={AddChildForm} />
+    element:
+      <Protected Comp={AddChildForm} />
   },
   {
     path: '/ViewChild',

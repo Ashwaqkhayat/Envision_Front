@@ -93,6 +93,7 @@
     "reg child color3": "البنفسجي",
     "reg child color4": "الأخضر",
     "reg child color5": "الأصفر",
+    "reg child conflict": "يوجد حساب مسجل بهذا البريد الإلكتروني",
 
     "reg cg phone label": "رقم الهاتف",
     "reg cg phone tooltip": "ادخل رقم هاتفك دون رمز الدولة",
@@ -101,6 +102,7 @@
     "reg cg age label": "العمر",
     "reg cg age tooltip": "يجب ألا يتعدى عمرك 70 سنة",
     "reg cg age msg": "يجب تحديد العمر",
+    "reg cg conflict": "يوجد حساب مسجل بهذا البريد الإلكتروني أو رقم الجوال",
 
     "create story desc": "وصف",
     "create story selec": "خيارات",
@@ -195,11 +197,11 @@
     "gprof childs title": "أطفالـــي",
     "add child btn": "إضافة طفل",
     "empty child list": "لا يوجد أطفال",
-    "gprof name": "الاسم:",
-    "gprof age": "العمر:",
-    "gprof email": "البريد الإلكتروني:",
-    "gprof phone": "رقم الجوال:",
-    "gprof nchilds": "عدد الأطفال:",
+    "gprof name": "الاسم",
+    "gprof age": "العمر",
+    "gprof email": "البريد الإلكتروني",
+    "gprof phone": "رقم الجوال",
+    "gprof nchilds": "عدد الأطفال",
     "gprof child age": "سنة",
     "gprof child prof btn": "الملف الشخصي",
 
