@@ -21,6 +21,7 @@ function Contact() {
             type: type,
             content: msg,
             duration: 3.5,
+            style: {direction: i18n.dir()}
         })
     }
     // Antd Notification

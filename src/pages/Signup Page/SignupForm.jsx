@@ -195,9 +195,7 @@ function SignupForm() {
 
                                 <Link
                                     className={s.cancel_btn}
-                                    onClick={() => {
-                                        page == 0 ? navigate('/') : setPage((currPage) => currPage - 1)
-                                    }}
+                                    onClick={() => { page == 0 ? navigate('/') : setPage((currPage) => currPage - 1) }}
                                 >{backBtn[page]}
                                 </Link>
 

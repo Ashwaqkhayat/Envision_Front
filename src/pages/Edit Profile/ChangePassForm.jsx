@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 export default function ChangePassForm({ onFinish }) {
     const { t } = useTranslation()
-    // ChangePass Form things
     const [form] = Form.useForm()
 
     return (

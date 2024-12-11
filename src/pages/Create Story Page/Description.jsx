@@ -58,10 +58,9 @@ function Description() {
                 setIsLoading(false)
             } else if (response.ok) {
                 const data = await response.json()
-                console.warn("Created data: " , data) // <-- DELETE LATER
                 let story = {
                     prompt: data.story.prompt,
-                    language: data.story.requested_lamguage,
+                    language: data.story.requested_language, // THERE WAS A TYPO HERE "lamguage"
                     id: null,
                     is_favorite: false,
                     is_saved: false,

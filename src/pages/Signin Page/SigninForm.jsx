@@ -67,11 +67,9 @@ function SigninForm() {
                 setTimeout(() => {
                     navigate(-1)
                 }, 1300);
-
             } else {
                 console.error('Sign in failed:', data.error);
                 setIsLoading(false)
-                //info(data.error, 'error') // is this right?
                 info(t("login popmsg invalid login"), 'error')
             }
         } catch (error) {
@@ -101,7 +99,6 @@ function SigninForm() {
                                 token: { colorPrimary: '#8993ED' },
                                 components: {
                                     Form: {
-                                        // marginLG: 10,
                                         itemMarginBottom: 15,
                                         labelFontSize: 16,
                                         verticalLabelPadding: 0

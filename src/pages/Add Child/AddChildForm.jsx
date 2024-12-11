@@ -65,24 +65,21 @@ function AddChild() {
             const data = await response.json()
 
             if (response.ok) {
-                setIsLoading(false)
                 popMsg(t("addc success msg"), 'success')
                 setTimeout(() => { navigate('/profile') }, 1300)
             } else if (response.status == 404) {
                 console.error(response.status, data.error)
-                setIsLoading(false)
                 popMsg(t("addc child notfound"), 'error')
             } else if (response.status == 401) {
-                // 401 means token isn't there
-                localStorage.clear()
+                localStorage.clear() // 401 means token isn't there
             } else {
                 popMsg(t("addc res error"), 'error')
                 console.error(`Error in sending HTTP request: ${data.error}`)
-                setIsLoading(false)
             }
         } catch (err) {
             console.error("Failed adding child, ", err)
             popMsg(t("server req error"), 'error')
+        } finally {
             setIsLoading(false)
         }
     }
@@ -92,11 +89,7 @@ function AddChild() {
                 <Navbar />
                 {contextHolder}
                 <div className={s.content}>
-                    <ConfigProvider //change color theme
-                        theme={{
-                            token: { colorPrimary: '#8993ED' },
-                            components: { Form: { labelFontSize: 16 }, }
-                        }} >
+                    <ConfigProvider theme={{ token: { colorPrimary: '#8993ED' }, components: { Form: { labelFontSize: 16 }, } }} >
                         <Form
                             name="add_child"
                             form={form}

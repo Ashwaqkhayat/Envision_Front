@@ -270,6 +270,7 @@
 
     "changePass sendOTP req error": "حدثت مشكلة أثناء إرسال رمز التأكيد, حاول مرة أخرى",
     "changePass verOTP req error": "لم يتم تأكيد الرمز بنجاح, حاول مرة أخرى",
+    "changePass sendOTP req succ": "تم إرسال رمز التأكيد إلى بريدك الإلكتروني",
     "changePass success": "تم تغيير كلمة المرور بنجاح",
     "changePass failure": "لم يتم تغيير كلمة المرور بنجاح, حاول مرة أخرى",
     "changePass newpass label": "كلمة المرور الجديدة",
@@ -293,6 +294,12 @@
     "delAcc pass msg": "رجاءً ادخل كلمة المرور",
     "delAcc pass placeholder": "ادخل كلمة المرور",
     "delAcc btn": "حذف الحساب",
+
+    "verOtp title": "تأكيد تغيير كلمة المرور",
+    "verOtp label": "رمز التأكيــــد",
+    "verOtp hint": "رجاءً قم بإدخال الرمز المرسل إلى بريدك الإلكتروني",
+    "verOtp msg": "رجاءً قم بإدخال رمز التأكيد",
+    "verOtp confirm btn": "تأكيد",
 
     "story fave step title": "يجب عليك حفظ القصة أولاً",
     "story fave step desc": "رجاءً قم بحفظ القصة عن طريق الضغط على زر الحفظ حتى تتمكن من إضافتها للمفضلة",

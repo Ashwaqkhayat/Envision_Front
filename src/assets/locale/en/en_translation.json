@@ -137,7 +137,7 @@
     "create story desc title": "Story description",
     "create story desc tooltip": "Write a description of your story. What is the hero's name? Where did he/she go, and what events will happen?",
     "create story desc placeholder": "Write the story description here, for example: Rima is a little girl wearing a blue shirt and black pants. One day, she wanted to visit a house made of candy",
-    "create story submit btn": "Create the story!",
+    "create story submit btn": "Create Story",
 
     "cont notif recieved title": "Thanks you!",
     "cont notif recieved msg": "We recieved your message successfully",
@@ -269,6 +269,7 @@
 
     "changePass sendOTP req error": "Couldn't send the OTP code, please try again",
     "changePass verOTP req error": "Couldn't verify the OTP code, please try again",
+    "changePass sendOTP req succ": "The OTP code has been sent to your email",
     "changePass success": "Password changed successfully",
     "changePass failure": "Failed to change the password, please try again",
     "changePass newpass label": "New Password",
@@ -292,6 +293,12 @@
     "delAcc pass msg": "Please input your password",
     "delAcc pass placeholder": "Enter your password",
     "delAcc btn": "Delete Account",
+
+    "verOtp title": "Confirm Password Change",
+    "verOtp label": "OTP Code",
+    "verOtp hint": "Please enter the code sent to your email.",
+    "verOtp msg": "Please enter the OTP code.",
+    "verOtp confirm btn": "Confirm",
 
     "story fave step title": "You must save the story first",
     "story fave step desc": "Please save the story by clicking the save button so you can add it to your favorites",

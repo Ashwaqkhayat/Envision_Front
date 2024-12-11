@@ -49,6 +49,7 @@ function ChangePass(props) {
 
                 if (response.ok) {
                     console.log("OTP Sent Successfully")
+                    popMsg(t("changePass sendOTP req succ"), 'success')
                     setShowVerify(true)
                 } else {
                     console.error(`Network response was not ok: ${response.status}`)
@@ -111,7 +112,6 @@ function ChangePass(props) {
                     credentials: 'include',
                     body: JSON.stringify({ password: pass }),
                 })
-                // const data = await response.json()         // <-- Not needed
                 if (response.ok) {
                     setIsLoading(false)
                     popMsg(t("changePass success"), 'success')

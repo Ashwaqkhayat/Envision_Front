@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import s from './EditProfile_style.module.css'
 import { Link } from 'react-router-dom'
 import { ConfigProvider, Button, Input, message, Spin, Form } from 'antd'
+// translation hook
+import { useTranslation } from 'react-i18next';
 
 function OTP({onFinish, isLoading}) {
+    const { t, i18n } = useTranslation()
 
     // Messages 
     const [messageApi, contextHolder] = message.useMessage()
@@ -59,14 +62,14 @@ function OTP({onFinish, isLoading}) {
             <ConfigProvider theme={{ token: { colorPrimary: '#8993ED' } }}>
                 {contextHolder}
                 <div className={s.header}>
-                    <h2>Verify OTP</h2>
+                    <h2>{t("verOtp title")}</h2>
                 </div>
                 <div className={s.bodyInputs}>
                     <Form onFinish={onFinish} >
                         <div className={s.otp}>
-                            <h3>رمز التأكيــــد</h3>
-                            <p>رجاءً قم بإدخال الرمز المرسل إلى بريدك الإلكتروني</p>
-                            <Form.Item name={'otp'} rules={[{ required: true, message: 'Please enter OTP code' },]}>
+                            <h3>{t("verOtp label")}</h3>
+                            <p>{t("verOtp hint")}</p>
+                            <Form.Item name={'otp'} rules={[{ required: true, message: t("verOtp msg") },]}>
                                 <Input.OTP size='large' length={6} formatter={(str) => str.toUpperCase()} />
                             </Form.Item>
 
@@ -77,7 +80,7 @@ function OTP({onFinish, isLoading}) {
                                     htmlType="submit"
                                     loading={isLoading}
                                     size='large'>
-                                    تأكيد
+                                    {t("verOtp confirm btn")}
                                 </Button>
                             </Form.Item>
                         </div>

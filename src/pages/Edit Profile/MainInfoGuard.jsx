@@ -65,7 +65,6 @@ function MainInfoGuard() {
                     console.log("Profile fetched successfully")
                     const profileData = JSON.parse(JSON.stringify(data)).profile
                     setInfo(profileData)
-                    console.log(profileData)
                 } else {
                     throw new Error(`Network response was not ok: ${response.status}`)
                 }
@@ -78,7 +77,7 @@ function MainInfoGuard() {
     }, [])
 
     const onFinish = (values) => {
-        //setIsLoading(true)
+        setIsLoading(true)
         const requestBody = {
             email: values.email.length === 0 ? info.email : values.email,
             first_name: values.first_name.length === 0 ? info.first_name : values.first_name,

@@ -16,7 +16,6 @@ function GuardianProfile(props) {
     // Check new user
     const [modal2Open, setModal2Open] = useState(false);
     const isNewUser = JSON.parse(localStorage.getItem("isNewUser"))
-    // console.log("Check ", isNewUser)       // <-- Delete Later
     useEffect(() => {
         if (isNewUser == true) {
             setModal2Open(true)
@@ -57,7 +56,6 @@ function GuardianProfile(props) {
         const getChilds = async () => {
             try {
                 setIsLoading(true)
-                // console.warn("Getting Children...")
                 const response = await fetch(`${process.env.REACT_APP_url}/guardians/children`, {
                     method: 'GET',
                     credentials: 'include',
@@ -88,7 +86,6 @@ function GuardianProfile(props) {
         })
             .then((res) => res.json())
             .then((data) => {
-                // console.log("Logged Out Successfully", data)
                 localStorage.clear()
                 window.location.reload(false)
             })

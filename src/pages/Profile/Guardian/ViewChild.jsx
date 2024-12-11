@@ -130,7 +130,7 @@ function ViewChild() {
 
     if (profile !== null) {
         let date = new Date(profile.birth_date)
-        let bdate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+        let bdate = `${date.getDate() + 1}/${date.getMonth() + 1}/${date.getFullYear()}`
         return (
             <>
                 <ConfigProvider theme={{ token: { colorPrimary: '#8EC3B7' } }} >

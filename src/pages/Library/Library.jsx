@@ -87,7 +87,7 @@ function Library() {
                                     <div className={s.btns}>
                                         <Button
                                             disabled
-                                            style={{ borderColor: 'transparent' }} //remove when this service is developed
+                                            style={{ borderColor: 'transparent' }} // <-- remove when this service is developed
                                             className={s.service_btn}
                                         > {t("lib help btn")}</Button>
                                     </div>
@@ -154,25 +154,25 @@ function Library() {
                                                     segmentedValue === 'Favorites' ?
                                                         sort === 'alphabetically' ?
                                                             library // Faved & Sorted A -> Z
-                                                                .filter((image, index) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
-                                                                .filter((item, index) => item.is_favorite === true)
+                                                                .filter((image) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
+                                                                .filter((item) => item.is_favorite === true)
                                                                 .sort((a, b) => a.title.localeCompare(b.title))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                             :
                                                             library // Faved & Sorted by Creation Date
-                                                                .filter((image, index) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
-                                                                .filter((item, index) => item.is_favorite === true)
+                                                                .filter((image) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
+                                                                .filter((item) => item.is_favorite === true)
                                                                 .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                         :
                                                         sort === 'alphabetically' ?
                                                             library // not Faved & Sorted A -> Z
-                                                                .filter((image, index) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
+                                                                .filter((image) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
                                                                 .sort((a, b) => a.title.localeCompare(b.title))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                             :
                                                             library // not Faved & Sorted by Creation Date
-                                                                .filter((image, index) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
+                                                                .filter((image) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
                                                                 .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                 }
