@@ -22,9 +22,7 @@
 
 ###
 
-<div align="left">
-  <img height="200" src="https://s6.ezgif.com/tmp/ezgif-6-c9d13bc50c.gif"  />
-</div>
+![New Project - Made with Clipchamp](https://github.com/user-attachments/assets/d15ddc02-baf4-4155-bec1-0e5ae6bcc8d9)
 
 ###
 
