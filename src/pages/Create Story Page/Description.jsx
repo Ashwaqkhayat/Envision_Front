@@ -39,8 +39,11 @@ function Description() {
         const requestBody = {
             title: "Story Title",
             prompt: values.description,
+            gender: values.gender,
             language: values.language === undefined ? 'ar' : values.language,
         }
+
+        console.log("Story data: ", requestBody)
 
         try {
             setIsLoading(true)
@@ -53,8 +56,8 @@ function Description() {
                 body: JSON.stringify(requestBody),
                 credentials: 'include'
             })
-            if (response.status==422){
-                popMsg(t("create story unethic"),"warning")
+            if (response.status == 422) {
+                popMsg(t("create story unethic"), "warning")
                 setIsLoading(false)
             } else if (response.ok) {
                 const data = await response.json()
@@ -72,8 +75,8 @@ function Description() {
                     start_time: data.story.start_time,
                     end_time: data.story.end_time,
                 }
-                if(data.story.story_images.length<3){
-                    popMsg(t("create story shortStory error"),"error")
+                if (data.story.story_images.length < 3) {
+                    popMsg(t("create story shortStory error"), "error")
                     setIsLoading(false)
                 } else {
                     localStorage.setItem('story', JSON.stringify(story))
@@ -108,80 +111,80 @@ function Description() {
                 componentSize='large'
             >
                 {ReactDOM.createPortal(
-                    <Spin 
-                    className={s.spinner} 
-                    spinning={isLoading} 
-                    style={{maxHeight: 'unset'}}
-                    fullscreen
-                    tip={t("create story spintip")} />
+                    <Spin
+                        className={s.spinner}
+                        spinning={isLoading}
+                        style={{ maxHeight: 'unset' }}
+                        fullscreen
+                        tip={t("create story spintip")} />
                     , document.body
                 )}
-                    <div className={`${s.wrapper} ${s.top_margin}`} >
-                        <Form
-                            name='description'
-                            layout='vertical'
-                            onFinish={submitStory}
-                            form={form}
-                            requiredMark='optional'
-                        >
-                            <div className={s.header}>
-                                <h1>{t("create story title")}</h1>
-                                <Form.Item
-                                    name='language'
-                                    required
-                                    style={{ marginBottom: 0 }}>
-                                    <Select
-                                        defaultActiveFirstOption
-                                        options={options}
-                                        defaultValue={{
-                                            value: i18n.dir()=="rtl" ? "ar" : "en",
-                                            label: i18n.dir()=="rtl" ? "العربية" : "English",
-                                        }}
-                                        variant="filled"
-                                        style={{ width: 120 }}
-                                    />
-                                </Form.Item>
-                            </div>
-                            <div className={s.form_body}>
-                                {/* <Form.Item
-                                label='Main Character Gender'
+                <div className={`${s.wrapper} ${s.top_margin}`} >
+                    <Form
+                        name='description'
+                        layout='vertical'
+                        onFinish={submitStory}
+                        form={form}
+                        requiredMark='optional'
+                    >
+                        <div className={s.header}>
+                            <h1>{t("create story title")}</h1>
+                            <Form.Item
+                                name='language'
+                                required
+                                style={{ marginBottom: 0 }}>
+                                <Select
+                                    defaultActiveFirstOption
+                                    options={options}
+                                    defaultValue={{
+                                        value: i18n.dir() == "rtl" ? "ar" : "en",
+                                        label: i18n.dir() == "rtl" ? "العربية" : "English",
+                                    }}
+                                    variant="filled"
+                                    style={{ width: 120 }}
+                                />
+                            </Form.Item>
+                        </div>
+                        <div className={s.form_body}>
+                            <Form.Item
+                                label={t("create story gender title")}
                                 name='gender'
                                 required
-                                tooltip={'Select the main character gender'}
+                                rules={[{ required: true, message: t("create story gender msg") }]}
                             >
                                 <Radio.Group style={{ width: '100%' }}>
-                                    <Radio.Button style={{ width: '50%' }} value="female">Female</Radio.Button>
-                                    <Radio.Button style={{ width: '50%' }} value="male">Male</Radio.Button>
+                                    <Radio.Button style={{ width: '50%' }} value="female">{t("create story gender1")}</Radio.Button>
+                                    <Radio.Button style={{ width: '50%' }} value="male">{t("create story gender2")}</Radio.Button>
                                 </Radio.Group>
-                            </Form.Item> */}
+                            </Form.Item>
 
-                                <Form.Item
-                                    label= {t("create story desc title")}
-                                    name='description'
-                                    required
-                                    tooltip= {t("create story desc tooltip")}
-                                >
-                                    <TextArea
-                                        rows={6}
-                                        placeholder= {t("create story desc placeholder")}
-                                        maxLength={750}
-                                        showCount
-                                        allowClear
-                                        style={{ resize: 'none', position: 'relative' }}
-                                    />
-                                </Form.Item>
-                                {/* <Link className={s.autoG_btn}>
+                            <Form.Item
+                                label={t("create story desc title")}
+                                name='description'
+                                required
+                                tooltip={t("create story desc tooltip")}
+                            >
+                                <TextArea
+                                    rows={6}
+                                    placeholder={t("create story desc placeholder")}
+                                    maxLength={750}
+                                    showCount
+                                    allowClear
+                                    style={{ resize: 'none', position: 'relative' }}
+                                />
+                            </Form.Item>
+                            {/* <Link className={s.autoG_btn}>
                                     <RocketOutlined /> Auto-generate
                                 </Link> */}
 
-                                <Form.Item style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }} >
-                                    <Button style={{ width: 150 }} type="primary" htmlType="submit" disabled={isLoading}>
-                                        {t("create story submit btn")}
-                                    </Button>
-                                </Form.Item>
-                            </div>
-                        </Form>
-                    </div>
+                            <Form.Item style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }} >
+                                <Button style={{ width: 150 }} type="primary" htmlType="submit" disabled={isLoading}>
+                                    {t("create story submit btn")}
+                                </Button>
+                            </Form.Item>
+                        </div>
+                    </Form>
+                </div>
             </ConfigProvider>
         </>
     )

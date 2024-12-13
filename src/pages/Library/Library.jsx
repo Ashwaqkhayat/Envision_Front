@@ -40,7 +40,7 @@ function Library() {
                 const arrayOfObjects = Object.entries(data).map(([key, value]) => {
                     return { key, ...value }
                 })
-                console.log("Data are: ", arrayOfObjects)
+                console.log("Library Data are: ", arrayOfObjects)
                 setLibrary(arrayOfObjects)
                 setIsLoading(false)
             } catch (err) {

@@ -68,24 +68,29 @@ function Story(props) {
     const content = props.content
     let storyTitle = content.title
     let storyImages = content.story_images
-    // let storyTexts = content.language == "en" ? content.story_en : content.story_ar 
-    let cover = displayImages(storyImages[1])
+    // let storyTexts = content.language == "en" ? content.story_en : content.story_ar
+    let cover = ''
+    if (storyImages[1]) {
+        cover = displayImages(storyImages[1])
+    }
     // let scNum = storyTexts.length
 
-    return (
-        <ConfigProvider
-            theme={{
-                components: { Spin: { colorPrimary: '#8993ED' } },
-                token: { colorPrimary: '#76A795' }
-            }}>
-            <Spin spinning={isLoading} size="large">
-                <div className={s.container} onClick={openStory}>
-                    <img src={cover} alt="cover image" />
-                    <h3>{storyTitle}</h3>
-                </div>
-            </Spin>
-        </ConfigProvider>
-    )
+    if (content != null) {
+        return (
+            <ConfigProvider
+                theme={{
+                    components: { Spin: { colorPrimary: '#8993ED' } },
+                    token: { colorPrimary: '#76A795' }
+                }}>
+                <Spin spinning={isLoading} size="large">
+                    <div className={s.container} onClick={openStory}>
+                        <img src={cover} alt="cover image" />
+                        <h3>{storyTitle}</h3>
+                    </div>
+                </Spin>
+            </ConfigProvider>
+        )
+    }
 }
 
 export default Story
