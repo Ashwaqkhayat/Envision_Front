@@ -66,7 +66,7 @@ function Selection() {
                 const data = await response.json()
                 let story = {
                     prompt: data.story.prompt,
-                    language: data.story.requested_language, // THERE WAS A TYPO HERE "lamguage"
+                    language: data.story.requested_lamguage, // THERE WAS A TYPO HERE "lamguage"
                     id: null,
                     is_favorite: false,
                     is_saved: false,
