@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { ConfigProvider, Spin } from 'antd'
 
 function Story(props) {
-    let storyId = props.content.story.id
+    let storyId = props.content.id
     const [isLoading, setIsLoading] = useState(false)
     const [story, setStory] = useState(false)
 
@@ -65,7 +65,7 @@ function Story(props) {
     // }
 
     const navigate = useNavigate()
-    const content = props.content.story
+    const content = props.content
     let storyTitle = content.title
     let storyImages = content.story_images
     // let storyTexts = content.language == "en" ? content.story_en : content.story_ar
