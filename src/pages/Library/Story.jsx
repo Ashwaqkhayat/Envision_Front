@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { ConfigProvider, Spin } from 'antd'
 
 function Story(props) {
-    let storyId = props.content.id
+    let storyId = props.content.story.id
     const [isLoading, setIsLoading] = useState(false)
     const [story, setStory] = useState(false)
 
@@ -35,7 +35,7 @@ function Story(props) {
                 is_saved: true }
 
                 localStorage.setItem('story', JSON.stringify(story))
-                console.log("Story is fetched successfully ", data)
+                // console.log("Story is fetched successfully ", data)
                 setIsLoading(false)
                 navigate('/Story')
             } else {
@@ -65,12 +65,12 @@ function Story(props) {
     // }
 
     const navigate = useNavigate()
-    const content = props.content
+    const content = props.content.story
     let storyTitle = content.title
     let storyImages = content.story_images
     // let storyTexts = content.language == "en" ? content.story_en : content.story_ar
     let cover = ''
-    if (storyImages[1]) {
+    if (storyImages[1] !== undefined || storyImages[1] != null) {
         cover = displayImages(storyImages[1])
     }
     // let scNum = storyTexts.length

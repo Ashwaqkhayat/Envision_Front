@@ -17,11 +17,6 @@ function Selection() {
     const { t, i18n } = useTranslation()
     // Text Area
     const { TextArea } = Input
-    // Story Language Selection Options
-    const options = [
-        { value: 'en', label: 'English' },
-        { value: 'ar', label: 'العربية' }
-    ]
 
     const [messageApi, contextHolder] = message.useMessage() //Popup messages
     const popMsg = (text, type) => {
@@ -43,7 +38,7 @@ function Selection() {
             gender: values.gender,
             location: values.location,
             emotion: values.emotion,
-            language: values.language === undefined ? 'ar' : values.language,
+            language: values.language === undefined ? 'en' : values.language,
             // if the following fields were (Optional) :
             // location: (values.location === undefined || values.location === "") ? 'places suitable for story events' : values.location,
             // emotion: values.emotion === undefined ? 'feelings suit the story events' : values.emotion,
@@ -141,15 +136,14 @@ function Selection() {
                             <Form.Item
                                 name='language'
                                 required
+                                initialValue={i18n.dir() == "rtl" ? "ar" : "en"}
                                 style={{ marginBottom: 0 }}>
                                 <Select
-                                    defaultActiveFirstOption
                                     variant="filled"
-                                    defaultValue={{
-                                        value: i18n.dir() == "rtl" ? "ar" : "en",
-                                        label: i18n.dir() == "rtl" ? "العربية" : "English",
-                                    }}
-                                    options={options}
+                                    options={[
+                                        { value: 'en', label: <span>English</span> },
+                                        { value: 'ar', label: <span>العربية</span> }
+                                    ]}
                                     style={{ width: 120 }}
                                 />
                             </Form.Item>

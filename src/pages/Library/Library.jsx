@@ -154,26 +154,26 @@ function Library() {
                                                     segmentedValue === 'Favorites' ?
                                                         sort === 'alphabetically' ?
                                                             library // Faved & Sorted A -> Z
-                                                                .filter((image) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
-                                                                .filter((item) => item.is_favorite === true)
-                                                                .sort((a, b) => a.title.localeCompare(b.title))
+                                                                .filter((image) => { return search === '' ? image.story : image.story.title.toLowerCase().includes(search.toLowerCase()) })
+                                                                .filter((item) => item.story.is_favorite === true)
+                                                                .sort((a, b) => a.story.title.localeCompare(b.story.title))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                             :
                                                             library // Faved & Sorted by Creation Date
-                                                                .filter((image) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
-                                                                .filter((item) => item.is_favorite === true)
-                                                                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                                                                .filter((image) => { return search === '' ? image.story : image.story.title.toLowerCase().includes(search.toLowerCase()) })
+                                                                .filter((item) => item.story.is_favorite === true)
+                                                                .sort((a, b) => new Date(b.story.created_at) - new Date(a.story.created_at))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                         :
                                                         sort === 'alphabetically' ?
                                                             library // not Faved & Sorted A -> Z
-                                                                .filter((image) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
-                                                                .sort((a, b) => a.title.localeCompare(b.title))
+                                                                .filter((image) => { return search === '' ? image.story : image.story.title.toLowerCase().includes(search.toLowerCase()) })
+                                                                .sort((a, b) => a.story.title.localeCompare(b.story.title))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                             :
                                                             library // not Faved & Sorted by Creation Date
-                                                                .filter((image) => { return search === '' ? image : image.title.toLowerCase().includes(search.toLowerCase()) })
-                                                                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                                                                .filter((image) => { return search === '' ? image.story : image.story.title.toLowerCase().includes(search.toLowerCase()) })
+                                                                .sort((a, b) => new Date(b.story.created_at) - new Date(a.story.created_at))
                                                                 .map((image, index) => { return <Story key={index} content={image} /> })
                                                 }
                                             </InfiniteScroll>
