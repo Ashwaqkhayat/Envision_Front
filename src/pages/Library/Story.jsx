@@ -35,7 +35,7 @@ function Story(props) {
                 is_saved: true }
 
                 localStorage.setItem('story', JSON.stringify(story))
-                // console.log("Story is fetched successfully ", data)
+                // console.log("Story is fetcheddd successfully ", data)
                 setIsLoading(false)
                 navigate('/Story')
             } else {
